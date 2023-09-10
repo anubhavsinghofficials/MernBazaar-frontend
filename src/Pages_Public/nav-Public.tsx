@@ -1,0 +1,29 @@
+import { NavLink } from "react-router-dom"
+import SearchBar, {SearchFunction} from "../components/searchBar"
+
+
+
+function PublicNavbar() {
+
+    const onSearch:SearchFunction = (data) => {
+         console.log("Outer____")
+         console.log(data)
+    }
+     
+
+    return (
+             <div className={`w-screen h-16 bg-gray-600 flex items-center justify-around`}>
+                
+                <div className={`w-96`}>
+                    <SearchBar onSearch={onSearch}
+                               placeHolder="Search MernBazaar.com" />
+                </div>
+                <NavLink to="/signin"
+                        className={`bg-gray-700 px-2 py-1`}>
+                        Login
+                </NavLink>
+             </div>
+    )
+}
+ 
+export default PublicNavbar
