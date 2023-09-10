@@ -1,4 +1,4 @@
-import {Routes, Route, Navigate} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import HomePage from "./Pages_Shared/page_Home"
 import { ProtectedRoutes } from "./Auth/ProtectedRoutes"
 import SignIn from "./Pages_Public/page-SignIn"
@@ -22,17 +22,17 @@ import UserRoleStore from './Store/ClientStore/store-UserRole'
 
 function App() {
 
-  const {role} = UserRoleStore()
+  const { role } = UserRoleStore()
 
   return (
     <div className={`w-screen h-screen bg-black`}>
 
       {
         [
-          { role: "user", element: <UserNavbar/>,},
-          { role: "seller", element: <SellerNavbar/>,},
-          { role: "admin", element: <AdminNavbar/>,},
-          { role: "public", element: <PublicNavbar/>,},
+          { role: "user",   element: <UserNavbar/>   },
+          { role: "seller", element: <SellerNavbar/> },
+          { role: "admin",  element: <AdminNavbar/>  },
+          { role: "public", element: <PublicNavbar/> },
         ] .find(menu => (menu.role === role))?.element
       }
 
@@ -68,7 +68,7 @@ function App() {
           <Route path="*" element={<Navigate to="profile"/>}/>
         </Route>
 
-          
+      
         <Route path="/admin" element={<ProtectedRoutes AuthRole='admin'/>}>
           <Route index element={<Navigate to="dash"/>}/>
           <Route path="dashboard" element={<AdminDashBoard/>}/>

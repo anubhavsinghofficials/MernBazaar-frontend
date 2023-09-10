@@ -1,9 +1,8 @@
 
 
-import {create} from 'zustand'
+import { create } from 'zustand'
 
 export type AuthRoleType = "public" | "user" | "seller" | "admin";
-
 type storeType = {
     role : AuthRoleType;
     setRole: (toThisRole :AuthRoleType) => void;
@@ -13,7 +12,7 @@ type storeType = {
 const UserRoleStore = create<storeType>((set,_get) => ({
     role:"public",
     setRole: (toThisRole) => set(() => {
-        return {role:toThisRole}
+        return { role:toThisRole }
     }),
 }))
 

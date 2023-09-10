@@ -1,13 +1,13 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import SearchBar, {SearchFunction} from "../components/searchBar"
 
 
 
 function PublicNavbar() {
+    const Navigate = useNavigate()
 
     const onSearch:SearchFunction = (data) => {
-         console.log("Outer____")
-         console.log(data)
+        Navigate("/products",{state:data.search})
     }
      
 
