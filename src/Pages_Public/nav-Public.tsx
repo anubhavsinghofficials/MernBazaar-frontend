@@ -4,16 +4,14 @@ import SearchBar, {SearchFunction} from "../components/searchBar"
 
 
 function PublicNavbar() {
-    const Navigate = useNavigate()
 
+    const Navigate = useNavigate()
     const onSearch:SearchFunction = (data) => {
         Navigate("/products",{state:data.search})
     }
-     
 
     return (
              <div className={`w-screen h-16 bg-gray-600 flex items-center justify-around`}>
-                
                 <div className={`w-96`}>
                     <SearchBar onSearch={onSearch}
                                placeHolder="Search MernBazaar.com" />

@@ -1,6 +1,8 @@
 import { useLocation } from "react-router-dom"
-import { syncFetchProducts } from "../Store/ServerStore/store-Products"
-import { useState } from "react"
+import { searchType, syncFetchProducts } from "../Store/ServerStore/store-Products"
+import { useEffect, useRef, useState } from "react"
+import { AxiosError } from "axios"
+import useSideEffect from "../Hooks/useSideEffect"
 
 
 
@@ -8,13 +10,39 @@ import { useState } from "react"
 
 
 function ProductsPage() {
-    const location = useLocation()
-    const [pageNo, setpageNo] = useState(1)
-    const [pageLength, setpageLength] = useState(2)
-    const searchQuery = `keyword=${location.state}&pageNo=${pageNo}&pageLength=${pageLength}`
-    console.log(location.state)
+
+    const count = useRef(0)
+    count.current++
+    console.log(count.current)
+
+    const keyword = useLocation().state
+    const [searchObject, setSearchObject] = useState<searchType>({
+        keyword:keyword,
+        pageNo:1,
+        pageLength:2,
+        price:[0,25000],
+        category:null
+    })
+
+    useSideEffect(()=>{
+      setSearchObject({...searchObject, keyword: keyword})
+    },[keyword])
+
     const {data, isLoading, isError, error, isRefetching}
-    = syncFetchProducts(searchQuery)
+    = syncFetchProducts(searchObject)
+
+    function handleChange() {
+        const num = Math.floor(Math.random()*(3))
+        console.log(num)
+        if (num === 0) {
+            setSearchObject({...searchObject, keyword:"2"})
+        } else if (num === 1) {
+            setSearchObject({...searchObject, category:"still testing"})
+        } else {
+            setSearchObject({...searchObject, price:[0,1]})
+        }
+    }
+     
 
     if (isLoading || isRefetching) {
         <div className={`w-full text-3xl bg-black flex justify-center items-center`}>
@@ -23,7 +51,7 @@ function ProductsPage() {
     }
 
     if (isError) {
-        const errorData = error.response?.data
+        const errorData = (error as AxiosError).response?.data
         console.log(errorData)
         return <div>Error Occured</div>
     }
@@ -33,6 +61,9 @@ function ProductsPage() {
     return (
              <div className={`w-full bg-black flex justify-center items-center`}>
                     Product Page
+                    <button onClick={handleChange}>
+                        Search
+                    </button>
              </div>
     )
 }
