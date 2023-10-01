@@ -1,7 +1,7 @@
 
 import {useQuery} from '@tanstack/react-query'
 import axios from 'axios'
-import { serverUrl } from '../../config/constants'
+import { serverUrl } from '../ClientStore/store-constants'
 
 export type searchType = {
     keyword:string;

@@ -11,9 +11,7 @@ type storeType = {
 
 const UserRoleStore = create<storeType>((set,_get) => ({
     role:"public",
-    setRole: (toThisRole) => set(() => {
-        return { role:toThisRole }
-    }),
+    setRole: (toThisRole) => set(() => ({ role:toThisRole })),
 }))
 
 

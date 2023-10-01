@@ -1,22 +1,22 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import HomePage from "./Pages_Shared/page_Home"
+import HomePage from "./Pages/Shared/page_Home"
 import { ProtectedRoutes } from "./Auth/ProtectedRoutes"
-import SignIn from "./Pages_Public/page-SignIn"
-import SignUp from "./Pages_Public/page-SignUp"
-import ProductsPage from "./Pages_Public/page-Products"
-import ProductDetailsPage from "./Pages_Public/page-ProductDetails"
-import UserProfile from "./Pages_User/page-UserProfile"
-import UserOrders from "./Pages_User/page-UserOrders"
-import UserCart from "./Pages_User/page-UserCart"
-import SellerProfile from "./Pages_Seller/page-SellerProfile"
-import AddProducts from "./Pages_Seller/page-AddProducts"
-import EditProduct from "./Pages_Seller/page-EditProduct"
-import SellerProducts from "./Pages_Seller/page-SellerProducts"
-import AdminDashBoard from "./Pages_Admin/page-AdminDash"
-import UserNavbar from "./Pages_User/nav-User"
-import AdminNavbar from "./Pages_Admin/nav-Admin"
-import PublicNavbar from './Pages_Public/nav-Public'
-import SellerNavbar from './Pages_Seller/nav-Seller'
+import SignIn from "./Pages/Public/page-SignIn"
+import SignUp from "./Pages/Public/page-SignUp"
+import ProductsPage from "./Pages/Shared/page-Products"
+import ProductDetailsPage from "./Pages/Shared/page-ProductDetails"
+import UserProfile from "./Pages/User/page-UserProfile"
+import UserOrders from "./Pages/User/page-UserOrders"
+import UserCart from "./Pages/User/page-UserCart"
+import SellerProfile from "./Pages/Seller/page-SellerProfile"
+import AddProducts from "./Pages/Seller/page-AddProducts"
+import EditProduct from "./Pages/Seller/page-EditProduct"
+import SellerProducts from "./Pages/Seller/page-SellerProducts"
+import AdminDashBoard from "./Pages/Admin/page-AdminDash"
+import UserNavbar from "./Pages/User/nav-User"
+import AdminNavbar from "./Pages/Admin/nav-Admin"
+import PublicNavbar from './Pages/Public/nav-Public'
+import SellerNavbar from './Pages/Seller/nav-Seller'
 import UserRoleStore from './Store/ClientStore/store-UserRole'
 
 

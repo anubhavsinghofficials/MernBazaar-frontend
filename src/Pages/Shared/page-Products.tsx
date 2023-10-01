@@ -1,19 +1,11 @@
 import { useLocation } from "react-router-dom"
-import { searchType, syncFetchProducts } from "../Store/ServerStore/store-Products"
+import { searchType, syncFetchProducts } from "../../Store/ServerStore/store-Products"
 import { useEffect, useRef, useState } from "react"
 import { AxiosError } from "axios"
-import useSideEffect from "../Hooks/useSideEffect"
-
-
-
-
+import useSideEffect from "../../Hooks/useSideEffect"
 
 
 function ProductsPage() {
-
-    const count = useRef(0)
-    count.current++
-    console.log(count.current)
 
     const keyword = useLocation().state
     const [searchObject, setSearchObject] = useState<searchType>({

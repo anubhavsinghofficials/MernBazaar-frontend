@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import SearchBar, {SearchFunction} from "../components/searchBar"
+import SearchBar, {SearchFunction} from "../../components/searchBar"
 
 
 
@@ -16,9 +16,17 @@ function PublicNavbar() {
                     <SearchBar onSearch={onSearch}
                                placeHolder="Search MernBazaar.com" />
                 </div>
+                <NavLink to="/home"
+                        className={`bg-gray-700 px-2 py-1`}>
+                        Home
+                </NavLink>
                 <NavLink to="/signin"
                         className={`bg-gray-700 px-2 py-1`}>
                         Login
+                </NavLink>
+                <NavLink to="/products"
+                        className={`bg-gray-700 px-2 py-1`}>
+                        Products
                 </NavLink>
              </div>
     )

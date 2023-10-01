@@ -13,6 +13,4 @@ export default HomePage
 
 
 
-
-
-
+// why the constants are not in the client store ??
