@@ -8,7 +8,7 @@ function useSideEffect(sideEffect:any, dependencies:any) {
         if (firstMount.current) {
             firstMount.current = false
         } else {
-            return sideEffect()
+            sideEffect()
         }
     },dependencies)
 }

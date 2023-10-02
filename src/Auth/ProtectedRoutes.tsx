@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import UserRoleStore, { AuthRoleType } from "../Store/ClientStore/store-UserRole";
+import { AuthRoleType, userRoleStore } from "../Store/ClientStore/store-UserRole";
 
 
 type AuthProps = {
@@ -7,7 +7,7 @@ type AuthProps = {
 }
 
 export function ProtectedRoutes({AuthRole}:AuthProps) {
-    const {role} = UserRoleStore()
+    const {role} = userRoleStore()
 
     switch (role) {
         case AuthRole  :  return <Outlet/>

@@ -3,18 +3,13 @@
 import { create } from 'zustand'
 
 export type AuthRoleType = "public" | "user" | "seller" | "admin";
-type storeType = {
+type authStoreType = {
     role : AuthRoleType;
-    setRole: (toThisRole :AuthRoleType) => void;
+    setRole: (newRole :AuthRoleType) => void;
 }
 
-
-const UserRoleStore = create<storeType>((set,_get) => ({
+export const userRoleStore = create<authStoreType>((set,_get) => ({
     role:"public",
-    setRole: (toThisRole) => set(() => ({ role:toThisRole })),
+    setRole: (newRole) => set({ role:newRole }),
 }))
-
-
-export default UserRoleStore
-
 

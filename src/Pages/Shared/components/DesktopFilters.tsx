@@ -1,0 +1,98 @@
+import { categoryBadges, defaultValues, discountBadges, priceRange, ratingBadges } from "../../../Store/ClientStore/store-Constants"
+import { filterStore } from "../../../Store/ClientStore/store-Filters"
+import BadgePicker from "../../../components/BadgePicker"
+import RangeSlider from "../../../components/RangeSlider"
+
+
+
+function DesktopFilters() {
+
+    const { setSearchObject, resetBadgeToken, searchObject,
+            setResetBadgeToken } = filterStore()
+
+    const handleCategory = (categories:string[]) => {
+        setSearchObject({...searchObject, category:categories[0]})
+    }
+    const handleRatings = (ratings:string[]) => {
+        setSearchObject({...searchObject, ratings:ratings[0]})
+    }
+    const handleDiscounts = (discounts:string[]) => {
+        setSearchObject({...searchObject, discount:discounts[0]})
+    }
+    const handlePrice = (price:number[]) => {
+        setSearchObject({...searchObject, price})
+    }
+    const handleClear = () => {
+        setResetBadgeToken()
+        setSearchObject({...defaultValues, keyword:searchObject.keyword})
+    }
+     
+
+    return (
+        <div className={`sm:w-44 md:w-56 lg:w-64 sm:block hidden`}>
+
+            <div className="bg-slate-500 text-white px-4 py-2 flex justify-between sticky top-0">
+                <p className="text-lg font-bold">
+                    Filters
+                </p>
+                <button className="ring-2 ring-slate-300 rounded-full px-2 py-1 text-xs self-center active:bg-slate-300 active:text-black font-bold"
+                 onClick={handleClear}>
+                    Clear Filters
+                </button>
+            </div>
+
+            <p className="text-black bg-white font-bold py-2 pl-3">Category</p>
+            <BadgePicker badges={categoryBadges.values}
+                customBadgeStrings={categoryBadges.strings}
+                onSelect={handleCategory}
+                activeBgColor="bg-slate-400"
+                passiveBgColor="bg-slate-100"
+                activeTextColor="text-white"
+                passiveTextColor="text-black"
+                containerLayout="h-60 overflow-y-scroll flex flex-col px-4"
+                badgeLayout="pl-6 py-1"
+                resetBadgeToken={resetBadgeToken}
+                />
+
+            <p className="text-black bg-white font-bold py-2 pl-3">Price</p>
+            <div className={`px-4`}>
+            <RangeSlider
+                  defaultValue={defaultValues.price? defaultValues.price : [0,priceRange.max]}
+                  max={priceRange.max}
+                  min={priceRange.min}
+                  step={priceRange.step}
+                  onValueCommit={handlePrice}
+                  resetBadgeToken={resetBadgeToken}
+                  />
+            </div>
+
+            <p className="text-black bg-white font-bold py-2 pl-3">Ratings</p>
+            <BadgePicker badges={ratingBadges.values}
+                customBadgeStrings={ratingBadges.strings}
+                onSelect={handleRatings}
+                activeBgColor="bg-slate-400"
+                passiveBgColor="bg-slate-100"
+                activeTextColor="text-white"
+                passiveTextColor="text-black"
+                containerLayout="flex flex-col px-4"
+                badgeLayout="pl-6 py-1"
+                resetBadgeToken={resetBadgeToken}
+                />
+
+            <p className="text-black bg-white font-bold py-2 pl-3">Discounts</p>
+            <BadgePicker badges={discountBadges.values}
+                customBadgeStrings={discountBadges.strings}
+                onSelect={handleDiscounts}
+                activeBgColor="bg-slate-400"
+                passiveBgColor="bg-slate-100"
+                activeTextColor="text-white"
+                passiveTextColor="text-black"
+                containerLayout="flex flex-col px-4"
+                badgeLayout="pl-6 py-1"
+                resetBadgeToken={resetBadgeToken}
+                />
+        </div>
+    )
+}
+ 
+export default DesktopFilters
