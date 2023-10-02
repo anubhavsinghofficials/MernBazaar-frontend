@@ -25,7 +25,7 @@ function ProductCard(props:productCardPropsType) {
             // src="https://rukminim1.flixcart.com/image/1150/1350/xif0q/watch/k/y/p/-original-imagp2c4ygsdgnjv.jpeg?q=20"
             src={thumbnail}
             alt="Product"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             />
         </div>
  

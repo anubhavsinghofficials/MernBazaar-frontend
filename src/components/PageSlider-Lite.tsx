@@ -64,6 +64,7 @@ function PageSlider_Lite(props:PaginationProps) {
 // _________________________________________ PROPS CHANGE DETECTOR
 
     useEffect(()=>{
+        setPageButtons(pageButtonsList)
         reorderPagination(1)
     },[ totalPages, maxButtons ])
 
@@ -93,11 +94,13 @@ function PageSlider_Lite(props:PaginationProps) {
         })
     }
 
-// _________________________________________ PROPS CHANGE DETECTOR
+// _____________________________________________________________
 
 
     function reorderPagination(num:number) {
-        if (num === 1) {
+        if (num === pageNum || num < 1 || num > absTotalPages) {
+            return
+        } else if (num === 1) {
             setPageButtons(pageButtonsList)
         } else if (num === pageButtons[0] && num !== 1) {
             setPageButtons(pageButtons.map(number => number - 1))
@@ -107,10 +110,7 @@ function PageSlider_Lite(props:PaginationProps) {
         } else if (num === pageButtons[pageButtons.length - 1] && num !== absTotalPages) {
             setPageButtons(pageButtons.map(number => number + 1))
         }
-
-        if (num >= 1 && num <= absTotalPages && num !== pageNum) {
-            setPageNum(num)
-        }
+        setPageNum(num)
     }
 
     function toggleActivePassivePages() {

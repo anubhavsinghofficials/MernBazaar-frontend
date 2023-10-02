@@ -24,6 +24,5 @@ export const syncFetchProducts = (searchObject: searchObjectType) => {
     },
     cacheTime: 0,
     refetchOnWindowFocus: false,
-    retry:2
   })
 }

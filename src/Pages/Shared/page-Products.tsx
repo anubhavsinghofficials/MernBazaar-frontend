@@ -1,19 +1,21 @@
 import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
+import { sortingBadges } from "@/Store/ClientStore/store-Constants"
+import PageSlider_Lite from "@/components/PageSlider-Lite"
+import noProductsFound from "@/assets/noProductFound3.png"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
+import BadgePicker from "@/components/BadgePicker"
 import { AxiosError } from "axios"
 import { FaSort } from "react-icons/fa"
 import { TbFaceIdError } from "react-icons/tb"
 import DesktopFilters from "./components/DesktopFilters"
 import MobileFilters from "./components/MobileFilters"
-import { sortingBadges } from "@/Store/ClientStore/store-Constants"
-import BadgePicker from "@/components/BadgePicker"
 import ProductCard from "./components/ProductCard"
 import ProductCardLoading from "./components/ProductCard-Loading"
-import React from "react"
-import PageSlider_Lite from "@/components/PageSlider-Lite"
-import noProductsFound from "@/assets/noProductFound3.png"
+import React, { useRef } from "react"
 
 function ProductsPage() {
+
+  const totalPagesRef = useRef(1)
   const { searchObject, setSearchObject, resetBadgeToken } = filterStore()
 
   const handlePage = (page: number) => {
@@ -23,14 +25,22 @@ function ProductsPage() {
     setSearchObject({ ...searchObject, sort: sorts[0] })
   }
 
-  const { data,isError, error } = syncFetchProducts(searchObject)
+  const { data,isError, error, refetch, isLoading, isRefetching } = syncFetchProducts(searchObject)
 
   if (isError) {
     const errorData = (error as AxiosError).response?.data
     console.log(errorData)
-    // return <div>Error Occured</div>
+  }
 
-    // ye dhang se karo error show.. user friendly
+  if (data) {
+    // this value of totalPages will be sent in the pageSlider
+    // the reason we are not directly sending the data.totalProducts
+    // /searchObject.pageLength is because data would come in and out
+    // of existence while react query fetching & fetched
+    const newTotal = data.totalProducts/searchObject.pageLength
+    if (newTotal !== totalPagesRef.current) {
+      totalPagesRef.current = newTotal
+    }
   }
 
   return (
@@ -67,7 +77,7 @@ function ProductsPage() {
               </p>
               <div className={`block xs:hidden m-1`}>
                 <PageSlider_Lite
-                  totalPages={data ? data.totalProducts/searchObject.pageLength : 1}
+                  totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="xs"
                   activeBgColor="bg-slate-200"
@@ -80,7 +90,7 @@ function ProductsPage() {
               </div>
               <div className={`hidden xs:block sm:hidden m-2`}>
                 <PageSlider_Lite
-                  totalPages={data ? data.totalProducts/searchObject.pageLength : 1}
+                  totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="md"
                   activeBgColor="bg-slate-200"
@@ -93,7 +103,7 @@ function ProductsPage() {
               </div>
               <div className={`hidden sm:block lg:hidden m-2`}>
                 <PageSlider_Lite
-                  totalPages={data ? data.totalProducts/searchObject.pageLength : 1}
+                  totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="xs"
                   activeBgColor="bg-slate-500"
@@ -106,7 +116,7 @@ function ProductsPage() {
               </div>
               <div className={`hidden lg:block`}>
                 <PageSlider_Lite
-                  totalPages={data ? data.totalProducts/searchObject.pageLength : 1}
+                  totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="sm"
                   activeBgColor="bg-slate-500"
@@ -142,32 +152,32 @@ function ProductsPage() {
 
           <div className={`my-3 grid sm: gap-2 xl:gap-3 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xxs:grid-cols-2 bg-slate-200`}>
             {
-               data && !isError
-              ?
+              (isLoading || isRefetching) &&
+              Array.from({ length: 10 }).map((_, index) => (
+                <React.Fragment key={index}>
+                    <ProductCardLoading />
+                  </React.Fragment>
+                ))
+            }
+            {
+               data && data.products.length !== 0 &&
                 data.products.map((product:any) => (
                   <React.Fragment key={product._id}>
-                  <ProductCard 
+                  <ProductCard  
                     title={product.title}
-                    thumbnail={product.images.thumbnail}
+                    thumbnail={product.images.thumbnail.url}
                     actualPrice={product.price.actual}
                     discountedPrice={product.price.net}
                     discount={product.price.discount}
                     overallRating={product.overallRating}/>
                   </React.Fragment>
                 ))
-              : 
-                Array.from({ length: 10 }).map((_, index) => (
-                  <React.Fragment key={index}>
-                    <ProductCardLoading />
-                  </React.Fragment>
-                ))
             }
-
           </div>
             
           {
             data && data.products.length === 0 &&
-            <div className={`h-3/5 sm:h-4/5 text-slate-800 flex flex-col justify-center items-center sm:relative absolute w-full`}>
+            <div className={`h-4/5 sm:h-4/5 text-slate-800 flex flex-col justify-center items-center sm:relative absolute w-full`}>
               <img
                 src={noProductsFound}
                 alt="No Products Found"
@@ -180,14 +190,25 @@ function ProductsPage() {
           }
 
           {
-            // isError &&
-            <div className={`h-3/5 sm:h-4/5 text-slate-800 flex flex-col justify-center items-center sm:relative absolute w-full`}>
-              <div>
-                <TbFaceIdError/>
+            isError &&
+            <div className={`h-4/5 sm:h-3/5 text-slate-600 flex flex-col justify-center items-center sm:relative absolute w-full`}>
+              <div className={`flex gap-x-2 px-2 bg-slate-300 rounded-lg relative`}>
+                <div className="text-8xl text-slate-500">
+                  <TbFaceIdError/>
+                </div>
+                <div className="font-bold py-2 flex flex-col gap-y-2">
+                  <p className="text-xl sm:text-2xl text-center">
+                    An Error Occured!!
+                  </p>
+                  <button className="bg-slate-600 text-white w-full py-1 rounded-lg active:bg-slate-700 shadow-md active:shadow-none"
+                  onClick={() => refetch()}>
+                    Retry
+                  </button>
+                </div>
+                <p className="absolute bottom-[-1rem] sm:right-4 right-0 text-base leading-4 text-center font-bold">
+                    or try refreshing the page
+                </p>
               </div>
-              <p className="font-bold text-lg sm:text-2xl">
-                An Error Occured !!
-              </p>
             </div>
           }
         </div>
