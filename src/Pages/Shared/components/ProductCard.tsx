@@ -57,7 +57,7 @@ function ProductCard(props:productCardPropsType) {
                     ₹{actualPrice}
                 </p>
 
-                <p className="font-bold text-green-600 2xl:text-2xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-xl">
+                <p className="font-bold text-green-600 2xl:text-2xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-base">
                     ₹{discountedPrice}
                 </p>
                 

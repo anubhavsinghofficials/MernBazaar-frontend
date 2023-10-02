@@ -4,7 +4,7 @@ import { VscSettings } from "react-icons/vsc"
 import SearchBar, { searchValues } from "../../../components/searchBar"
 import { filterStore, searchObjectType } from "../../../Store/ClientStore/store-Filters"
 import RangeSlider_Dark from "../../../components/RangeSlider_Dark"
-import { defaultValues, priceRange, sortingBadges } from "@/Store/ClientStore/store-Constants"
+import { categoryBadges, defaultValues, discountBadges, priceRange, ratingBadges, sortingBadges } from "@/Store/ClientStore/store-Constants"
 
 
 
@@ -88,6 +88,7 @@ function MobileFilters() {
         <form className="p-8 flex flex-col grow items-end gap-y-2 bg-slate-500 min-w-0"
           onSubmit={handleSubmit(onFilterSubmit)}
           noValidate>
+
           <label 
             htmlFor="category"
             className="self-stretch flex items-center justify-between py-2 px-4 xs:text-xl text-base bg-slate-600 font-bold text-slate-200 ">
@@ -98,19 +99,15 @@ function MobileFilters() {
               className={`xs:w-64 w-36 rounded-lg text-white text-sm font-bold bg-slate-600 self-stretch px-2 min-w-0`}
               defaultValue={""}>
               <option value={""} disabled> Select</option>
-              <option value={"Menswear"}>Menswear</option>
-              <option value={"Womenswear"}>Womenswear</option>
-              <option value={"Phones"}>Phones</option>
-              <option value={"Laptops"}>Laptops</option>
-              <option value={"Watches"}>Watches</option>
-              <option value={"Furniture"}>Furniture</option>
-              <option value={"Toys"}>Toys</option>
-              <option value={"Pets"}>Pets & Pet Supplies</option>
-              <option value={"Books"}>Books</option>
-              <option value={"Beauty"}>Beauty & Personal Care</option>
-              <option value={"Groceries"}>Groceries</option>
-              <option value={"Medicines"}>Medicines</option>
-              <option value={"Gym"}>Gym Equipments</option>
+              {
+                categoryBadges.values.map((value,index) => (
+                  <option
+                  key={value} 
+                  value={value}>
+                    {categoryBadges.strings[index]}
+                  </option>
+                ))
+              }
             </select>
           </label>
 
@@ -124,27 +121,37 @@ function MobileFilters() {
               className={`xs:w-64 w-36 rounded-lg text-white text-sm font-bold bg-slate-600 self-stretch px-2`}
               defaultValue={""}>
               <option value={""} disabled> Select</option>
-              <option value={"4"}>4 ★ and above</option>
-              <option value={"3"}>3 ★ and above</option>
-              <option value={"2"}>2 ★ and above</option>
-              <option value={"1"}>1 ★ and above</option>
+              {
+                ratingBadges.values.map((value,index) => (
+                  <option
+                  key={value}
+                  value={value}>
+                    {ratingBadges.strings[index]}
+                  </option>
+                ))
+              }
             </select>
           </label>
 
           <label
             htmlFor="discount"
             className="self-stretch flex items-center justify-between py-2 px-4 xs:text-xl text-base bg-slate-600 font-bold text-slate-200">
-            Ratings
+            Discount
             <select
               id="discount"
               {...register("discount")}
               className={`xs:w-64 w-36 rounded-lg text-white text-sm font-bold bg-slate-600 self-stretch px-2`}
               defaultValue={""}>
               <option value={""} disabled> Select</option>
-              <option value={"50"}>50% off</option>
-              <option value={"40"}>40% off</option>
-              <option value={"30"}>30% off</option>
-              <option value={"20"}>20% off</option>
+              {
+                discountBadges.values.map((value,index) => (
+                  <option
+                  key={value}
+                  value={value}>
+                    {discountBadges.strings[index]}
+                  </option>
+                ))
+              }
             </select>
           </label>
 
@@ -157,16 +164,16 @@ function MobileFilters() {
               {...register("sort")}
               className={`xs:w-64 w-36 rounded-lg text-white text-sm font-bold bg-slate-600 self-stretch px-2`}
               defaultValue={""}>
-              <option
-                value={""}
-                disabled>
-                Select
-              </option>
-              <option value={sortingBadges.values[0]}>Price: low to high</option>
-              <option value={sortingBadges.values[1]}>Price: high to low</option>
-              <option value={sortingBadges.values[2]}>Ratings: low to high</option>
-              <option value={sortingBadges.values[3]}>Ratings: high to low</option>
-              <option value={sortingBadges.values[4]}>latest</option>
+              <option value={""} disabled> Select</option>
+              {
+                sortingBadges.values.map((value,index) => (
+                  <option
+                  key={value}
+                  value={value}>
+                    {sortingBadges.strings[index]}
+                  </option>
+                ))
+              }
             </select>
           </label>
 

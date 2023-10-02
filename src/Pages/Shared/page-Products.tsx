@@ -45,12 +45,10 @@ function ProductsPage() {
 
   return (
     <>
-      <div
-        className={`w-screen min-h-screen bg-gray-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
+      <div className={`w-screen min-h-screen bg-gray-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
         <div className="sticky top-16 self-start rounded-lg overflow-hidden hover:shadow-lg duration-100">
-          <div
-            className={`h-[40rem] overflow-scroll overscroll-contain hide-scrollbar bg-white`}>
-            <DesktopFilters/>
+          <div className={`h-[40rem] overflow-scroll overscroll-contain hide-scrollbar bg-white`}>
+            <DesktopFilters />
             <div className={`h-20 w-full`} />
           </div>
           <div className="bg-gradient-to-b from-transparent to-white via-[#ffffffc7] flex justify-center items-end font-bold py-1 gap-x-2 h-20 text-slate-600 absolute bottom-0 w-full">
@@ -148,7 +146,7 @@ function ProductsPage() {
             </div>
           </div>
 
-          <MobileFilters />
+          <MobileFilters/>
 
           <div className={`my-3 grid sm: gap-2 xl:gap-3 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xxs:grid-cols-2 bg-slate-200`}>
             {
