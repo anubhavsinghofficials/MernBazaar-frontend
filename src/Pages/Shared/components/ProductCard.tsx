@@ -1,5 +1,4 @@
 
-// const title = "Samsung Galaxy A3, 4GB Ram, 64GB Storage, 6 Inches sdfsd ssdf" 
 
 type productCardPropsType = {
     title           : string
@@ -21,8 +20,6 @@ function ProductCard(props:productCardPropsType) {
 
         <div className={`absolute w-full h-[70%] bg-white xs:h-3/4`}>
             <img
-            // src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c21hcnQlMjB3YXRjaHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
-            // src="https://rukminim1.flixcart.com/image/1150/1350/xif0q/watch/k/y/p/-original-imagp2c4ygsdgnjv.jpeg?q=20"
             src={thumbnail}
             alt="Product"
             className="w-full h-full object-contain"
@@ -57,7 +54,7 @@ function ProductCard(props:productCardPropsType) {
                     ₹{actualPrice}
                 </p>
 
-                <p className="font-bold text-green-600 2xl:text-2xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-base">
+                <p className="font-bold text-green-600 2xl:text-2xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-sm">
                     ₹{discountedPrice}
                 </p>
                 
@@ -70,15 +67,3 @@ function ProductCard(props:productCardPropsType) {
 }
  
 export default ProductCard
-
-
-
-
-
-
-{/* 
-<div className={`flex items-baseline gap-x-2 bg-blue-300`}>
-<p className="text-sm bg-red-500" style={{ lineHeight: '1' }}>
-    40% off
-</p> 
-*/}

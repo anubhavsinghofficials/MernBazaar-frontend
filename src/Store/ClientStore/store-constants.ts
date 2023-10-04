@@ -19,7 +19,7 @@ export const defaultValues:searchObjectType = {
     price       : [priceRange.min,priceRange.max],
     keyword     : null,
     pageNo      : 1,
-    pageLength  : 2,
+    pageLength  : 10,
 }
 
 
@@ -39,7 +39,7 @@ export const sortingBadges = {
         "price|-1",
         "ratings|1",
         "ratings|-1",
-        "createdAt|-1",
+        "date|-1",
     ]
 }
 
@@ -47,27 +47,41 @@ export const categoryBadges = {
     strings : [
         "Phones", "Menswear", "Womenswear", "Laptops",
         "Watches", "Furniture", "Toys", "Pet Supplies",
-         "Books", "Beauty & Personal Care", "Groceries",
-        "Medicines", "Gym Equipments", "Others"
+        "Books", "Beauty & Personal Care", "Groceries",
+        "Medicines", "Gym Equipments"
     ],
     values  : [
         "phones", "menswear", "womenswear", "laptops",
-        "watches", "furniture", "toys", "pets", "books",
-        "beauty", "groceries", "medicines", "gym", "others"
+        "watch", "furniture", "toys", "pets", "books",
+        "beauty", "groceries", "medicines", "gym"
     ],
 }
 
 export const ratingBadges = {
     strings : [
-        "4★ and above",
-        "3★ and above",
+        "1★ and above",
         "2★ and above",
-        "1★ and above"
+        "3★ and above",
+        "4★ and above"
     ],
-    values  : [ "4", "3", "2", "1" ]
+    values  : [  "1", "2", "3", "4" ]
 }
 
 export const discountBadges = {
-    strings : [ "50% off","40% off","30% off","20% off" ],
-    values  : [ "50", "40", "30", "20" ]
+    strings : [ 
+        "30% or more", 
+        "40% or more", 
+        "50% or more", 
+        "60% or more", 
+        "70% or more", 
+    ],
+    values  : [ "30", "40", "50", "60", "70" ]
 }
+
+
+// General
+    // only categoryBadges (value,strings), why?
+    // user role verify
+
+// User
+    // Cart Product count

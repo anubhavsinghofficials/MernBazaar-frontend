@@ -19,12 +19,13 @@ import PublicNavbar from "./Pages/Public/nav-Public"
 import SellerNavbar from "./Pages/Seller/nav-Seller"
 import { userRoleStore } from "./Store/ClientStore/store-UserRole"
 import { useEffect } from "react"
+import TailwindScreenDetector from "./components/screenDetector"
 
 function App() {
   const { role } = userRoleStore()
 
   return (
-    <div className={`w-screen h-screen bg-black sm:overflow-x-hidden`}>
+    <div className={`w-screen h-screen bg-white sm:overflow-x-hidden`}>
       {
         [
           { role: "user", element: <UserNavbar /> },
@@ -35,7 +36,7 @@ function App() {
       }
 
        <Routes>
-         <Route path="/Home" element={<HomePage/>}/>
+         <Route path="/home" element={<HomePage/>}/>
          <Route path="/products" element={<ProductsPage/>}/>
          <Route path="/product/:id" element={<ProductDetailsPage/>}/>
 
@@ -71,6 +72,9 @@ function App() {
 
          <Route path="*" element={<Navigate to="/home" />}/>
        </Routes>
+
+      <TailwindScreenDetector/>
+      <div className={`h-[10rem] bg-blue-400`} />
     </div>
 
   )

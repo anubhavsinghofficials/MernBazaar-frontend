@@ -19,6 +19,8 @@ type filterStoreType = {
     setSearchObject     : (newSearchObject:searchObjectType) => void
     resetBadgeToken     : boolean
     setResetBadgeToken  : () => void
+    resetPages          : boolean
+    setResetPages       : () => void
 }
 
 
@@ -29,8 +31,13 @@ export const filterStore = create<filterStoreType>((set,_get) => ({
         set(() => ({ searchObject:newSearchObject }))
     ),
 
-    resetBadgeToken     : false,
-    setResetBadgeToken  : () => (
+    resetBadgeToken    : false,
+    setResetBadgeToken : () => (
         set((state) => ({ resetBadgeToken:!state.resetBadgeToken }))
+    ),
+
+    resetPages    : false,
+    setResetPages : () => (
+        set((state) => ({ resetPages:!state.resetPages }))
     )
 }))

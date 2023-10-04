@@ -43,8 +43,7 @@ function SearchBar({ onSearch, placeHolder }: SearchBarProps) {
         placeholder={placeHolder}
         autoComplete="off"
       />
-      <button
-        className={`bg-slate-600 text-slate-100 flex items-center px-2 active:bg-slate-700`}>
+      <button className={`bg-slate-600 text-slate-100 flex items-center px-3 active:bg-slate-700`}>
         <FaSearch />
       </button>
     </form>

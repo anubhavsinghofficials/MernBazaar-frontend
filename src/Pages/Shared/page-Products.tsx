@@ -16,16 +16,19 @@ import React, { useRef } from "react"
 function ProductsPage() {
 
   const totalPagesRef = useRef(1)
-  const { searchObject, setSearchObject, resetBadgeToken } = filterStore()
+  const { searchObject, setSearchObject, resetBadgeToken,
+          setResetPages } = filterStore()
+  const { data, isLoading, isRefetching, isError, error,
+          refetch } = syncFetchProducts(searchObject)
 
   const handlePage = (page: number) => {
     setSearchObject({ ...searchObject, pageNo: page })
   }
+
   const handleSort = (sorts: string[]) => {
     setSearchObject({ ...searchObject, sort: sorts[0] })
+    setResetPages()
   }
-
-  const { data,isError, error, refetch, isLoading, isRefetching } = syncFetchProducts(searchObject)
 
   if (isError) {
     const errorData = (error as AxiosError).response?.data
@@ -45,7 +48,7 @@ function ProductsPage() {
 
   return (
     <>
-      <div className={`w-screen min-h-screen bg-gray-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
+      <div className={`w-screen min-h-screen bg-slate-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
         <div className="sticky top-16 self-start rounded-lg overflow-hidden hover:shadow-lg duration-100">
           <div className={`h-[40rem] overflow-scroll overscroll-contain hide-scrollbar bg-white`}>
             <DesktopFilters />
@@ -213,8 +216,6 @@ function ProductsPage() {
       </div>
 
       <div className={`xxs:sticky xxs:top-14 sm:relative sm:top-0 bg-slate-400 h-8 sm:h-6 md:h-8 lg:h-10`}/>
-
-      <div className={`h-[10rem] bg-blue-400`} />
     </>
   )
 }

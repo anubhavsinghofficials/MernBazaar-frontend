@@ -1,3 +1,4 @@
+import { filterStore } from "@/Store/ClientStore/store-Filters";
 import { useEffect, useRef, useState } from "react"
 
 
@@ -51,6 +52,7 @@ function PageSlider_Lite(props:PaginationProps) {
     const pageButtonsList = Array.from({ length: noOfButtons }, (_, index) => 1 + index)
     const [pageButtons, setPageButtons] = useState(pageButtonsList)
     const parentRef = useRef<HTMLDivElement | null>(null)
+    const { resetPages } = filterStore()
 
     useEffect(()=>{
         if (firstMounts.current) {
@@ -66,7 +68,7 @@ function PageSlider_Lite(props:PaginationProps) {
     useEffect(()=>{
         setPageButtons(pageButtonsList)
         reorderPagination(1)
-    },[ totalPages, maxButtons ])
+    },[ totalPages, maxButtons, resetPages ])
 
     useEffect(()=>{
         refreshButtonColors()

@@ -3,28 +3,33 @@ import { filterStore } from "../../../Store/ClientStore/store-Filters"
 import BadgePicker from "../../../components/BadgePicker"
 import RangeSlider from "../../../components/RangeSlider"
 
-
+ 
 
 function DesktopFilters() {
 
     const { setSearchObject, resetBadgeToken, searchObject,
-            setResetBadgeToken } = filterStore()
+            setResetBadgeToken, setResetPages } = filterStore()
 
     const handleCategory = (categories:string[]) => {
         setSearchObject({...searchObject, category:categories[0]})
+        setResetPages()
     }
     const handleRatings = (ratings:string[]) => {
         setSearchObject({...searchObject, ratings:ratings[0]})
+        setResetPages()
     }
     const handleDiscounts = (discounts:string[]) => {
         setSearchObject({...searchObject, discount:discounts[0]})
+        setResetPages()
     }
     const handlePrice = (price:number[]) => {
         setSearchObject({...searchObject, price})
+        setResetPages()
     }
     const handleClear = () => {
         setResetBadgeToken()
         setSearchObject({...defaultValues, keyword:searchObject.keyword})
+        setResetPages()
     }
      
 

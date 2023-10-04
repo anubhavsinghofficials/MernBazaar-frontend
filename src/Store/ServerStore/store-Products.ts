@@ -22,7 +22,7 @@ export const syncFetchProducts = (searchObject: searchObjectType) => {
     select(data) {
       return data.data
     },
-    cacheTime: 0,
+    cacheTime: 10000,
     refetchOnWindowFocus: false,
   })
 }

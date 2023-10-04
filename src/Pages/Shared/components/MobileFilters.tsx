@@ -10,8 +10,8 @@ import { categoryBadges, defaultValues, discountBadges, priceRange, ratingBadges
 
 function MobileFilters() {
 
-  const { searchObject, setSearchObject,
-          resetBadgeToken, setResetBadgeToken } = filterStore()
+  const { searchObject, setSearchObject, resetBadgeToken,
+          setResetBadgeToken, setResetPages } = filterStore()
   const [price, setPrice] = useState<number[] | null>(defaultValues.price)
   const [openFilter, setOpenFilter] = useState(false)
   const {register, handleSubmit, reset, formState:{ isDirty }} = useForm()
@@ -35,6 +35,7 @@ function MobileFilters() {
     setIsDirtyPrice(false)
     reset()
     setResetBadgeToken()
+    setResetPages()
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
   const onFilterSubmit = (data: any) => {
@@ -48,6 +49,7 @@ function MobileFilters() {
       }
     })
     setSearchObject({...searchObject,...filteredObject, price})
+    setResetPages()
   }
   const clearFilters = () => {
     toggleFilterBox()
@@ -56,6 +58,7 @@ function MobileFilters() {
     reset()
     setResetBadgeToken()
     setIsDirtyPrice(false)
+    setResetPages()
   }
   const handlePrice = (price: number[]) => {
     setPrice(price)
