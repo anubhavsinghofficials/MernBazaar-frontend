@@ -1,5 +1,6 @@
 
 
+import { filterStore } from "@/Store/ClientStore/store-Filters";
 import { useEffect, useRef, useState } from "react";
 
 
@@ -21,14 +22,14 @@ type BadgeProps = {
 
 function BadgePicker(props:BadgeProps) {
 
+    const { resetBadgeToken } = filterStore()
     const ContainerRef = useRef<HTMLDivElement|null>(null)
     const [BadgesArray, setBadgesArray] = useState<string[]>([])    
     const { badges, onSelect, selectMultiple = false,
             activeBgColor, passiveBgColor, activeTextColor,
             passiveTextColor, badgeLayout, containerLayout,
-            customBadgeStrings, resetBadgeToken } = props
+            customBadgeStrings } = props
 
-    
     useEffect(() => {
         resetBadgeColors()
     }, [resetBadgeToken])

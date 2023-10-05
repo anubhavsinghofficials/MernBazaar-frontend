@@ -28,7 +28,7 @@ function FeatureFrame(props:FeatureFramePropsType) {
     
 
     return (
-    <div className="bg-white aspect-[10/11] flex flex-col justify-end">
+    <div className="bg-white aspect-[5/6] flex flex-col justify-end">
         <div className=" grow text-xl font-bold text-slate-800 pl-4 flex items-center">
             { title }
         </div>

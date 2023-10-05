@@ -16,8 +16,7 @@ import React, { useRef } from "react"
 function ProductsPage() {
 
   const totalPagesRef = useRef(1)
-  const { searchObject, setSearchObject, resetBadgeToken,
-          setResetPages } = filterStore()
+  const { searchObject, setSearchObject, setResetPages } = filterStore()
   const { data, isLoading, isRefetching, isError, error,
           refetch } = syncFetchProducts(searchObject)
 
@@ -144,7 +143,6 @@ function ProductsPage() {
                 passiveTextColor="text-white"
                 containerLayout="hide-scrollbar overflow-x-scroll whitespace-nowrap lg:w-[40rem] md:w-[calc(100vw-19.5rem)] sm:w-[calc(100vw-16.5rem)] w-[calc(100vw-5rem)] flex items-center gap-x-4"
                 badgeLayout="px-3 py-1 pb-[0.25rem] rounded-full xxs:text-xs font-bold inline-block"
-                resetBadgeToken={resetBadgeToken}
               />
             </div>
           </div>

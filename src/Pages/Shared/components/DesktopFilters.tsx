@@ -7,7 +7,7 @@ import RangeSlider from "../../../components/RangeSlider"
 
 function DesktopFilters() {
 
-    const { setSearchObject, resetBadgeToken, searchObject,
+    const { setSearchObject, searchObject,
             setResetBadgeToken, setResetPages } = filterStore()
 
     const handleCategory = (categories:string[]) => {
@@ -47,7 +47,8 @@ function DesktopFilters() {
             </div>
 
             <p className="text-black bg-white font-bold py-2 pl-3">Category</p>
-            <BadgePicker badges={categoryBadges.values}
+            <BadgePicker
+                badges={categoryBadges.values}
                 customBadgeStrings={categoryBadges.strings}
                 onSelect={handleCategory}
                 activeBgColor="bg-slate-400"
@@ -56,7 +57,6 @@ function DesktopFilters() {
                 passiveTextColor="text-black"
                 containerLayout="h-60 overflow-y-scroll flex flex-col px-4"
                 badgeLayout="pl-6 py-1"
-                resetBadgeToken={resetBadgeToken}
                 />
 
             <p className="text-black bg-white font-bold py-2 pl-3">Price</p>
@@ -67,12 +67,12 @@ function DesktopFilters() {
                   min={priceRange.min}
                   step={priceRange.step}
                   onValueCommit={handlePrice}
-                  resetBadgeToken={resetBadgeToken}
                   />
             </div>
 
             <p className="text-black bg-white font-bold py-2 pl-3">Ratings</p>
-            <BadgePicker badges={ratingBadges.values}
+            <BadgePicker
+                badges={ratingBadges.values}
                 customBadgeStrings={ratingBadges.strings}
                 onSelect={handleRatings}
                 activeBgColor="bg-slate-400"
@@ -81,11 +81,11 @@ function DesktopFilters() {
                 passiveTextColor="text-black"
                 containerLayout="flex flex-col px-4"
                 badgeLayout="pl-6 py-1"
-                resetBadgeToken={resetBadgeToken}
                 />
 
             <p className="text-black bg-white font-bold py-2 pl-3">Discounts</p>
-            <BadgePicker badges={discountBadges.values}
+            <BadgePicker
+                badges={discountBadges.values}
                 customBadgeStrings={discountBadges.strings}
                 onSelect={handleDiscounts}
                 activeBgColor="bg-slate-400"
@@ -94,7 +94,6 @@ function DesktopFilters() {
                 passiveTextColor="text-black"
                 containerLayout="flex flex-col px-4"
                 badgeLayout="pl-6 py-1"
-                resetBadgeToken={resetBadgeToken}
                 />
         </div>
     )

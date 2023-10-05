@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Slider } from "./ui/slider";
 import useSideEffect from "@/Hooks/useSideEffect";
+import { filterStore } from "@/Store/ClientStore/store-Filters";
 
 
 type sliderProps = {
@@ -12,12 +13,12 @@ type sliderProps = {
     onValueChange?   : (value:number[]) => void;
     resetBadgeToken? : boolean;
 }
-
+ 
 function RangeSlider_Dark(props:sliderProps) {
 
+    const { resetBadgeToken } = filterStore()
     const { defaultValue, min, max, step,
-            onValueChange, onValueCommit,
-            resetBadgeToken } = props
+            onValueChange, onValueCommit } = props
     const [showSlider, setShowSlider] = useState(true)
 
 
