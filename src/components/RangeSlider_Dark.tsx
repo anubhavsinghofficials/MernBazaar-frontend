@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Slider } from "./ui/slider";
-import useSideEffect from "@/Hooks/useSideEffect";
+import { useSideEffect } from "@/Hooks/useSideEffect";
 import { filterStore } from "@/Store/ClientStore/store-Filters";
 
 

@@ -4,7 +4,7 @@ import { filterStore } from "@/Store/ClientStore/store-Filters"
 import { useNavigate } from "react-router-dom"
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import React, { useRef } from "react";
-import useScrollEffect from "@/Hooks/useScrollEffect";
+import { useScrollEffect } from "@/Hooks/useScrollEffect";
 import ProductSlider from "./components/ProductSlider";
 import FeatureFrame from "./components/FeatureFrame";
 
@@ -13,7 +13,7 @@ function HomePage() {
     
     const categoryBarRef = useRef<HTMLUListElement | null>(null)
     const Navigate = useNavigate()
-    const { setSearchObject, searchObject } = filterStore()
+    const { searchObject, setSearchObject } = filterStore()
     const { handleScrollX, leftScroll, rightScroll }
     = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
     
@@ -46,17 +46,17 @@ function HomePage() {
                 <ul className="px-2 flex gap-x-4 font-semibold sm:text-base text-sm overflow-x-scroll scroll-smooth hide-scrollbar text-black max-w-[100%]"
                 ref={categoryBarRef}>                    
                 {
-                    categoryBadges.strings.map((category,index) => {
-                        const value = categoryBadges.values[index]
-                        return (
-                        <li key={category} className="flex justify-center items-center">
-                            <button className="whitespace-nowrap active:bg-slate-400 bg-slate-200 text-slate-800 px-4 rounded-full flex justify-center items-center py-0 xs:py-[0.2rem] sm:py-0"
-                            onClick={()=>handleCategory([value])}>
-                                {category}
-                            </button>
-                        </li>
-                        )
-                    })
+                categoryBadges.strings.map((category,index) => {
+                    const value = categoryBadges.values[index]
+                    return (
+                    <li key={category} className="flex justify-center items-center">
+                        <button className="whitespace-nowrap active:bg-slate-400 bg-slate-200 text-slate-800 px-4 rounded-full flex justify-center items-center py-0 xs:py-[0.2rem] sm:py-0"
+                        onClick={()=>handleCategory([value])}>
+                            {category}
+                        </button>
+                    </li>
+                    )
+                })
                 }
                 </ul>
                 <button className={`text-slate-200 text-3xl active:bg-slate-700 ${rightScroll ? 'opacity-100': 'opacity-0'}`}
@@ -79,7 +79,7 @@ function HomePage() {
                 <FeatureFrame
                     sortBy="date|-1"
                     title="New Arrivals"/>
-                <div className="bg-slate-500 aspect-[10/11] text-xl text-white lg:hidden xl:block">
+                <div className="bg-slate-500 aspect-[5/6] text-xl text-white lg:hidden xl:block">
                     My portfolio ad
                 </div>
             </div>
@@ -100,3 +100,4 @@ function HomePage() {
 }
  
 export default HomePage
+

@@ -7,7 +7,8 @@ type useScrollEffectPropsType = {
     scrollBy     : number
 }
 
-function useScrollEffect(props:useScrollEffectPropsType) {
+
+export const useScrollEffect = (props:useScrollEffectPropsType) => {
 
     const { scrollPadRef, scrollBy } = props
     const [rightScroll, setRightScroll] = useState(false)
@@ -49,9 +50,6 @@ function useScrollEffect(props:useScrollEffectPropsType) {
 
     return { handleScrollX, leftScroll, rightScroll }
 }
- 
-export default useScrollEffect
-
 
 
 

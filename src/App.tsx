@@ -18,14 +18,13 @@ import AdminNavbar from "./Pages/Admin/nav-Admin"
 import PublicNavbar from "./Pages/Public/nav-Public"
 import SellerNavbar from "./Pages/Seller/nav-Seller"
 import { userRoleStore } from "./Store/ClientStore/store-UserRole"
-import { useEffect } from "react"
 import TailwindScreenDetector from "./components/screenDetector"
 
 function App() {
   const { role } = userRoleStore()
 
   return (
-    <div className={`w-screen h-screen bg-white sm:overflow-x-hidden`}>
+    <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
       {
         [
           { role: "user", element: <UserNavbar /> },
@@ -35,43 +34,43 @@ function App() {
         ].find(menu => menu.role === role)?.element
       }
 
-       <Routes>
-         <Route path="/home" element={<HomePage/>}/>
-         <Route path="/products" element={<ProductsPage/>}/>
-         <Route path="/product/:id" element={<ProductDetailsPage/>}/>
+      <Routes>
+        <Route path="/home" element={<HomePage/>}/>
+        <Route path="/products" element={<ProductsPage/>}/>
+        <Route path="/product/:id" element={<ProductDetailsPage/>}/>
 
-         <Route path="/" element={<ProtectedRoutes AuthRole="public"/>}>
-           <Route index element={<Navigate to="home"/>}/>
-           <Route path="signup" element={<SignUp/>}/>
-           <Route path="signin" element={<SignIn/>}/>
-           <Route path="*" element={<Navigate to="signin" />}/>
-         </Route>
+        <Route path="/" element={<ProtectedRoutes AuthRole="public"/>}>
+          <Route index element={<Navigate to="home"/>}/>
+          <Route path="signup" element={<SignUp/>}/>
+          <Route path="signin" element={<SignIn/>}/>
+          <Route path="*" element={<Navigate to="signin" />}/>
+        </Route>
 
-         <Route path="/user" element={<ProtectedRoutes AuthRole="user" />}>
-           <Route index element={<Navigate to="profile"/>}/>
-           <Route path="profile" element={<UserProfile/>}/>
-           <Route path="orders" element={<UserOrders/>}/>
-           <Route path="cart" element={<UserCart/>}/>
-           <Route path="*" element={<Navigate to="profile" />}/>
-         </Route>
+        <Route path="/user" element={<ProtectedRoutes AuthRole="user" />}>
+          <Route index element={<Navigate to="profile"/>}/>
+          <Route path="profile" element={<UserProfile/>}/>
+          <Route path="orders" element={<UserOrders/>}/>
+          <Route path="cart" element={<UserCart/>}/>
+          <Route path="*" element={<Navigate to="profile" />}/>
+        </Route>
 
-         <Route path="/seller" element={<ProtectedRoutes AuthRole="seller" />}>
-           <Route index element={<Navigate to="profile"/>}/>
-           <Route path="profile" element={<SellerProfile/>}/>
-           <Route path="product/add" element={<AddProducts/>}/>
-           <Route path="product/edit" element={<EditProduct/>}/>
-           <Route path="products" element={<SellerProducts/>}/>
-           <Route path="*" element={<Navigate to="profile"/>}/>
-         </Route>
+        <Route path="/seller" element={<ProtectedRoutes AuthRole="seller" />}>
+          <Route index element={<Navigate to="profile"/>}/>
+          <Route path="profile" element={<SellerProfile/>}/>
+          <Route path="product/add" element={<AddProducts/>}/>
+          <Route path="product/edit" element={<EditProduct/>}/>
+          <Route path="products" element={<SellerProducts/>}/>
+          <Route path="*" element={<Navigate to="profile"/>}/>
+        </Route>
 
-         <Route path="/admin" element={<ProtectedRoutes AuthRole="admin" />}>
-           <Route index element={<Navigate to="dash"/>}/>
-           <Route path="dashboard" element={<AdminDashBoard/>}/>
-           <Route path="*" element={<Navigate to="dashboard"/>}/>
-         </Route>
+        <Route path="/admin" element={<ProtectedRoutes AuthRole="admin" />}>
+          <Route index element={<Navigate to="dash"/>}/>
+          <Route path="dashboard" element={<AdminDashBoard/>}/>
+          <Route path="*" element={<Navigate to="dashboard"/>}/>
+        </Route>
 
-         <Route path="*" element={<Navigate to="/home" />}/>
-       </Routes>
+        <Route path="*" element={<Navigate to="/home" />}/>
+      </Routes>
 
       <TailwindScreenDetector/>
       <div className={`h-[10rem] bg-blue-400`} />

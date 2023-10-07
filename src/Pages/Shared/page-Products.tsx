@@ -168,7 +168,8 @@ function ProductsPage() {
                     actualPrice={product.price.actual}
                     discountedPrice={product.price.net}
                     discount={product.price.discount}
-                    overallRating={product.overallRating}/>
+                    overallRating={product.overallRating}
+                    productId={product._id}/>
                   </React.Fragment>
                 ))
             }
@@ -212,8 +213,6 @@ function ProductsPage() {
           }
         </div>
       </div>
-
-      <div className={`xxs:sticky xxs:top-14 sm:relative sm:top-0 bg-slate-400 h-8 sm:h-6 md:h-8 lg:h-10`}/>
     </>
   )
 }

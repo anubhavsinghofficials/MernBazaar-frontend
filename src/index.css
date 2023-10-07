@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,6 +25,14 @@
     overflow: hidden;
 }
 
+.modalOpen {
+    opacity: 1;
+    transition: opacity 80ms ease-in;
+}
+.modalClose {
+    opacity: 0;
+    transition: opacity 80ms ease-out;
+}
 
 
 
@@ -31,6 +42,8 @@
 
 
 
+
+// _______________________________________________ Scrollbars
 
 /* FIREFOX */
 * {

@@ -23,6 +23,11 @@ export const defaultValues:searchObjectType = {
 }
 
 
+export const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'
+]
 
 // Badges for BadgePicker______________________________
 
@@ -79,9 +84,19 @@ export const discountBadges = {
 }
 
 
+// Modal Messages ______________________________
+
+export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account upon buying the products. You can use test cards provided in the payment gateway to test the payment systems'
+export const reviewModalTitle = 'Are you sure you want to delete your review ?'
+export const reviewModalMessage = 'Your review will be permanently deleted for this product. You can review it again after that'
+
+
 // General
-    // only categoryBadges (value,strings), why?
-    // user role verify
+// only categoryBadges (value,strings), why?
+// user role verify
+// top 7 best whatever for initial search suggestions (category + name backend search)
 
 // User
-    // Cart Product count
+// Cart Product count
+
+// simplyfy the categoryis plurals first

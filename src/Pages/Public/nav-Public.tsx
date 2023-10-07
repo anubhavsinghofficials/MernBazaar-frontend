@@ -22,8 +22,8 @@ function PublicNavbar() {
    
 
     return (
-    <div className={`z-20 bg-slate-500 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center sm:depthShadow`}>
-            
+    <div className={`z-20 bg-slate-500 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center`}> {/* sm:depthShadow */}
+    
       <div className={`h-full w-screen max-w-[96rem] px-4 flex justify-between items-center`}>
 
           <div className={`h-[70%] flex items-center gap-x-4`}>

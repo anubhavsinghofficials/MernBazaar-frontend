@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 
 
 export type productCardHomePropsType = {
@@ -6,15 +7,17 @@ export type productCardHomePropsType = {
     discountedPrice : string
     actualPrice     : string
     discount        : string
+    productId       : string
 }
 
 
 function ProductCardHome(props:productCardHomePropsType) {
 
-    const { title, thumbnail, discountedPrice, discount } = props
+    const { title, thumbnail, discountedPrice, discount, productId } = props
 
     return (    
-    <div className="flex-none bg-white h-60 xs:h-64 aspect-[7/11] rounded-md overflow-hidden relative hover:shadow-md cursor-pointer duration-100 flex flex-col justify-start active:shadow-none active:scale-100 group">
+    <NavLink className="flex-none bg-white h-60 xs:h-64 aspect-[7/11] rounded-md overflow-hidden relative hover:shadow-md cursor-pointer duration-100 flex flex-col justify-start active:shadow-none active:scale-100 group"
+    to={`/product/${productId}`}>
 
         <div className="h-[73%] flex items-center">
             <img
@@ -38,7 +41,7 @@ function ProductCardHome(props:productCardHomePropsType) {
                 </p>
             </div>
         </div>
-    </div>
+    </NavLink>
 
     )
 }

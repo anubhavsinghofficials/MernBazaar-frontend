@@ -2,7 +2,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import ProductCardHome from "./ProductCard-Home"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
 import { useNavigate } from "react-router-dom"
-import useScrollEffect from "@/Hooks/useScrollEffect"
+import { useScrollEffect } from "@/Hooks/useScrollEffect"
 import React, { useRef } from "react"
 import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
 import { defaultValues } from "@/Store/ClientStore/store-Constants"
@@ -44,7 +44,7 @@ function ProductSlider(props:productSliderType) {
              
         <div className={`bg-white relative`}>
 
-            <div className={`flex justify-between `}>
+            <div className={`flex justify-between pt-4`}>
                 <button
                 className={`h-10 flex justify-start items-center px-4 text-slate-800 text-xl font-bold hover:text-green-700 active:text-green-900`}
                 onClick={()=>handleCategory([value])}>
@@ -78,7 +78,8 @@ function ProductSlider(props:productSliderType) {
                         thumbnail={product.images.thumbnail.url}
                         actualPrice={product.price.actual}
                         discountedPrice={product.price.net}
-                        discount={product.price.discount}/>
+                        discount={product.price.discount}
+                        productId={product._id}/>
                     </React.Fragment>
                 ))
             }

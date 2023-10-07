@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 
-function useSideEffect(sideEffect:any, dependencies:any) {
+export const useSideEffect = (sideEffect:any, dependencies:any) => {
     const firstMount = useRef(true)
     useEffect(()=>{
         if (firstMount.current) {
@@ -12,5 +12,3 @@ function useSideEffect(sideEffect:any, dependencies:any) {
         }
     },dependencies)
 }
- 
-export default useSideEffect

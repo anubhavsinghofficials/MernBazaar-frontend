@@ -34,7 +34,7 @@ function DesktopFilters() {
      
 
     return (
-        <div className={`sm:w-44 md:w-56 lg:w-64 sm:block hidden`}>
+        <div className={`sm:w-44 md:w-56 lg:w-64 sm:block hidden bg-white`}>
 
             <div className="bg-slate-500 text-white px-4 py-2 flex justify-between sticky top-0">
                 <p className="text-lg font-bold">
@@ -46,7 +46,7 @@ function DesktopFilters() {
                 </button>
             </div>
 
-            <p className="text-black bg-white font-bold py-2 pl-3">Category</p>
+            <p className="text-black font-bold py-2 pl-3">Category</p>
             <BadgePicker
                 badges={categoryBadges.values}
                 customBadgeStrings={categoryBadges.strings}
@@ -59,7 +59,7 @@ function DesktopFilters() {
                 badgeLayout="pl-6 py-1"
                 />
 
-            <p className="text-black bg-white font-bold py-2 pl-3">Price</p>
+            <p className="text-black font-bold py-2 pl-3">Price</p>
             <div className={`px-4`}>
             <RangeSlider
                   defaultValue={defaultValues.price? defaultValues.price : [0,priceRange.max]}
@@ -70,7 +70,7 @@ function DesktopFilters() {
                   />
             </div>
 
-            <p className="text-black bg-white font-bold py-2 pl-3">Ratings</p>
+            <p className="text-black font-bold py-2 pl-3">Ratings</p>
             <BadgePicker
                 badges={ratingBadges.values}
                 customBadgeStrings={ratingBadges.strings}
@@ -83,7 +83,7 @@ function DesktopFilters() {
                 badgeLayout="pl-6 py-1"
                 />
 
-            <p className="text-black bg-white font-bold py-2 pl-3">Discounts</p>
+            <p className="text-black font-bold py-2 pl-3">Discounts</p>
             <BadgePicker
                 badges={discountBadges.values}
                 customBadgeStrings={discountBadges.strings}

@@ -38,7 +38,8 @@ function FeatureFrame(props:FeatureFramePropsType) {
                 data.products.map((product:any) => (
                     <React.Fragment key={product._id}>
                         <FeatureProductCard discount={product.price.discount}
-                        thumbnail={product.images.thumbnail.url}/>
+                        thumbnail={product.images.thumbnail.url}
+                        productId={product._id}/>
                     </React.Fragment>
                 ))
             }
