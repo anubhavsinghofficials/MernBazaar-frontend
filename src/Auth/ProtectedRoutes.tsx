@@ -14,7 +14,6 @@ export function ProtectedRoutes({AuthRole}:AuthProps) {
         case "public"  :  return <Navigate to="/signin"/>
         case "user"    :  return <Navigate to="/user/profile"/>
         case "seller"  :  return <Navigate to="/seller/profile"/>
-        case "admin"   :  return <Navigate to="/admin/dashboard"/>
         default        :  return <Navigate to="/home"/>
     }
 }

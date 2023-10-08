@@ -33,17 +33,17 @@ function SearchBar({ onSearch, placeHolder }: SearchBarProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="flex bg-gray-500 w-full rounded-md overflow-hidden"
+      className="flex w-full rounded-md overflow-hidden"
       ref={formRef}>
       <input
-        className={`px-3 xs:py-1 grow bg-slate-100 text-slate-800 outline-none min-w-0`}
+        className={`px-3 xs:py-1 grow bg-slate-200 text-slate-800 outline-none min-w-0 font-semibold`}
         type="text"
         id="search"
         {...register("search")}
         placeholder={placeHolder}
         autoComplete="off"
       />
-      <button className={`bg-slate-600 text-slate-100 flex items-center px-3 active:bg-slate-700`}>
+      <button className={`text-slate-100 flex items-center px-3 hover:bg-slate-700 hover:text-white active:bg-slate-800 duration-75`}>
         <FaSearch />
       </button>
     </form>

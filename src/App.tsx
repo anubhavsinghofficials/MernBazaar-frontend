@@ -12,9 +12,7 @@ import SellerProfile from "./Pages/Seller/page-SellerProfile"
 import AddProducts from "./Pages/Seller/page-AddProducts"
 import EditProduct from "./Pages/Seller/page-EditProduct"
 import SellerProducts from "./Pages/Seller/page-SellerProducts"
-import AdminDashBoard from "./Pages/Admin/page-AdminDash"
 import UserNavbar from "./Pages/User/nav-User"
-import AdminNavbar from "./Pages/Admin/nav-Admin"
 import PublicNavbar from "./Pages/Public/nav-Public"
 import SellerNavbar from "./Pages/Seller/nav-Seller"
 import { userRoleStore } from "./Store/ClientStore/store-UserRole"
@@ -29,7 +27,6 @@ function App() {
         [
           { role: "user", element: <UserNavbar /> },
           { role: "seller", element: <SellerNavbar /> },
-          { role: "admin", element: <AdminNavbar /> },
           { role: "public", element: <PublicNavbar /> },
         ].find(menu => menu.role === role)?.element
       }
@@ -63,16 +60,10 @@ function App() {
           <Route path="*" element={<Navigate to="profile"/>}/>
         </Route>
 
-        <Route path="/admin" element={<ProtectedRoutes AuthRole="admin" />}>
-          <Route index element={<Navigate to="dash"/>}/>
-          <Route path="dashboard" element={<AdminDashBoard/>}/>
-          <Route path="*" element={<Navigate to="dashboard"/>}/>
-        </Route>
-
         <Route path="*" element={<Navigate to="/home" />}/>
       </Routes>
 
-      <TailwindScreenDetector/>
+      {/* <TailwindScreenDetector/> */}
       <div className={`h-[10rem] bg-blue-400`} />
     </div>
 

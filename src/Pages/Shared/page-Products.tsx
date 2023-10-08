@@ -1,7 +1,7 @@
 import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
 import { sortingBadges } from "@/Store/ClientStore/store-Constants"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
-import noProductsFound from "@/assets/noProductFound3.png"
+import NoProductsFound from "@/assets/noProductFound.png"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
 import BadgePicker from "@/components/BadgePicker"
 import { AxiosError } from "axios"
@@ -53,7 +53,7 @@ function ProductsPage() {
             <DesktopFilters />
             <div className={`h-20 w-full`} />
           </div>
-          <div className="bg-gradient-to-b from-transparent to-white via-[#ffffffc7] flex justify-center items-end font-bold py-1 gap-x-2 h-20 text-slate-600 absolute bottom-0 w-full">
+          <div className="bg-gradient-to-b from-transparent to-white flex justify-center items-end font-bold py-1 gap-x-2 h-20 text-slate-600 absolute bottom-0 w-full">
             <p> Scroll </p>
             <div className={`text-xl`}>
               <FaSort />
@@ -68,11 +68,11 @@ function ProductsPage() {
 
           <div className={`z-10 sticky top-14 xs:top-16 sm:top-14 shadow-lg`}>
             <div
-              className={`bg-slate-600 sm:bg-slate-100 flex w-full md:justify-between sm:justify-end sm:scale-100 sm:relative justify-center items-center scale-105 fixed bottom-0 origin-bottom`}>
-              <p className="text-slate-800 font-semibold pl-4 lg:text-base hidden md:block text-sm leading-4">
+              className={`bg-slate-800 sm:bg-slate-800 flex w-full md:justify-between sm:justify-end sm:scale-100 sm:relative justify-center items-center scale-105 fixed bottom-0 origin-bottom`}>
+              <p className="text-slate-100 font-semibold pl-4 lg:text-base hidden md:block text-sm leading-4">
                 {
                   data &&
-                  `Showing ${(searchObject.pageNo-1)*searchObject.pageLength + 1} - ${searchObject.pageNo*searchObject.pageLength} out of ${data.totalProducts} results`
+                  `Showing ${(searchObject.pageNo-1)*searchObject.pageLength + 1} - ${Math.min(searchObject.pageNo*searchObject.pageLength, data.totalProducts)} out of ${data.totalProducts} results`
                 }
               </p>
               <div className={`block xs:hidden m-1`}>
@@ -82,9 +82,9 @@ function ProductsPage() {
                   size="xs"
                   activeBgColor="bg-slate-200"
                   activeTextColor="text-slate-800"
-                  passiveBgColor="bg-slate-600"
-                  passiveTextColor="text-gray-200"
-                  boxBgColor="bg-slate-600"
+                  passiveBgColor="bg-slate-800"
+                  passiveTextColor="text-slate-200"
+                  boxBgColor="bg-slate-800"
                   maxButtons={4}
                 />
               </div>
@@ -95,9 +95,9 @@ function ProductsPage() {
                   size="md"
                   activeBgColor="bg-slate-200"
                   activeTextColor="text-slate-800"
-                  passiveBgColor="bg-slate-600"
-                  passiveTextColor="text-gray-200"
-                  boxBgColor="bg-slate-600"
+                  passiveBgColor="bg-slate-800"
+                  passiveTextColor="text-slate-200"
+                  boxBgColor="bg-slate-800"
                   maxButtons={4}
                 />
               </div>
@@ -106,11 +106,11 @@ function ProductsPage() {
                   totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="xs"
-                  activeBgColor="bg-slate-500"
-                  activeTextColor="text-white"
-                  passiveBgColor="bg-white"
-                  passiveTextColor="text-gray-500"
-                  boxBgColor="bg-white"
+                  activeBgColor="bg-slate-200"
+                  activeTextColor="text-slate-800"
+                  passiveBgColor="bg-slate-800"
+                  passiveTextColor="text-slate-200"
+                  boxBgColor="bg-slate-800"
                   maxButtons={4}
                 />
               </div>
@@ -119,11 +119,11 @@ function ProductsPage() {
                   totalPages={totalPagesRef.current}
                   onPageChange={handlePage}
                   size="sm"
-                  activeBgColor="bg-slate-500"
-                  activeTextColor="text-white"
-                  passiveBgColor="bg-white"
-                  passiveTextColor="text-gray-500"
-                  boxBgColor="bg-white"
+                  activeBgColor="bg-slate-200"
+                  activeTextColor="text-slate-800"
+                  passiveBgColor="bg-slate-800"
+                  passiveTextColor="text-slate-200"
+                  boxBgColor="bg-slate-800"
                   maxButtons={4}
                   firstAndLast
                 />
@@ -137,10 +137,10 @@ function ProductsPage() {
                 badges={sortingBadges.values}
                 customBadgeStrings={sortingBadges.strings}
                 onSelect={handleSort}
-                activeBgColor="bg-white"
-                passiveBgColor="bg-gray-400"
-                activeTextColor="text-slate-600"
-                passiveTextColor="text-white"
+                activeBgColor="bg-slate-600"
+                passiveBgColor="bg-slate-200"
+                activeTextColor="text-white"
+                passiveTextColor="text-slate-800"
                 containerLayout="hide-scrollbar overflow-x-scroll whitespace-nowrap lg:w-[40rem] md:w-[calc(100vw-19.5rem)] sm:w-[calc(100vw-16.5rem)] w-[calc(100vw-5rem)] flex items-center gap-x-4"
                 badgeLayout="px-3 py-1 pb-[0.25rem] rounded-full xxs:text-xs font-bold inline-block"
               />
@@ -177,9 +177,9 @@ function ProductsPage() {
             
           {
             data && data.products.length === 0 &&
-            <div className={`h-4/5 sm:h-4/5 text-slate-800 flex flex-col justify-center items-center sm:relative absolute w-full`}>
+            <div className={`h-4/5 sm:h-4/5 text-slate-800 flex flex-col justify-center items-center sm:relative absolute w-full rel`}>
               <img
-                src={noProductsFound}
+                src={NoProductsFound}
                 alt="No Products Found"
                 className="w-32 sm:w-48 aspect-square"
               />
@@ -193,14 +193,14 @@ function ProductsPage() {
             isError &&
             <div className={`h-4/5 sm:h-3/5 text-slate-600 flex flex-col justify-center items-center sm:relative absolute w-full`}>
               <div className={`flex gap-x-2 px-2 bg-slate-300 rounded-lg relative`}>
-                <div className="text-8xl text-slate-500">
+                <div className="text-8xl text-slate-600">
                   <TbFaceIdError/>
                 </div>
                 <div className="font-bold py-2 flex flex-col gap-y-2">
-                  <p className="text-xl sm:text-2xl text-center">
+                  <p className="text-xl sm:text-2xl text-center text-slate-700">
                     An Error Occured!!
                   </p>
-                  <button className="bg-slate-600 text-white w-full py-1 rounded-lg active:bg-slate-700 shadow-md active:shadow-none"
+                  <button className="bg-slate-700 text-white w-full py-1 rounded-lg active:bg-slate-700 shadow-md active:shadow-none"
                   onClick={() => refetch()}>
                     Retry
                   </button>

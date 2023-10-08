@@ -4,7 +4,7 @@ import SearchBar, { searchValues } from "@/components/searchBar"
 import { categoryBadges, defaultValues, tempPaymentNote } from "@/Store/ClientStore/store-Constants"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import { useNavigate, useParams } from "react-router-dom"
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { Rating } from '@mui/material'
 import { FaShoppingCart } from "react-icons/fa"
 import { BsFillLightningChargeFill } from "react-icons/bs"
@@ -42,12 +42,13 @@ function ProductDetailsPage() {
 
     const { id } = useParams()
     const Navigate = useNavigate()
-    const { searchObject, setSearchObject } = filterStore()
+    const { setSearchObject } = filterStore()
     const categoryBarRef = useRef<HTMLUListElement | null>(null)
     const { handleScrollX, leftScroll, rightScroll }
     = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
     const categoryIndex = categoryBadges.values.indexOf(category)
     const categoryString = categoryBadges.strings[categoryIndex]
+   
     const handleSearch = (value: searchValues) => {
         setSearchObject({...defaultValues, keyword:value.search})
         window.scrollTo({ top: 0 })
@@ -55,11 +56,13 @@ function ProductDetailsPage() {
     }
 
     const handleCategory = (categories:string[]) => {
-        setSearchObject({...searchObject, category:categories[0]})
+        setSearchObject({...defaultValues, category:categories[0]})
+        window.scrollTo({ top: 0 })
         Navigate("/products")
     }
 
     if (!id) {
+        Navigate(-1)
         return
     }
     
@@ -137,7 +140,7 @@ function ProductDetailsPage() {
                         <button className="bg-green-600 text-white py-2 px-8 text-xl font-semibold rounded-lg flex items-center gap-x-2 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75">
                             <BsFillLightningChargeFill/> Buy Now
                         </button>
-                        <button className="ring-1 ring-green-600 text-green-700 py-2 px-8 text-xl font-semibold rounded-lg flex items-center gap-x-2 active:text-green-800 hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75">
+                        <button className="bg-white ring-1 ring-green-600 text-green-700 py-2 px-8 text-xl font-semibold rounded-lg flex items-center gap-x-2 active:text-green-800 hover:bg-white hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75">
                             <FaShoppingCart/> Add to Cart
                         </button>
                     </div>

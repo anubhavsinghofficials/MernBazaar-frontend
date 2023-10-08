@@ -31,14 +31,14 @@ function HomePage() {
     return (
         <div className={`w-screen min-h-screen bg-slate-200 xxs:pt-12 sm:pt-14 xl:px-2 xl:pr-6 lg:pr-4 max-w-[96rem] m-auto`}>
 
-            <div className={`grow px-2 pl-4 bg-slate-600 self-stretch flex justify-center py-2 sm:hidden sticky top-14 xs:top-16 h-12 z-20`}>
+            <div className={`grow px-2 pl-4 bg-slate-800 self-stretch flex justify-center py-2 sm:hidden sticky top-14 xs:top-16 h-12 z-20`}>
                 <SearchBar
                     onSearch={handleSearch}
                     placeHolder="Search Products"
                 />
             </div>
 
-            <nav className="sm:sticky sm:top-14 xs:top-4 relative top-2 h-8 xs:h-10 flex justify-center flex-nowrap cursor-pointer bg-slate-600 z-10 mb-2 xs:mb-4 sm:mb-0">
+            <nav className="sm:sticky sm:top-14 xs:top-4 relative top-2 h-8 xs:h-10 flex justify-center flex-nowrap cursor-pointer bg-slate-800 z-10 mb-2 xs:mb-4 sm:mb-0">
                 <button className={`text-slate-200 text-3xl active:bg-slate-700 ${leftScroll ? 'opacity-100': 'opacity-0'}`}
                         onClick={() => handleScrollX(-1)}>
                     <BiChevronLeft/>
@@ -49,8 +49,8 @@ function HomePage() {
                 categoryBadges.strings.map((category,index) => {
                     const value = categoryBadges.values[index]
                     return (
-                    <li key={category} className="flex justify-center items-center">
-                        <button className="whitespace-nowrap active:bg-slate-400 bg-slate-200 text-slate-800 px-4 rounded-full flex justify-center items-center py-0 xs:py-[0.2rem] sm:py-0"
+                    <li key={category} className="flex justify-center">
+                        <button className="whitespace-nowrap active:bg-slate-700 text-slate-200 px-4 flex justify-center items-center py-0 xs:py-[0.2rem] sm:py-0"
                         onClick={()=>handleCategory([value])}>
                             {category}
                         </button>

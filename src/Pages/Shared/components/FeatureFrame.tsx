@@ -28,8 +28,8 @@ function FeatureFrame(props:FeatureFramePropsType) {
     
 
     return (
-    <div className="bg-white aspect-[5/6] flex flex-col justify-end">
-        <div className=" grow text-xl font-bold text-slate-800 pl-4 flex items-center">
+    <div className="bg-white aspect-[6/7] flex flex-col justify-end">
+        <div className=" grow text-xl font-bold text-slate-800 pl-4 flex items-end pb-2">
             { title }
         </div>
         <div className={`aspect-square grid grid-cols-2 grid-rows-2 gap-2 p-2`}>

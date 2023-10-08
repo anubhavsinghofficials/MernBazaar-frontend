@@ -152,7 +152,7 @@ function PageSlider_Lite(props:PaginationProps) {
 
     
     return (
-        <div className={`${boxBgColor} ${boxStyle[size]} flex font-bold shadow-md`}
+        <div className={`${boxBgColor} ${boxStyle[size]} flex font-bold`}
              ref={parentRef}>
             
             {   firstAndLast &&

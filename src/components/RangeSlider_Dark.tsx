@@ -45,7 +45,7 @@ function RangeSlider_Dark(props:sliderProps) {
     }
      
     return (
-        <div className={"w-full xs:pt-4 xs:pb-6 xs:px-4 rounded-md bg-slate-600 flex font-bold text-xl flex-col gap-y-6"}>
+        <div className={"w-full xs:pt-4 xs:pb-6 xs:px-4 rounded-md bg-slate-800 flex font-bold text-xl flex-col gap-y-6"}>
 
             <div className={`py-4 bg-slate-700 text-slate-100 rounded-md flex justify-around text-sm xs:text-base`}>
                 <p>₹ {Range[0]}</p>

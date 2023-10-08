@@ -47,7 +47,7 @@ function RangeSlider(props:sliderProps) {
     return (
         <div className={"w-full pt-4 pb-6 px-4 rounded-md bg-slate-200 flex font-bold text-xl flex-col gap-y-6"}>
 
-            <div className={`py-2 bg-slate-100 text-slate-700 rounded-md flex justify-around text-base`}>
+            <div className={`py-2 bg-white text-slate-700 rounded-md flex justify-around text-base`}>
                 <p>₹ {Range[0]}</p>
                 <p> - </p>
                 <p>₹ {Range[1]}</p>
@@ -60,7 +60,7 @@ function RangeSlider(props:sliderProps) {
                     step={step}
                     className={"mx-2"}
                     trackStyle={`h-3 bg-slate-300`}
-                    rangeStyle={`bg-slate-500`}
+                    rangeStyle={`bg-slate-600`}
                     thumbStyle={`rounded-md focus:scale-125 h-4 w-4 ring-2 ring-slate-600`}
                     onValueChange={value => onChange(value)}
                     onValueCommit={value => onSubmit(value)}
