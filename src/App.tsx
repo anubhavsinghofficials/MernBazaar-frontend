@@ -63,7 +63,7 @@ function App() {
         <Route path="*" element={<Navigate to="/home" />}/>
       </Routes>
 
-      {/* <TailwindScreenDetector/> */}
+      <TailwindScreenDetector/>
       <div className={`h-[10rem] bg-blue-400`} />
     </div>
 

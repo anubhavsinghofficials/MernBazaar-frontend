@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom"
 import { useScrollEffect } from "@/Hooks/useScrollEffect"
 import React, { useRef } from "react"
 import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
-import { defaultValues } from "@/Store/ClientStore/store-Constants"
+import { categoryBadges, defaultValues } from "@/Store/ClientStore/store-Constants"
 import { AxiosError } from "axios"
 import ProductCardHomeLoading from "./ProductCard-Home-Loading"
+import { IconType } from 'react-icons'
 
 type productSliderType = {
     title:string,
@@ -19,6 +20,8 @@ function ProductSlider(props:productSliderType) {
     const scrollPadRef = useRef(null)
     const Navigate = useNavigate()
     const { setSearchObject, searchObject} = filterStore()
+    const categoryIndex = categoryBadges.values.indexOf(value)
+    const CategoryIcon = categoryBadges.icons[categoryIndex] as IconType
     const categorySearchObject = {
         ...defaultValues,
         category   : value,
@@ -46,9 +49,9 @@ function ProductSlider(props:productSliderType) {
 
             <div className={`flex justify-between pt-4`}>
                 <button
-                className={`h-10 flex justify-start items-center px-4 text-slate-800 text-xl font-bold hover:text-green-700 active:text-green-900`}
+                className={`h-10 flex justify-start items-center gap-x-2 px-4 text-slate-800 text-xl font-bold hover:text-green-700 active:text-green-900`}
                 onClick={()=>handleCategory([value])}>
-                    {title}
+                     <CategoryIcon className="text-red-600"/> {title}
                     <span className="text-2xl">
                             <BiChevronRight/>
                     </span>

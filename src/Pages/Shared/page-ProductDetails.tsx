@@ -11,6 +11,10 @@ import { BsFillLightningChargeFill } from "react-icons/bs"
 import SellerCard from "./components/SellerCard"
 import ReviewCard from "./components/ReviewCard"
 import ProductSlider from "./components/ProductSlider"
+import ShowReviewModal from "./components/Modal-ShowReview"
+import React from "react"
+import DeleteReviewModal from "./components/Modal-DeleteReview"
+import EditReviewModal from "./components/Modal-EditReview"
 
 const title = 'Noise Pulse 2 Max 1.85 Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart'
 const description = ['Powerful Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Superfast Memory – 8GB of unified memory makes your entire system speedy and responsive. That way it can support tasks like memory-hogging multitab browsing and opening a huge graphic file quickly and easily.','The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power']
@@ -37,6 +41,16 @@ const sampleCurrent = {
 }
 const currentUserReview = sampleCurrent
 
+const otherUsers = [{
+    name : "other user",
+    overallRating : 4.5,
+    message : 'corporis facilis asperiores quas velit vitae laboriosam dolor accusantium dolores, molestiae tempora fuga adipisci voluptas!'
+}]
+
+export type reviewType = {
+    userRating  : number
+    userComment : string
+}
 
 function ProductDetailsPage() {
 
@@ -59,6 +73,12 @@ function ProductDetailsPage() {
         setSearchObject({...defaultValues, category:categories[0]})
         window.scrollTo({ top: 0 })
         Navigate("/products")
+    }
+
+    const deleteReview = () => {
+        // set reviewer to default
+    }
+    const submitReview = (review:reviewType) => {
     }
 
     if (!id) {
@@ -136,15 +156,17 @@ function ProductDetailsPage() {
                             {discount}% off
                         </p>
                     </div>
-                    <div className="flex gap-x-4 pt-12">
+                    <div className="flex gap-x-4 pt-20">
                         <button className="bg-green-600 text-white py-2 px-8 text-xl font-semibold rounded-lg flex items-center gap-x-2 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75">
-                            <BsFillLightningChargeFill/> Buy Now
+                            <BsFillLightningChargeFill/>
+                            Buy Now
                         </button>
                         <button className="bg-white ring-1 ring-green-600 text-green-700 py-2 px-8 text-xl font-semibold rounded-lg flex items-center gap-x-2 active:text-green-800 hover:bg-white hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75">
-                            <FaShoppingCart/> Add to Cart
+                            <FaShoppingCart/>
+                            Add to Cart
                         </button>
                     </div>
-                    <p className="mt-12 p-4 w-full bg-slate-100 rounded-md">
+                    <p className="mt-10 p-4 w-full bg-slate-100 rounded-md">
                         {tempPaymentNote}
                     </p>
                     <div className={`pt-10 flex gap-x-4`}>
@@ -208,20 +230,34 @@ function ProductDetailsPage() {
                         productId={id}
                         name={currentUserReview.name}
                         message={currentUserReview.message}
-                        overallRating={+currentUserReview.overallRating}
+                        rating={+currentUserReview.overallRating}
                         />
                     :
-                    <ReviewCard/>
+                    <ReviewCard
+                        productId={''}
+                        name={''}
+                        message={''}
+                        rating = {4}
+                        />
                 }
-
-                  <ReviewCard
-                    productId={id}
-                    name={sampleCurrent.name}
-                    message={sampleCurrent.message}
-                    overallRating={+sampleCurrent.overallRating}
-                    />
+                {
+                    otherUsers.map(user => (
+                        <React.Fragment key={`${user.name}${user.message}${user.overallRating}`}>
+                            <ReviewCard
+                            productId={id}
+                            name={user.name}
+                            message={user.message}
+                            rating={+user.overallRating}
+                            />
+                        </React.Fragment>
+                    ))
+                }
                </div>
             </div>
+            
+            <ShowReviewModal/>
+            <DeleteReviewModal onConfirm={deleteReview}/>
+            <EditReviewModal onConfirm={submitReview} />
 
             <div className={`py-2`}>
             <ProductSlider 

@@ -12,6 +12,7 @@ import MobileFilters from "./components/MobileFilters"
 import ProductCard from "./components/ProductCard"
 import ProductCardLoading from "./components/ProductCard-Loading"
 import React, { useRef } from "react"
+import Ad_main from "./components/Ad_main"
 
 function ProductsPage() {
 
@@ -62,8 +63,8 @@ function ProductsPage() {
         </div>
 
         <div className={`bg-slate-200 self-stretch mt-2 max-w-[80rem] grow flex flex-col min-w-0`}>
-          <div className={`h-20 bg-slate-500 text-white hidden sm:block`}>
-            My Portfolio Ad
+          <div className={`h-40 bg-slate-500 text-white hidden sm:block`}>
+            <Ad_main isProductPage/>
           </div>
 
           <div className={`z-10 sticky top-14 xs:top-16 sm:top-14 shadow-lg`}>
@@ -148,6 +149,12 @@ function ProductsPage() {
           </div>
 
           <MobileFilters/>
+          {
+            !isError &&
+            <div className={`h-40 bg-slate-500 text-white block sm:hidden`}>
+              <Ad_main isProductPage/>
+            </div>
+          }
 
           <div className={`my-3 grid sm: gap-2 xl:gap-3 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xxs:grid-cols-2 bg-slate-200`}>
             {

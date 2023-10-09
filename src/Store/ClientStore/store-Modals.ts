@@ -2,27 +2,49 @@
 
 import { create } from 'zustand'
 
-type modalStoreType = {
-    showDeleteReviewAlert:boolean
-    toggleDeleteReviewAlert: () => void
-    showReviewModal:boolean
-    toggleShowReviewModal: () => void
-    showEditReview:boolean
-    toggleShowEditReview: () => void
+
+
+type reviewerType = {
+     name: string
+     rating: number
+     message: string
 }
 
+type modalStoreType = {
+    reviewer                : reviewerType
+    setReviewer             : (reviewer:reviewerType) => void
+
+    showReviewModal         : boolean
+    toggleShowReviewModal   : () => void
+
+    showDeleteReviewModal   : boolean
+    toggleDeleteReviewModal : () => void
+
+    showEditReviewModal       : boolean
+    toggleShowEditReviewModal : () => void
+}
+
+
+
+
+
 export const modalStore = create<modalStoreType>((set,_get) => ({
-    showDeleteReviewAlert:false,
-    toggleDeleteReviewAlert: () => set((state)=> (
-        { showDeleteReviewAlert:!state.showDeleteReviewAlert }
-    )),
+    reviewer : {name:'', rating:0, message:''},
+    setReviewer: (reviewer) => set(()=> ({reviewer})),
+
     showReviewModal:false,
     toggleShowReviewModal: () => set((state)=> (
         { showReviewModal:!state.showReviewModal }
     )),
-    showEditReview:false,
-    toggleShowEditReview: () => set((state)=> (
-        { showEditReview:!state.showEditReview }
+
+    showDeleteReviewModal:false,
+    toggleDeleteReviewModal: () => set((state)=> (
+        { showDeleteReviewModal:!state.showDeleteReviewModal }
+    )),
+
+    showEditReviewModal:false,
+    toggleShowEditReviewModal: () => set((state)=> (
+        { showEditReviewModal:!state.showEditReviewModal }
     )),
 }))
 
