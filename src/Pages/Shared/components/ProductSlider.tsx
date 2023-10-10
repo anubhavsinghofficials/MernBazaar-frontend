@@ -49,9 +49,12 @@ function ProductSlider(props:productSliderType) {
 
             <div className={`flex justify-between pt-4`}>
                 <button
-                className={`h-10 flex justify-start items-center gap-x-2 px-4 text-slate-800 text-xl font-bold hover:text-green-700 active:text-green-900`}
+                className={`h-10 flex justify-start items-center gap-x-2 px-4 text-slate-800 text-lg xs:text-xl font-bold hover:text-green-700 active:text-green-900`}
                 onClick={()=>handleCategory([value])}>
-                     <CategoryIcon className="text-red-600"/> {title}
+                     <CategoryIcon className="text-red-600"/> 
+                     <span className="line-clamp-1 text-start">
+                        {title}
+                     </span>
                     <span className="text-2xl">
                             <BiChevronRight/>
                     </span>

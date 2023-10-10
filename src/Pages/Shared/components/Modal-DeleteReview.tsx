@@ -52,13 +52,13 @@ function DeleteReviewModal(props:DeleteReviewModalPropsType) {
         ref={modalRef}
         onClick={handleCancel}
         >
-            <div className={`max-w-[30rem] rounded-lg p-6 pb-4 flex flex-col gap-y-2 bg-slate-50 relative`}
+            <div className={`max-w-[80%] sm:max-w-[30rem] rounded-lg p-6 pb-4 flex flex-col gap-y-2 bg-slate-50 relative`}
                  onClick={(e)=> e.stopPropagation()}
             >
-                <p className="text-2xl text-slate-800 font-semibold leading-7 font-Roboto">
+                <p className="text-xl leading-6 xs:text-2xl xs:leading-7 text-slate-800 font-semibold font-Roboto">
                     {deleteReviewModal.title}
                 </p>
-                <p className="text-slate-600 font-semibold leading-5 pr-4 max-h-80 overflow-y-auto py-1">
+                <p className="text-slate-600 xs:font-semibold leading-[1.15rem] xs:leading-5 pr-4 max-h-80 overflow-y-auto py-1">
                     {deleteReviewModal.message}
                 </p>
                 <div className={`self-end flex items-end gap-x-4`}>

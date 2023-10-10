@@ -78,7 +78,7 @@ function EditReviewModal(props:EditReviewModalPropsType) {
         ref={modalRef}
         onClick={handleCancel}
         >
-           <div className={`w-96 h-96 rounded-lg p-6 pb-4 flex flex-col gap-y-2 bg-slate-50 relative`}
+           <div className={`w-[80%] max-w-[24rem] h-96 rounded-lg p-6 pb-4 flex flex-col gap-y-2 bg-slate-50 relative`}
            onClick={(e)=> e.stopPropagation()}>
             <button className="font-semibold bg-slate-50 hover:bg-slate-200 active:bg-slate-300 duration-100 absolute -right-2 -top-2 rounded-full p-[0.3rem] text-xs flex flex-col"
             onClick={handleCancel}>
@@ -87,7 +87,7 @@ function EditReviewModal(props:EditReviewModalPropsType) {
             <form
                 onSubmit={handleSubmit}
                 className="grow flex flex-col gap-y-4">
-              <label className="text-2xl text-slate-800 font-semibold leading-7  flex flex-col gap-y-1">
+              <label className="text-xl xs:text-2xl text-slate-800 font-semibold leading-7  flex flex-col gap-y-1">
                 Ratings
               <Rating
                 onChange={(_e, newValue) => setRating(newValue)}
@@ -96,7 +96,7 @@ function EditReviewModal(props:EditReviewModalPropsType) {
                 size="large"
                 />
               </label>
-              <label className="text-2xl text-slate-800 font-semibold leading-7  flex flex-col gap-y-1 h-full grow">
+              <label className="text-xl xs:text-2xl text-slate-800 font-semibold leading-7  flex flex-col gap-y-1 h-full grow">
                 Review
               <textarea className={`w-full h-full leading-5 outline-none p-3 resize-none text-slate-800 formScrollbar rounded-lg bg-slate-200 ring-2 ring-transparent focus-within:ring-slate-300 text-base font-normal`}
               spellCheck={false}

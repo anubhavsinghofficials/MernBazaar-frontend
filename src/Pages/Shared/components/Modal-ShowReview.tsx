@@ -38,14 +38,14 @@ function ShowReviewModal() {
         ref={modalRef}
         onClick={handleCancel}
         >
-            <div className={`max-w-[30rem] rounded-lg p-6 flex flex-col gap-y-2 bg-slate-50 relative`}
+            <div className={`max-w-[80%] sm:max-w-[30rem] rounded-lg p-6 flex flex-col gap-y-2 bg-slate-50 relative`}
                  onClick={(e)=> e.stopPropagation()}
             >
-                <div className={`flex gap-x-4`}>
-                    <p className={`${ +rating >= 4 ? 'bg-green-600' : +rating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-3 rounded-md font-semibold`}>
+                <div className={`flex items-start gap-x-4`}>
+                    <p className={`${ +rating >= 4 ? 'bg-green-600' : +rating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-3 rounded-md font-semibold whitespace-nowrap`}>
                         ★ {rating}
                     </p>
-                    <p className="text-2xl text-slate-800 font-semibold leading-7 font-Roboto">
+                    <p className="text-lg xs:text-2xl text-slate-800 font-semibold leading-7 font-Roboto break-all">
                         {name}
                     </p>
                 </div>
