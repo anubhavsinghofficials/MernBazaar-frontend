@@ -29,6 +29,7 @@
     "react-router-dom": "^6.15.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-animation-delay": "^1.0.7",
     "zod": "^3.22.2",
     "zustand": "^4.4.1"
   },

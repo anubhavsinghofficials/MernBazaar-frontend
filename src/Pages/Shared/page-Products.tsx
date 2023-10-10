@@ -10,7 +10,7 @@ import { TbFaceIdError } from "react-icons/tb"
 import DesktopFilters from "./components/DesktopFilters"
 import MobileFilters from "./components/MobileFilters"
 import ProductCard from "./components/ProductCard"
-import ProductCardLoading from "./components/Loading-Ui/ProductCard-Loading"
+import ProductCardLoading from "./components/Loading-Ui/Loading-ProductCard"
 import React, { useRef } from "react"
 import Ad_main from "./components/Ad_main"
 
