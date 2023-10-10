@@ -7,7 +7,7 @@ import React, { useRef } from "react"
 import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
 import { categoryBadges, defaultValues } from "@/Store/ClientStore/store-Constants"
 import { AxiosError } from "axios"
-import ProductCardHomeLoading from "./ProductCard-Home-Loading"
+import ProductCardHomeLoading from "./Loading-Ui/ProductCard-Home-Loading"
 import { IconType } from 'react-icons'
 
 type productSliderType = {

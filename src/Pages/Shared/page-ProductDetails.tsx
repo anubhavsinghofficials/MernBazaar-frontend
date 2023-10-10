@@ -5,7 +5,6 @@ import { categoryBadges, defaultValues, tempPaymentNote } from "@/Store/ClientSt
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import { useNavigate, useParams } from "react-router-dom"
 import { useRef } from "react"
-import { Rating } from '@mui/material'
 import { FaShoppingCart } from "react-icons/fa"
 import { BsFillLightningChargeFill } from "react-icons/bs"
 import SellerCard from "./components/SellerCard"
