@@ -15,16 +15,17 @@ import { PublicAuth } from "./Pages/Public/auth-Public"
 import { UserAuth } from "./Pages/User/auth-User"
 import { SellerAuth } from "./Pages/Seller/auth-Seller"
 import Navbar from "./Pages/Shared/Navbar"
-import UserRegister from "./Pages/Public/page-UserSignUp"
+import UserRegister from "./Pages/Public/page-UserRegister"
 import UserLogIn from "./Pages/Public/page-UserLogin"
-import SellerRegister from "./Pages/Public/page-SellerSignUp"
+import SellerRegister from "./Pages/Public/page-SellerRegister"
 import SellerLogIn from "./Pages/Public/page-SellerLogin"
 
 function App() {
   const { role } = userRoleStore()
 
   return (
-  <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
+  // <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
+  <div className={`w-screen bg-slate-400`}>
     
     <Navbar/>
 

@@ -35,20 +35,52 @@
     transition: opacity 80ms ease-out;
 }
 
+.openForm {
+    max-height: 54rem;
+    opacity: 100%;
+    transition: all 400ms ease;
+  }
+  
+.collapseForm {
+    max-height: 24rem;
+    opacity: 0%;
+    transition: all 400ms ease;
+}
 
 
 
 
 
+/* For Google Chrome: */
+.styledPlaceholder::-webkit-input-placeholder {
+    color: rgb(148, 160, 183);
+    font-weight: bold;
+}
+/* For Mozilla Firefox: */
+.styledPlaceholder::-moz-placeholder {
+    color: rgb(148, 160, 183);
+    font-weight: bold;
+}
+/* For Internet Explorer: */
+.styledPlaceholder:-ms-input-placeholder {
+    color: rgb(148, 160, 183);
+    font-weight: bold;
+} 
+/* For Opera: */
+.styledPlaceholder:-o-input-placeholder {
+    color: rgb(148, 160, 183);
+    font-weight: bold;
+} 
 
 
 
 
-// _______________________________________________ Scrollbars
+
+/*_______________________________________________ Scrollbars */
 
 /* FIREFOX */
 * {
-    scrollbar-color: rgb(109, 115, 136) rgb(255, 255, 255);
+    scrollbar-color: #334155 #cbd5e1;
 }
 .hide-scrollbar {
     scrollbar-width:none;
@@ -60,15 +92,15 @@
     height: 1.3em;
 }
 *::-webkit-scrollbar-thumb{
-    background-color: rgb(109, 115, 136);
+    background-color: #334155;
     border-radius: 100vw;
-    border: 4px solid rgb(255, 255, 255);
+    border: 4px solid #cbd5e1;
 }
 *::-webkit-scrollbar-thumb:hover{
-    background-color: rgb(123, 129, 150);
+    background-color: #475569;
 }
 *::-webkit-scrollbar-track{
-    background-color: rgb(255, 255, 255);
+    background-color: #cbd5e1;
     border-radius: 100vw;
 }
 .hide-scrollbar::-webkit-scrollbar{
@@ -76,4 +108,25 @@
 }
 * {
     -webkit-tap-highlight-color: transparent;
+}
+
+
+/* FIREFOX */
+.formScrollbar {
+    scrollbar-color: rgb(149, 149, 161) rgb(40, 49, 75);
+}  
+/* CHROME & others */
+.formScrollbar::-webkit-scrollbar{
+    width: 1em;
+    height: 1.5em;
+}
+.formScrollbar::-webkit-scrollbar-thumb{
+    background-color: rgb(149, 149, 161);
+    border-radius: 100vw;
+    border: 2px solid rgb(40, 49, 75);
+}
+.formScrollbar::-webkit-scrollbar-track{
+    background-color: rgb(40, 49, 75);
+    border-radius: 100vw;
+    margin-block: 1em;
 }
