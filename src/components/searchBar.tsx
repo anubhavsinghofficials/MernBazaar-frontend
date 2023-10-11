@@ -36,7 +36,7 @@ function SearchBar({ onSearch, placeHolder }: SearchBarProps) {
       className="flex w-full rounded-md overflow-hidden"
       ref={formRef}>
       <input
-        className={`px-3 xs:py-1 grow bg-slate-200 text-slate-800 outline-none min-w-0 font-semibold`}
+        className={`px-3 xs:py-1 grow bg-slate-50 text-slate-800 outline-none min-w-0 font-semibold`}
         type="text"
         id="search"
         {...register("search")}

@@ -4,15 +4,15 @@
 
 
 
-function SignIn() {
+function UserLogIn() {
     return (
              <div className={`w-full bg-black flex justify-center items-center`}>
-                    Sign In
+                    User Log In
              </div>
     )
 }
  
-export default SignIn
+export default UserLogIn
 
 
 

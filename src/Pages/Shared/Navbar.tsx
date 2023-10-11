@@ -2,13 +2,15 @@ import { NavLink, useNavigate } from "react-router-dom"
 import SearchBar, { searchValues } from "../../components/searchBar"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
 import { FaShoppingCart } from "react-icons/fa"
-import { BsFillPersonFill } from "react-icons/bs"
 import { defaultValues } from "@/Store/ClientStore/store-Constants"
 import { userRoleStore } from "@/Store/ClientStore/store-UserRole"
+import PublicNavOptions from "../Public/components/PublicNavOptions"
+import UserNavOptions from "../User/components/UserNavOptions"
+import SellerNavOptions from "../Seller/components/SellerNavOptions"
 
 
 
-function PublicNavbar() {
+function Navbar() {
     
     const { setSearchObject, setResetBadgeToken, setResetPages } = filterStore()
     const Navigate = useNavigate()
@@ -53,20 +55,29 @@ function PublicNavbar() {
             </div>
             {
                 role == 'user' &&
-                <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl`}>
-                  <FaShoppingCart/>
-                </button>
+                <>
+                    <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl`}
+                    onClick={() => Navigate('/user/cart')}>
+                    <FaShoppingCart/>
+                    </button>
+                    <UserNavOptions/>
+                </>
             }
             {
                 role == 'public' &&
-                <button className={`h-5/6 w-20 bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 active:bg-slate-800 rounded-md font-semibold transition-colors duration-100 hidden md:block`}>
-                    Log in
-                </button>
+                <>
+                    <button className={`h-5/6 w-20 bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 active:bg-slate-800 rounded-md font-semibold transition-colors duration-100 hidden md:block`}
+                    onClick={()=> Navigate('/login/user')}>
+                        Log in
+                    </button>
+                    <PublicNavOptions/>
+                </>
+            }
+            {
+                role == 'seller' &&
+                <SellerNavOptions/>
             }
 
-            <button className={`bg-slate-800 text-slate-200 w-8 aspect-square rounded-md flex justify-center items-center text-xl hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 xs:text-2xl`}>
-                <BsFillPersonFill/>
-            </button>
         </div>
       </div>
 
@@ -74,4 +85,4 @@ function PublicNavbar() {
     )
 }
 
-export default PublicNavbar
+export default Navbar
