@@ -2,7 +2,7 @@ import { modalStore } from "@/Store/ClientStore/store-Modals"
 import { Rating } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
 import { ImCross } from 'react-icons/im'
-import { reviewType } from "../page-ProductDetails"
+import { reviewType } from "../../page-ProductDetails"
 
 
 type EditReviewModalPropsType = {
