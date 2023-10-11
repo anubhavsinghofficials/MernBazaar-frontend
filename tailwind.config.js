@@ -52,12 +52,29 @@ module.exports = {
             'animation-timing-function': 'cubic-bezier(0.45, 0.03, 0.35, 0.93)',
           },
         },
+        lineLoader: {
+          '0%':{
+            width: '0%',
+            transform: 'translateX(-105%)'
+          },
+          '20%':{
+            width:'0%'
+          },
+          '60%':{
+            width:'60%'
+          },
+          '100%':{
+            width: '50%',
+            transform: 'translateX(200%)'
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         hoverWaveLR : "hoverWaveLR 1s ease infinite",
         hoverWaveTB : "hoverWaveTB 1s ease infinite",
+        lineLoader: "lineLoader 2s ease-in-out infinite"
       },
       fontFamily: {
         Roboto: ['Roboto'],

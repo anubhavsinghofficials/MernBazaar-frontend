@@ -19,9 +19,14 @@ import UserRegister from "./Pages/Public/page-UserRegister"
 import UserLogIn from "./Pages/Public/page-UserLogin"
 import SellerRegister from "./Pages/Public/page-SellerRegister"
 import SellerLogIn from "./Pages/Public/page-SellerLogin"
+import MernBazaarLoader from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar"
 
 function App() {
   const { role } = userRoleStore()
+
+  if (true) {
+      return <MernBazaarLoader/>
+  }
 
   return (
   // <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
