@@ -15,6 +15,7 @@ import React from "react"
 import DeleteReviewModal from "./components/Modal-DeleteReview"
 import EditReviewModal from "./components/Modal-EditReview"
 import ProductDetailsPageLoading from "./components/Loading-Ui/Loading-page-ProductDetails"
+import ReviewCardLoading from "./components/Loading-Ui/Loading-ReviewCard"
 
 const title = 'Noise Pulse 2 Max 1.85 Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart'
 const description = ['Powerful Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Superfast Memory – 8GB of unified memory makes your entire system speedy and responsive. That way it can support tasks like memory-hogging multitab browsing and opening a huge graphic file quickly and easily.','The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power']
@@ -46,6 +47,11 @@ const otherUsers = [{
     overallRating : 4.5,
     message : 'corporis facilis asperiores quas velit vitae laboriosam dolor accusantium dolores, molestiae tempora fuga adipisci voluptas!'
 }]
+
+const x = 0
+const a = x>0
+
+const isRefetching = false
 
 export type reviewType = {
     userRating  : number
@@ -85,9 +91,6 @@ function ProductDetailsPage() {
         Navigate(-1)
         return
     }
-    
-    const x = 1
-    const a = x>0
 
     return (
         <div className={`w-screen min-h-screen bg-slate-200 xxs:pt-12 sm:pt-10 max-w-[86rem] m-auto`}>
@@ -240,49 +243,54 @@ function ProductDetailsPage() {
                         <div className={``}>
                         <SellerCard seller={seller}/>
                         </div>
-                </div>
+                    </div>
                 </div>
 
 
                 <div className={`mt-2 p-4 bg-white rounded-md flex flex-col gap-y-4`}>
-                <p className="text-xl font-semibold">
-                        Reviews ({reviewCount})
-                </p>
-                <p className="font-Roboto text-slate-800 text-lg">
-                                
-                            </p>
-                <div className={` grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`}>
-                    {
-                        currentUserReview
-                        ?
-                        <ReviewCard
-                            currentUserReview
-                            productId={id}
-                            name={currentUserReview.name}
-                            message={currentUserReview.message}
-                            rating={+currentUserReview.overallRating}
-                            />
-                        :
-                        <ReviewCard
+                    <p className="text-xl font-semibold">
+                            Reviews ({reviewCount})
+                    </p>
+                    <div className={` grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`}>
+                        {
+                            isRefetching &&
+                            <ReviewCardLoading/>
+                        }
+                        {
+                            !isRefetching &&
+                            currentUserReview &&
+                            <ReviewCard
+                                currentUserReview
+                                productId={id}
+                                name={currentUserReview.name}
+                                message={currentUserReview.message}
+                                rating={+currentUserReview.overallRating}
+                                />
+                        }
+                        {
+                            !isRefetching &&
+                            !currentUserReview &&
+                            <ReviewCard
                             productId={''}
                             name={''}
                             message={''}
                             rating = {4}
                             />
-                    }
-                    {
-                        otherUsers.map(user => (
-                            <React.Fragment key={`${user.name}${user.message}${user.overallRating}`}>
-                                <ReviewCard
-                                productId={id}
-                                name={user.name}
-                                message={user.message}
-                                rating={+user.overallRating}
-                                />
-                            </React.Fragment>
-                        ))
-                    }
-                </div>
+                        }
+                        {
+                            !isRefetching &&
+                            otherUsers.map(user => (
+                                <React.Fragment key={`${user.name}${user.message}${user.overallRating}`}>
+                                    <ReviewCard
+                                    productId={id}
+                                    name={user.name}
+                                    message={user.message}
+                                    rating={+user.overallRating}
+                                    />
+                                </React.Fragment>
+                            ))
+                        }
+                    </div>
                 </div>
                 
                 <ShowReviewModal/>

@@ -41,7 +41,7 @@ function ShowReviewModal() {
             <div className={`max-w-[80%] sm:max-w-[30rem] rounded-lg p-6 flex flex-col gap-y-2 bg-slate-50 relative`}
                  onClick={(e)=> e.stopPropagation()}
             >
-                <div className={`flex items-start gap-x-4`}>
+                <div className={`flex items-center gap-x-4`}>
                     <p className={`${ +rating >= 4 ? 'bg-green-600' : +rating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-3 rounded-md font-semibold whitespace-nowrap`}>
                         ★ {rating}
                     </p>

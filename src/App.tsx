@@ -23,13 +23,14 @@ function App() {
 
   return (
     <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
-      {
+      {/* {
         [
           { role: "user", element: <UserNavbar /> },
           { role: "seller", element: <SellerNavbar /> },
           { role: "public", element: <PublicNavbar /> },
         ].find(menu => menu.role === role)?.element
-      }
+      } */}
+      <PublicNavbar/>
 
       <Routes>
         <Route path="/home" element={<HomePage/>}/>

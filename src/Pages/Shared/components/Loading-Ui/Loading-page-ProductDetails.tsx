@@ -30,8 +30,6 @@ function ProductDetailsPageLoading() {
                             <div className="h-6 bg-gray-300 animate-pulse"/>
                             <div className="h-6 bg-gray-300 animate-pulse"/>
                         </div>
-                        
-
                         <div className="flex gap-x-4 justify-center sm:justify-start pt-8 min-w-0 sm:w-[22rem] lg:w-[22rem] xl:w-[25rem]">
                             <div className="h-12 sm:h-11 w-[46%] bg-gray-300 rounded-md animate-pulse"/>
                             <div className="h-12 sm:h-11 w-[54%] bg-gray-300 rounded-md animate-pulse"/>

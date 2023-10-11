@@ -51,7 +51,7 @@ function ReviewCard(props:ReviewCardPropsType) {
      
 
     return (
-        <div className={`rounded-xl bg-slate-100 hover:bg-slate-200 duration-100 flex flex-col gap-y-2 p-4 cursor-pointer`}
+        <div className={`rounded-xl bg-slate-100 hover:bg-slate-200 duration-100 flex flex-col gap-y-2 p-4 cursor-pointer shadow-md`}
         onClick={openReviewFullCard}>
            <div className={`flex items-center justify-between relative`}
            >
