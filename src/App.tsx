@@ -9,7 +9,6 @@ import SellerProfile from "./Pages/Seller/page-SellerProfile"
 import AddProducts from "./Pages/Seller/page-AddProducts"
 import EditProduct from "./Pages/Seller/page-EditProduct"
 import SellerProducts from "./Pages/Seller/page-SellerProducts"
-import { userRoleStore } from "./Store/ClientStore/store-UserRole"
 import TailwindScreenDetector from "./components/screenDetector"
 import { PublicAuth } from "./Pages/Public/auth-Public"
 import { UserAuth } from "./Pages/User/auth-User"
@@ -19,13 +18,15 @@ import UserRegister from "./Pages/Public/page-UserRegister"
 import UserLogIn from "./Pages/Public/page-UserLogin"
 import SellerRegister from "./Pages/Public/page-SellerRegister"
 import SellerLogIn from "./Pages/Public/page-SellerLogin"
-import MernBazaarLoader from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar"
 import MernBazaarLoaderStatic from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar-Static"
+import { syncGetUserRole } from "./Store/ServerStore/sync-UserRole"
+import GenericModal from "./Pages/Shared/components/Modals/Modal-Generic"
 
 function App() {
-  const { role } = userRoleStore()
 
-  if (true) {
+  const { isLoading, isRefetching } = syncGetUserRole()
+
+  if (isLoading || isRefetching) {
       return <MernBazaarLoaderStatic/>
   }
 
@@ -34,7 +35,7 @@ function App() {
   <div className={`w-screen bg-slate-100`}>
     
     <Navbar/>
-
+    <GenericModal/>
     <Routes>
       <Route path="/home" element={<HomePage/>}/>
       <Route path="/products" element={<ProductsPage/>}/>

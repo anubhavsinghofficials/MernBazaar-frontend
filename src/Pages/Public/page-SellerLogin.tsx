@@ -1,17 +1,16 @@
+
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import {
-  BiSolidChevronRight,
-  BiSolidChevronDown,
-  BiSolidLockAlt,
-  BiSolidChevronLeft,
-} from "react-icons/bi";
+import { BiSolidChevronRight, BiSolidChevronDown, BiSolidLockAlt, BiSolidChevronLeft } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
 import { useEffect, useState } from "react";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SellerLogInFormType, zodSellerLogInSchema } from "./FormValidators/type-seller";
 import { useNavigate } from "react-router-dom";
+import { testSeller } from "@/Store/ClientStore/store-Constants";
+import { syncLoginSeller } from "@/Store/ServerStore/sync-Seller";
+import { AxiosError } from "axios";
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -23,12 +22,23 @@ function SellerLogIn() {
     const [Password, seePassword] = useState(false);
     const [disableSubmit, setDisableSubmit] = useState(false);
     const [openForm, setOpenForm] = useState(false);
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { mutate, isError, error } = syncLoginSeller()
     const Navigate = useNavigate()
   
-    useEffect(() => {
-        window.scrollTo({ top: 0 })
-        setOpenForm(true);
-    }, []);
+    useEffect(()=>{
+      if (!openForm) {
+          window.scrollTo({ top: 0 })
+          setOpenForm(true)
+      }
+      if (isError) {
+          const errorData = (error as AxiosError<{error:string}>).response?.data!
+          setDisableSubmit(false)
+          setGenericMessage(errorData?.error)
+          toggleGenericModal()
+      }
+  },[isError])
+  
   
     const handleRoute = (route:string) => {
         setOpenForm(false)
@@ -47,24 +57,20 @@ function SellerLogIn() {
   
     const form = useForm<SellerLogInFormType>({
       defaultValues: {
-        email: "seller@test.com",
-        password: "test",
+        email: testSeller.email,
+        password: testSeller.password,
       },
       mode: "onSubmit",
       resolver: zodResolver(zodSellerLogInSchema),
-    });
+    })
     const { register, formState, handleSubmit } = form;
     const { errors } = formState;
   
     const onSubmit = (data: SellerLogInFormType) => {
-      console.log(data);
       setDisableSubmit(true);
-    };
-    const onError = (error: any) => console.log(error);
-    const onSuccess = () => {
-        setDisableSubmit(false);
+      mutate(data)
     }
-  
+
     return (
     <div className={`flex min-h-screen w-screen flex-col items-center justify-start bg-slate-900`}
     >
@@ -97,7 +103,7 @@ function SellerLogIn() {
   
           <form
             className=" flex grow flex-col items-center gap-y-2 rounded-b-xl rounded-t-3xl pb-24 pt-20 xs:px-8"
-            onSubmit={handleSubmit(onSubmit, onError)}
+            onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
             <div

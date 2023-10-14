@@ -7,6 +7,9 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { SellerSignUpFormType, zodSellerSignupSchema } from "./FormValidators/type-seller"
 import { useNavigate } from "react-router-dom";
+import { syncRegisterSeller } from "@/Store/ServerStore/sync-Seller";
+import { AxiosError } from "axios";
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -19,12 +22,23 @@ function SellerRegister() {
     const [Password, seePassword] = useState(false)
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { mutate, isError, error } = syncRegisterSeller()
     const Navigate = useNavigate()
 
     useEffect(()=>{
-        window.scrollTo({ top: 0 })
-        setOpenForm(true)
-    },[])
+        if (!openForm) {
+            window.scrollTo({ top: 0 })
+            setOpenForm(true)
+        }
+        if (isError) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        }
+    },[isError])
+    
 
     const handleRoute = (route:string) => {
         setOpenForm(false)
@@ -55,12 +69,13 @@ function SellerRegister() {
     const { errors } = formState
 
     const onSubmit = ( data:SellerSignUpFormType ) => {
-        console.log(data)
         setDisableSubmit(true)
+        mutate(data)
     }
-    const onError = ( error:any ) => console.log(error)
-    const onSuccess = () => {
-        setDisableSubmit(false)
+    
+    if (isError) {
+        const errorData = (error as AxiosError).response?.data
+        console.log(errorData)
     }
 
 
@@ -85,7 +100,7 @@ function SellerRegister() {
                 Home
             </button>
             <form className=" px-8 pt-12 pb-28 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
-                    onSubmit={handleSubmit(onSubmit,onError)}
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate>
 
                 <div className={`text-slate-100 flex items-center w-full p-2  rounded-full focus-within:bg-slate-700 ${ errors.name ? "ring-2 ring-red-400" :""}`}>

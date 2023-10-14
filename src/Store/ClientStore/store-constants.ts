@@ -1,4 +1,12 @@
+import { BsFillLaptopFill, BsFillPhoneFill } from "react-icons/bs"
+import { BiChair, BiSolidWatchAlt } from "react-icons/bi"
+import { GiFruitBowl, GiLargeDress, GiMirrorMirror } from "react-icons/gi"
 import { searchObjectType } from "./store-Filters"
+import { BiSolidTShirt } from "react-icons/bi"
+import { TbHorseToy } from "react-icons/tb"
+import { FaDog, FaDumbbell } from "react-icons/fa"
+import { ImBook } from "react-icons/im"
+import { AiFillMedicineBox } from "react-icons/ai"
 
 
 
@@ -22,6 +30,15 @@ export const defaultValues:searchObjectType = {
     pageLength  : 10,
 }
 
+export const testUser = {
+    email: 'user_1_@mernbazaar.com',
+    password: '111111'
+}
+
+export const testSeller = {
+    email: 'testseller@mernbazaar.com',
+    password: 'mernBazaar'
+}
 
 export const months = [
     'January', 'February', 'March', 'April',
@@ -29,7 +46,13 @@ export const months = [
     'October', 'November', 'December'
 ]
 
-// Badges for BadgePicker______________________________
+
+export const nextSaleDate = '2024-01-01T00:00:00'
+export const myGitHub = 'https://github.com/anubhavsingh05'
+
+
+
+// Badges for BadgePicker_____________________________
 
 export const sortingBadges = {
     strings : [
@@ -60,6 +83,12 @@ export const categoryBadges = {
         "watch", "furniture", "toys", "pets", "books",
         "beauty", "groceries", "medicines", "gym"
     ],
+    icons   : [
+        BsFillPhoneFill, BiSolidTShirt, GiLargeDress,
+        BsFillLaptopFill, BiSolidWatchAlt, BiChair,
+        TbHorseToy, FaDog, ImBook, GiMirrorMirror,
+        GiFruitBowl, AiFillMedicineBox, FaDumbbell
+    ]
 }
 
 export const ratingBadges = {
@@ -84,11 +113,14 @@ export const discountBadges = {
 }
 
 
-// Modal Messages ______________________________
+
+// Modal Messages ___________________________________
 
 export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account upon buying the products. You can use test cards provided in the payment gateway to test the payment systems'
-export const reviewModalTitle = 'Are you sure you want to delete your review ?'
-export const reviewModalMessage = 'Your review will be permanently deleted for this product. You can review it again after that'
+export const deleteReviewModal = {
+    title : 'Are you sure you want to delete your review ?',
+    message : 'Your review will be permanently deleted for this product. You can review it again after that'
+}
 
 
 // General
@@ -100,3 +132,4 @@ export const reviewModalMessage = 'Your review will be permanently deleted for t
 // Cart Product count
 
 // simplyfy the categoryis plurals first
+// role change upon sign in/out etc

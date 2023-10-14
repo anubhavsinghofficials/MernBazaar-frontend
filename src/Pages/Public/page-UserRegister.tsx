@@ -7,6 +7,9 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { UserSignUpFormType, zodUserSignupSchema } from "./FormValidators/type-user";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import { syncRegisterUser } from "@/Store/ServerStore/sync-User";
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -16,12 +19,23 @@ function UserRegister() {
     const [Password, seePassword] = useState(false)  
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { mutate, isError, error } = syncRegisterUser()
     const Navigate = useNavigate()
 
     useEffect(()=>{
-        window.scrollTo({ top: 0 })
-        setOpenForm(true)
-    },[])
+        if (!openForm) {
+            window.scrollTo({ top: 0 })
+            setOpenForm(true)
+        }
+        if (isError) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        }
+    },[isError])
+    
 
     const handleRoute = (route:string) => {
         setOpenForm(false)
@@ -50,12 +64,8 @@ function UserRegister() {
     const { errors } = formState
 
     const onSubmit = ( data:UserSignUpFormType ) => {
-        console.log(data)
         setDisableSubmit(true)
-    }
-    const onError = ( error:any ) => console.log(error)
-    const onSuccess = () => {
-        setDisableSubmit(false)
+        mutate(data)
     }
 
     return (
@@ -84,7 +94,7 @@ function UserRegister() {
 
                 
             <form className=" px-8 pt-12 pb-24 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
-                    onSubmit={handleSubmit(onSubmit,onError)}
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate>
 
 

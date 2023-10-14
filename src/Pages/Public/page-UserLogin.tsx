@@ -1,5 +1,4 @@
 
-
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { BiSolidChevronRight, BiSolidChevronDown, BiSolidLockAlt, BiSolidChevronLeft } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
@@ -8,6 +7,10 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { UserLogInFormType, zodUserLogInSchema } from "./FormValidators/type-user";
 import { useNavigate } from "react-router-dom";
+import { testUser } from "@/Store/ClientStore/store-Constants";
+import { syncLoginUser } from "@/Store/ServerStore/sync-User";
+import { AxiosError } from "axios";
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -18,12 +21,28 @@ function UserLogIn() {
     const [Password, seePassword] = useState(false)
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { mutate, isError, error } = syncLoginUser()
     const Navigate = useNavigate()
 
+    // this useEffect is combining 2 useEffect, one of which was
+    // solely for the 1st 'if' with no dependency and one for the
+    // 2nd 'if' with 'isError' dependency
     useEffect(()=>{
-        window.scrollTo({ top: 0 })
-        setOpenForm(true)
-    },[])
+        if (!openForm) {
+            window.scrollTo({ top: 0 })
+            setOpenForm(true)
+        }
+        if (isError) {
+            // <{error:string}> is ∵ we are sending the error message from the
+            // backend in such a format, eg: res.json({error:'user not found'})
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        }
+    },[isError])
+    
 
     const handleRoute = (route:string) => {
         setOpenForm(false)
@@ -37,12 +56,12 @@ function UserLogIn() {
         setTimeout(() => {
             Navigate('/home')
         }, 500)
-      }
+    }
 
     const form = useForm<UserLogInFormType>({
           defaultValues:{
-                email: "user@test.com",
-                password: "test",
+                email: testUser.email,
+                password: testUser.password,
           },
           mode:"onSubmit",
           resolver:zodResolver(zodUserLogInSchema)
@@ -51,14 +70,9 @@ function UserLogIn() {
     const { errors } = formState
 
     const onSubmit = ( data:UserLogInFormType ) => {
-        console.log(data)
         setDisableSubmit(true)
+        mutate(data)
     }
-    const onError = ( error:any ) => console.log(error)
-    const onSuccess = () => {
-        setDisableSubmit(false)
-    }
-
 
     return (
         <div className={`w-screen min-h-screen flex items-center flex-col bg-slate-900`}>
@@ -73,7 +87,6 @@ function UserLogIn() {
                     Log In
                 </h1>
 
-                {/* <div className={`h-1 bg-slate-600 w-1/2`}/> */}
                 <div className="w-[80%] absolute left-12 text-slate-400 top-32 leading-5">
                     <p>
                         Use these given test details for testing, 
@@ -95,7 +108,7 @@ function UserLogIn() {
 
                 
             <form className=" px-8 pt-20 pb-24 flex flex-col grow items-center gap-y-2 rounded-t-3xl rounded-b-xl"
-                    onSubmit={handleSubmit(onSubmit,onError)}
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate>
                 
                 <div className={`text-slate-100 flex items-center w-full p-2  rounded-full focus-within:bg-slate-700 ${ errors.email ? "ring-2 ring-red-400" :""}`}>

@@ -30,14 +30,14 @@ function SellerCard(props:sellerCardType) {
         <div
             className='cursor-pointer mb-4 lg:m-0'
             onClick={handleShowMore}>
-            <p className="text-xl pb-1 font-semibold flex  items-center">
+            <div className="text-xl pb-1 font-semibold flex  items-center">
                 <span className='pr-4'>
                     Seller
                 </span>
                 <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +sellerScore >= 4 ? 'bg-green-600' : +sellerScore >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 rounded-md whitespace-nowrap xs:hidden`}>
                     ★ {sellerScore} 
                 </p>
-            </p>
+            </div>
             <div className={`ring-slate-200 rounded-md flex flex-col gap-y-2 lg:p-4 relative bg-gradient-to-br bg-slate-100 ring-2 group`}>
                 <button className='absolute -bottom-6 right-0 lg:bg-none lg:right-4 lg:bottom-2 text-green-800 hover:bg-slate-100 px-2 rounded-md duration-75 hover:ring-1 ring-slate-300'
                         onClick={handleShowMore}>
