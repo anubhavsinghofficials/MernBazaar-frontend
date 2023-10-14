@@ -1,5 +1,5 @@
 import { defaultValues } from "@/Store/ClientStore/store-Constants"
-import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
+import { syncFetchProducts } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import FeatureProductCard from "./FeatureProductCard"
 import FeatureProductCardLoading from "./Loading-Ui/Loading-FeatureProductCard"

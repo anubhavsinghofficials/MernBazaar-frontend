@@ -20,12 +20,13 @@ import UserLogIn from "./Pages/Public/page-UserLogin"
 import SellerRegister from "./Pages/Public/page-SellerRegister"
 import SellerLogIn from "./Pages/Public/page-SellerLogin"
 import MernBazaarLoader from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar"
+import MernBazaarLoaderStatic from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar-Static"
 
 function App() {
   const { role } = userRoleStore()
 
   if (true) {
-      return <MernBazaarLoader/>
+      return <MernBazaarLoaderStatic/>
   }
 
   return (

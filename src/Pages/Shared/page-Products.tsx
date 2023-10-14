@@ -1,4 +1,4 @@
-import { syncFetchProducts } from "@/Store/ServerStore/store-Products"
+import { syncFetchProducts } from "@/Store/ServerStore/sync-Products"
 import { sortingBadges } from "@/Store/ClientStore/store-Constants"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
 import NoProductsFound from "@/assets/noProductFound.png"
