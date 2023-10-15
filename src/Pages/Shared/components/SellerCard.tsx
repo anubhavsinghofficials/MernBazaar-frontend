@@ -19,6 +19,7 @@ function SellerCard(props:sellerCardType) {
     const { seller:{name,email,address,description,
             joinedAt, sellerScore} } = props
     const sellerScorePercentage = (sellerScore/5)*100
+    const joinedAtDate = new Date(joinedAt)
     const [showMore, setShowMore] = useState(false)
 
     const handleShowMore = (e:React.MouseEvent) => {
@@ -27,8 +28,7 @@ function SellerCard(props:sellerCardType) {
     }
      
     return (
-        <div
-            className='cursor-pointer mb-4 lg:m-0'
+        <div className='cursor-pointer mb-4 lg:m-0'
             onClick={handleShowMore}>
             <div className="text-xl pb-1 font-semibold flex  items-center">
                 <span className='pr-4'>
@@ -106,7 +106,7 @@ function SellerCard(props:sellerCardType) {
                         Seller since
                     </p>
                     <p className="md:text-sm leading-[1.1rem]">
-                        {`${months[joinedAt.getMonth()-1]} ${joinedAt.getFullYear()}`}
+                        {`${months[joinedAtDate.getMonth()-1]} ${joinedAtDate.getFullYear()}`}
                     </p>
                 </div>
                 </>

@@ -66,7 +66,7 @@ function Navbar() {
             {
                 role == 'public' &&
                 <>
-                    <button className={`h-5/6 w-20 bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 active:bg-slate-800 rounded-md font-semibold transition-colors duration-100 sm:hidden md:block`}
+                    <button className={`h-5/6 w-20 bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 active:bg-slate-800 rounded-md font-semibold transition-colors duration-100 hidden xs:block sm:hidden md:block`}
                     onClick={()=> Navigate('/login/user')}>
                         Log in
                     </button>

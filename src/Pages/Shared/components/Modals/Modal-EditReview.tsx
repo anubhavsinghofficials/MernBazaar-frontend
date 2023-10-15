@@ -22,7 +22,7 @@ function EditReviewModal(props:EditReviewModalPropsType) {
     const modalRef = useRef<HTMLDivElement>(null)
 
     useEffect(()=>{
-        setMessage(reviewer.message)
+        setMessage(reviewer.comment)
         setRating(reviewer.rating)
         setTimeout(() => {
             if (modalRef.current && showEditReviewModal) {

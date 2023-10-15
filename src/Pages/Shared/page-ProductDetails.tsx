@@ -16,42 +16,9 @@ import DeleteReviewModal from "./components/Modals/Modal-DeleteReview"
 import EditReviewModal from "./components/Modals/Modal-EditReview"
 import ProductDetailsPageLoading from "./components/Loading-Ui/Loading-page-ProductDetails"
 import ReviewCardLoading from "./components/Loading-Ui/Loading-ReviewCard"
+import { syncAddReview, syncDeleteReview, syncFetchAllReviews, syncFetchProductDetails } from "@/Store/ServerStore/sync-Products"
 
-const title = 'Noise Pulse 2 Max 1.85 Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart'
-const description = ['Powerful Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Superfast Memory – 8GB of unified memory makes your entire system speedy and responsive. That way it can support tasks like memory-hogging multitab browsing and opening a huge graphic file quickly and easily.','The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power','Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power']
-const reviewCount = 4
-const overallRatings = 4.5
-const actualPrice = 1330000
-const netPrice = 4300000
-const discount = 77
 const photos = [1,2,3,4]
-const category = 'watch'
-const seller = {
-    name: "Ajanta electronics Ajanta electronics Ajanta electronics ",
-    email: "gugia@pugiaelectronics.com",
-    description: "we bring you the best of the world products with state of the art technology and great customer services, providing you benefits like 10 days replacement policies and 1 year warranty on every products you buy from us and many more such benefits",
-    address:'62 H, LGF 2, Royal Apartments, HumayunPur Village, Safdarjung Enclave, New Delhi, near East Kailash Puri Akhbar Road - 110023, mve, New Delhi, near East Kailash Puri Akhbar',
-    sellerScore: 4,
-    joinedAt: new Date()
-}
-
-const sampleCurrent = {
-     name : "Abhinav Singh",
-     overallRating : 3,
-     message : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et cupiditate nisi, rem ea esse obcaecati dignissimos delectus corporis facilis asperiores quas velit vitae laboriosam dolor accusantium dolores, molestiae tempora fuga adipisci voluptas!'
-}
-const currentUserReview = sampleCurrent
-
-const otherUsers = [{
-    name : "other user",
-    overallRating : 4.5,
-    message : 'corporis facilis asperiores quas velit vitae laboriosam dolor accusantium dolores, molestiae tempora fuga adipisci voluptas!'
-}]
-
-const x = 0
-const a = x>0
-
-const isRefetching = false
 
 export type reviewType = {
     userRating  : number
@@ -63,12 +30,15 @@ function ProductDetailsPage() {
     const { id } = useParams()
     const Navigate = useNavigate()
     const { setSearchObject } = filterStore()
-    const categoryBarRef = useRef<HTMLUListElement | null>(null)
-    const { handleScrollX, leftScroll, rightScroll }
-    = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
-    const categoryIndex = categoryBadges.values.indexOf(category)
+    const categoryBarRef = useRef<HTMLUListElement|null>(null)
+    const { handleScrollX, leftScroll, rightScroll } = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
+    const { data:product, isLoading:productLoading } = syncFetchProductDetails(id!)
+    const { data:reviews, isLoading:reviewLoading, isRefetching:reviewRefetching } = syncFetchAllReviews(id!)
+    const { mutate:addRev } = syncAddReview(id!)
+    const { mutate:deleteRev } = syncDeleteReview(id!)
+    const categoryIndex = categoryBadges.values.indexOf(product ? product.category: 'watch')
     const categoryString = categoryBadges.strings[categoryIndex]
-   
+
     const handleSearch = (value: searchValues) => {
         setSearchObject({...defaultValues, keyword:value.search})
         window.scrollTo({ top: 0 })
@@ -83,8 +53,11 @@ function ProductDetailsPage() {
 
     const deleteReview = () => {
         // set reviewer to default
+        deleteRev()
     }
     const submitReview = (review:reviewType) => {
+        // console.log(review)
+        addRev(review)
     }
 
     if (!id) {
@@ -130,53 +103,64 @@ function ProductDetailsPage() {
             </nav>
 
 
-            { a
+            { productLoading
             ? <ProductDetailsPageLoading/>
             :
                 <>
                 <div className={`flex flex-col md:flex-row items-start pt-4 sm:p-4 lg:p-10 bg-white rounded-md`}
                 >
-                <div className={`w-full md:w-2/5 xl:w-1/2 aspect-square xs:h-96 sm:h-[30rem] md:h-auto md:aspect-square bg md:sticky top-20 flex-none flex justify-center gap-x-2 p-2 xs:p-0`}>
+                <div className={`w-full md:w-2/5 xl:w-1/2 aspect-square xs:h-96 sm:h-[30rem] md:h-auto md:aspect-square bg md:sticky top-16 flex-none flex justify-center gap-x-2 p-2 xs:p-0`}>
 
-                    <div className={`bg-slate-300 h-full aspect-square relative`}>
-                        <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +overallRatings >= 4 ? 'bg-green-600' : +overallRatings >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
-                            ★ {overallRatings} 
+                    <div className={`bg-white h-full aspect-square relative flex justify-center`}>
+                        <img
+                            src={product.images.thumbnail.url}
+                            alt="product photo"
+                            className="h-full"
+                        />
+                        <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
+                            ★ {product.overallRating} 
                         </p>
                     </div>
                 </div>
                 
                 <div className={`py-2 px-2 mt-2 mb-8 self-stretch flex justify-center gap-x-2 md:hidden rounded-md`}>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                        <div className={`w-12 xs:w-16 aspect-square bg-slate-300`}/>
-                    </div>
+                    {
+                        product.images.additional.map(() => (
+                            <img
+                            src={product.images.thumbnail.url}
+                            alt="product photo"
+                            className="w-12 xs:w-16 aspect-square bg-slate-300"
+                            />
+                        ))
+                    }
+                </div>
 
                 
                 <div className={`grow px-4 flex flex-col gap-y-10 pb-4`}
                 >
                         <div className={`flex flex-col gap-y-3`}>
                             <h1 className="text-xl xs:text-2xl sm:text-xl lg:text-2xl xl:text-3xl font-Roboto font-semibold sm:font-normal leading-7">
-                                {title}
+                                {product.title}
                             </h1>
                             <div className="flex gap-x-4 sm:gap-x-2 lg:gap-x-4 lg:text-lg items-center pt-4 sm:pt-0"
                             >
                                 <p className="text-2xl xs:text-4xl sm:text-xl lg:text-2xl xl:text-3xl font-semibold leading-[1.875rem] text-green-800">
-                                    ₹{netPrice}
+                                    ₹{product.price.net}
                                 </p>
                                 <p className="leading-[1.3rem] bg-red-500 px-2 py-[0.1rem] xs:py-1 sm:py-0 lg:px-4 text-white font-semibold text-base xs:text-lg sm:text-sm lg:text-lg whitespace-nowrap">
-                                    {discount}% off
+                                    {product.price.discount}% off
                                 </p>
                                 <p className="text-xl sm:text-base text-red-600 line-through leading-[1.3rem] sm:font-semibold ">
-                                    ₹{actualPrice}
+                                    ₹{product.price.actual}
                                 </p>
-                                <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +overallRatings >= 4 ? 'bg-green-600' : +overallRatings >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 py-1
+                                <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 py-1
                                 rounded-md ml-8 whitespace-nowrap hidden sm:block`}>
-                                    ★ {overallRatings} 
+                                    ★ {product.overallRating} 
                                     <span className="pl-2">
-                                        ({reviewCount} reviews)
+                                        {
+                                            !reviewRefetching && !reviewLoading &&
+                                            `(${reviews.totalReviews} reviews)`
+                                        }
                                     </span>
                                 </p>
                             </div>
@@ -198,14 +182,13 @@ function ProductDetailsPage() {
                         </p>
                         
                         <div className={`flex gap-x-4`}>
-                        <p className="text-lg xl:text-xl pb-1 font-semibold">
-                                Category:
-                        </p>
-                        <button
-                            className="px-4 rounded-md bg-green-100 active:bg-green-300 hover:bg-green-200 duration-75 text-sm xl:text-base font-semibold"
-                            onClick={() => handleCategory([category])}>
-                            {categoryString}
-                        </button>
+                            <p className="text-lg xl:text-xl pb-1 font-semibold">
+                                    Category:
+                            </p>
+                            <button className="px-4 rounded-md bg-green-100 active:bg-green-300 hover:bg-green-200 duration-75 text-sm xl:text-base font-semibold"
+                                onClick={() => handleCategory([product.category])}>
+                                {categoryString}
+                            </button>
                         </div>
 
                         <div className={`hidden md:block`}>
@@ -214,78 +197,87 @@ function ProductDetailsPage() {
                             </p>
                             <div className="flex gap-x-4">
                             {
-                                photos.map(photo => (
-                                    <div
-                                    key={photo}
-                                    className="h-12 xl:h-14 aspect-square bg-slate-300 rounded-sm"/>
-                                    ))
+                                product.images.additional.map(() => (
+                                    <img
+                                    src={product.images.thumbnail.url}
+                                    alt="product photo"
+                                    className="h-12 xl:h-14 aspect-square bg-slate-300 rounded-sm"
+                                    />
+                                ))
                             }
                             </div>
                         </div>
 
-                        <div className={``}>
+                        <div>
                             <p className="text-lg xl:text-xl pb-1 font-semibold">
                                 Discription
                             </p>
                             <ul className="xs:text-lg leading-6 sm:text-sm xl:text-base sm:leading-5 font-Roboto pl-4">
                                 {
-                                    description.map(point=>(
-                                        <li
-                                        key={point}
-                                        className="list-disc pb-4 md:pb-2">
-                                            {point}
-                                        </li>
-                                    ))
+                                    // description.map(point=>(
+                                    //     <li
+                                    //     key={point}
+                                    //     className="list-disc pb-4 md:pb-2">
+                                    //         {point}
+                                    //     </li>
+                                    // ))
+                                    product.description
                                 }
                             </ul>
                         </div>
                         
-                        <div className={``}>
-                        <SellerCard seller={seller}/>
-                        </div>
+                        <SellerCard seller={product.seller}/>
                     </div>
                 </div>
 
 
                 <div className={`mt-2 p-4 bg-white rounded-md flex flex-col gap-y-4`}>
                     <p className="text-xl font-semibold">
-                            Reviews ({reviewCount})
+                        {
+                            !reviewRefetching && !reviewLoading &&
+                            `Reviews (${reviews.totalReviews})`
+                        }
                     </p>
                     <div className={` grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`}>
                         {
-                            isRefetching &&
-                            <ReviewCardLoading/>
+                            (reviewRefetching || reviewLoading) &&
+                            Array.from({length:6}).map((_,i)=>(
+                                <React.Fragment key={i}>
+                                    <ReviewCardLoading/>
+                                </React.Fragment>
+                            ))
                         }
                         {
-                            !isRefetching &&
-                            currentUserReview &&
+                            !reviewRefetching && !reviewLoading &&
+                            reviews.currentUserReview &&
                             <ReviewCard
                                 currentUserReview
                                 productId={id}
-                                name={currentUserReview.name}
-                                message={currentUserReview.message}
-                                rating={+currentUserReview.overallRating}
+                                name={reviews.currentUserReview.name}
+                                comment={reviews.currentUserReview.comment}
+                                rating={+reviews.currentUserReview.rating}
                                 />
                         }
                         {
-                            !isRefetching &&
-                            !currentUserReview &&
+                            !reviewRefetching && !reviewLoading &&
+                            !reviews.currentUserReview &&
                             <ReviewCard
                             productId={''}
                             name={''}
-                            message={''}
+                            comment={''}
                             rating = {4}
                             />
                         }
                         {
-                            !isRefetching &&
-                            otherUsers.map(user => (
-                                <React.Fragment key={`${user.name}${user.message}${user.overallRating}`}>
+                            !reviewRefetching && !reviewLoading &&
+                            reviews.allReviews.map((user:any) => (
+                                <React.Fragment
+                                    key={`${user.name}${user.rating}${Math.random()}`}>
                                     <ReviewCard
                                     productId={id}
                                     name={user.name}
-                                    message={user.message}
-                                    rating={+user.overallRating}
+                                    comment={user.comment}
+                                    rating={+user.rating}
                                     />
                                 </React.Fragment>
                             ))
@@ -300,7 +292,7 @@ function ProductDetailsPage() {
                 <div className={`py-2`}>
                 <ProductSlider 
                     title={'Similar Products'}
-                    value={category}/>
+                    value={product.category}/>
                 </div>
             </>
             }

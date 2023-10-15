@@ -6,14 +6,14 @@ import { modalStore } from '@/Store/ClientStore/store-Modals'
 type ReviewCardPropsType = {
     name               : string
     rating             : number
-    message            : string
+    comment            : string
     currentUserReview? : boolean
     productId?         : string
 }
 
 function ReviewCard(props:ReviewCardPropsType) {
     
-    const { name, rating, message, currentUserReview, productId } = props
+    const { name, rating, comment, currentUserReview, productId } = props
     const { toggleDeleteReviewModal, toggleShowReviewModal,
             toggleShowEditReviewModal, setReviewer }
             = modalStore()
@@ -24,22 +24,21 @@ function ReviewCard(props:ReviewCardPropsType) {
     }
     const handleEditReview = (e:React.MouseEvent) => {
         e.stopPropagation()
-        if (name && rating && message) {
-            setReviewer({name,rating,message})
+        if (name && rating && comment) {
+            setReviewer({name,rating,comment})
         } else {
-            setReviewer({name:'',rating:0,message:''})
+            setReviewer({name:'',rating:0,comment:''})
         }
         toggleShowEditReviewModal()
     }
     const openReviewFullCard = (e:React.MouseEvent) => {
         e.stopPropagation()
-        setReviewer({name,rating,message})
+        setReviewer({name,rating,comment})
         toggleShowReviewModal()
     }
      
-
     
-    if (!name || !message || !rating || !productId) {
+    if (!name || !comment || !rating || !productId) {
         return (
             <div className={`rounded-xl bg-slate-100 hover:bg-slate-200 duration-100 flex justify-center items-center gap-x-2 p-4 cursor-pointer border-dashed border-slate-400 border-2`}
             onClick={handleEditReview}>
@@ -77,7 +76,7 @@ function ReviewCard(props:ReviewCardPropsType) {
             }
            </div>
            <p className="leading-[1.15rem] line-clamp-3">
-            {message}
+            {comment}
            </p>
         </div>
     )

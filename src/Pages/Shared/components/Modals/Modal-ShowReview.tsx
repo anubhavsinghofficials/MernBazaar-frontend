@@ -5,7 +5,7 @@ import { ImCross } from 'react-icons/im'
 
 function ShowReviewModal() {
 
-    const { reviewer:{ name, rating, message },showReviewModal,
+    const { reviewer:{ name, rating, comment },showReviewModal,
             toggleShowReviewModal } = modalStore()
     const modalRef = useRef<HTMLDivElement>(null)
 
@@ -50,7 +50,7 @@ function ShowReviewModal() {
                     </p>
                 </div>
                 <p className="text-slate-600 font-semibold leading-5 pr-4 max-h-80 overflow-y-auto py-1">
-                    {message}
+                    {comment}
                 </p>
                 <button className="font-semibold bg-slate-50 hover:bg-slate-200 active:bg-slate-300 duration-100 absolute -right-2 -top-2 rounded-full p-[0.3rem] text-xs"
                 onClick={handleCancel}>

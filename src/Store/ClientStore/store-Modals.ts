@@ -7,7 +7,7 @@ import { create } from 'zustand'
 type reviewerType = {
      name: string
      rating: number
-     message: string
+     comment: string
 }
 
 type modalStoreType = {
@@ -34,7 +34,7 @@ type modalStoreType = {
 
 
 export const modalStore = create<modalStoreType>((set,_get) => ({
-    reviewer : {name:'', rating:0, message:''},
+    reviewer : {name:'', rating:0, comment:''},
     setReviewer: (reviewer) => set(()=> ({reviewer})),
 
     showReviewModal:false,
