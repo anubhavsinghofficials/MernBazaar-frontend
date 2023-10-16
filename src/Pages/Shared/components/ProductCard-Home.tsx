@@ -32,7 +32,7 @@ function ProductCardHome(props:productCardHomePropsType) {
         </p>
 
         <div className={`px-2 bg-white text-black w-full absolute flex flex-col justify-center bottom-0 h-[27%]`}>
-            <p className={`line-clamp-2 font-semibold group-hover:text-green-800 group- active:text-green-900 text-center leading-[0.9rem] text-xs xs:text-sm xs:leading-4 h-2/3 pt-2`}>
+            <p className={`line-clamp-2 font-semibold group-hover:text-green-800 group- active:text-green-900 leading-[0.9rem] text-xs xs:text-sm xs:leading-4 h-2/3 pt-2`}>
                 {title}
             </p>
             <div className={`grow w-full flex items-baseline justify-end pb-1 pr-4`}>

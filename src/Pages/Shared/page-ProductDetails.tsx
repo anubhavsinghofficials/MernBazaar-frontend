@@ -4,7 +4,7 @@ import SearchBar, { searchValues } from "@/components/searchBar"
 import { categoryBadges, defaultValues, tempPaymentNote } from "@/Store/ClientStore/store-Constants"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import { useNavigate, useParams } from "react-router-dom"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FaShoppingCart } from "react-icons/fa"
 import { BsFillLightningChargeFill } from "react-icons/bs"
 import SellerCard from "./components/SellerCard"
@@ -18,7 +18,6 @@ import ProductDetailsPageLoading from "./components/Loading-Ui/Loading-page-Prod
 import ReviewCardLoading from "./components/Loading-Ui/Loading-ReviewCard"
 import { syncAddReview, syncDeleteReview, syncFetchAllReviews, syncFetchProductDetails } from "@/Store/ServerStore/sync-Products"
 
-const photos = [1,2,3,4]
 
 export type reviewType = {
     userRating  : number
@@ -38,6 +37,14 @@ function ProductDetailsPage() {
     const { mutate:deleteRev } = syncDeleteReview(id!)
     const categoryIndex = categoryBadges.values.indexOf(product ? product.category: 'watch')
     const categoryString = categoryBadges.strings[categoryIndex]
+    const [Thumbnail, setThumbnail] = useState('')
+    const [Quantity, setQuantity] = useState(0)
+
+    useEffect(()=>{
+        if (product) {
+            setThumbnail(product.images.thumbnail.url)
+        }
+    },[product])
 
     const handleSearch = (value: searchValues) => {
         setSearchObject({...defaultValues, keyword:value.search})
@@ -52,18 +59,22 @@ function ProductDetailsPage() {
     }
 
     const deleteReview = () => {
-        // set reviewer to default
         deleteRev()
     }
     const submitReview = (review:reviewType) => {
-        // console.log(review)
         addRev(review)
     }
+    const changeThumbnail = (img:string) => {
+        if (img !== Thumbnail) {
+            setThumbnail(img)
+        }
+    } 
 
     if (!id) {
         Navigate(-1)
         return
     }
+
 
     return (
         <div className={`w-screen min-h-screen bg-slate-200 xxs:pt-12 sm:pt-10 max-w-[86rem] m-auto`}>
@@ -107,42 +118,44 @@ function ProductDetailsPage() {
             ? <ProductDetailsPageLoading/>
             :
                 <>
-                <div className={`flex flex-col md:flex-row items-start pt-4 sm:p-4 lg:p-10 bg-white rounded-md`}
+                <div className={`flex flex-col md:flex-row items-start pt-4 sm:p-4 lg:p-8 bg-white rounded-md gap-x-3 lg:gap-x-8`}
                 >
-                <div className={`w-full md:w-2/5 xl:w-1/2 aspect-square xs:h-96 sm:h-[30rem] md:h-auto md:aspect-square bg md:sticky top-16 flex-none flex justify-center gap-x-2 p-2 xs:p-0`}>
-
-                    <div className={`bg-white h-full aspect-square relative flex justify-center`}>
-                        <img
-                            src={product.images.thumbnail.url}
-                            alt="product photo"
-                            className="h-full"
-                        />
-                        <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
-                            ★ {product.overallRating} 
-                        </p>
-                    </div>
-                </div>
-                
-                <div className={`py-2 px-2 mt-2 mb-8 self-stretch flex justify-center gap-x-2 md:hidden rounded-md`}>
-                    {
-                        product.images.additional.map(() => (
+                    <div className={`w-full md:w-2/5 xl:w-[45%] aspect-square xs:h-96 sm:h-[30rem] md:h-auto md:aspect-square bg md:sticky top-20 flex-none flex justify-center gap-x-2 p-2 xs:p-0`}>
+                        <div className={`bg-white h-full aspect-square relative flex justify-center`}>
                             <img
-                            src={product.images.thumbnail.url}
-                            alt="product photo"
-                            className="w-12 xs:w-16 aspect-square bg-slate-300"
+                                src={Thumbnail}
+                                alt="product photo"
+                                className="h-full w-full"
                             />
-                        ))
-                    }
-                </div>
+                            <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
+                                ★ {product.overallRating} 
+                            </p>
+                        </div>
+                    </div>
+                
+                    <div className={`py-2 px-2 mt-2 mb-8 self-stretch flex justify-center gap-x-4 md:hidden rounded-md`}>
+                        {
+                            product.images.additional.map((img:any) => (
+                                <img
+                                key={img.url}
+                                src={img.url}
+                                alt="product photo"
+                                className="w-1/6 xs:w-14 sm:w-16 aspect-square bg-slate-300"
+                                onMouseOver={()=>changeThumbnail(img.url)}
+                                onClick={()=>changeThumbnail(img.url)}
+                                />
+                            ))
+                        }
+                    </div>
 
                 
-                <div className={`grow px-4 flex flex-col gap-y-10 pb-4`}
-                >
+                    <div className={`grow px-4 flex flex-col gap-y-10 pb-4`}
+                    >
                         <div className={`flex flex-col gap-y-3`}>
-                            <h1 className="text-xl xs:text-2xl sm:text-xl lg:text-2xl xl:text-3xl font-Roboto font-semibold sm:font-normal leading-7">
+                            <h1 className="text-xl sm:text-xl lg:text-2xl font-semibold sm:font-noral leading-7">
                                 {product.title}
                             </h1>
-                            <div className="flex gap-x-4 sm:gap-x-2 lg:gap-x-4 lg:text-lg items-center pt-4 sm:pt-0"
+                            <div className="flex gap-x-4 sm:gap-x-2 lg:gap-x-4 lg:text-lg items-center pt-4 sm:pt-2"
                             >
                                 <p className="text-2xl xs:text-4xl sm:text-xl lg:text-2xl xl:text-3xl font-semibold leading-[1.875rem] text-green-800">
                                     ₹{product.price.net}
@@ -153,19 +166,32 @@ function ProductDetailsPage() {
                                 <p className="text-xl sm:text-base text-red-600 line-through leading-[1.3rem] sm:font-semibold ">
                                     ₹{product.price.actual}
                                 </p>
-                                <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 py-1
-                                rounded-md ml-8 whitespace-nowrap hidden sm:block`}>
-                                    ★ {product.overallRating} 
-                                    <span className="pl-2">
+                                <div className={`items-end hidden sm:flex`}>
+                                    <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 py-1 xl:py-0 rounded-md ml-8 whitespace-nowrap`}>
+                                        ★ {product.overallRating} 
+                                    </p>
+                                    <p className="pl-2">
                                         {
                                             !reviewRefetching && !reviewLoading &&
                                             `(${reviews.totalReviews} reviews)`
                                         }
-                                    </span>
-                                </p>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className={`pt-8`}>
+                                <select className="px-3 font-semibold py-1 rounded-md bg-white ring-1 ring-slate-300 shadow-md text-green-800"
+                                        onChange={(e)=> setQuantity(+e.target.value)}>
+                                {
+                                    Array.from({length:Math.min(product.stock,5)})
+                                    .map((_,i)=>(
+                                        <option value={i+1}>{i+1} Items</option>
+                                    ))
+                                }
+                               </select>
                             </div>
                                 
-                            <div className="flex gap-x-4 justify-center sm:justify-start pt-8 min-w-0">
+                            <div className="flex gap-x-4 justify-center sm:justify-start min-w-0">
                                 <button className="bg-green-600 text-white py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 grow sm:grow-0 whitespace-nowrap">
                                     <BsFillLightningChargeFill/>
                                     Buy Now
@@ -197,11 +223,14 @@ function ProductDetailsPage() {
                             </p>
                             <div className="flex gap-x-4">
                             {
-                                product.images.additional.map(() => (
+                                product.images.additional.map((img:any) => (
                                     <img
-                                    src={product.images.thumbnail.url}
+                                    key={img.url}
+                                    src={img.url}
                                     alt="product photo"
                                     className="h-12 xl:h-14 aspect-square bg-slate-300 rounded-sm"
+                                    onMouseOver={()=>changeThumbnail(img.url)}
+                                    onClick={()=>changeThumbnail(img.url)}
                                     />
                                 ))
                             }
@@ -214,14 +243,13 @@ function ProductDetailsPage() {
                             </p>
                             <ul className="xs:text-lg leading-6 sm:text-sm xl:text-base sm:leading-5 font-Roboto pl-4">
                                 {
-                                    // description.map(point=>(
-                                    //     <li
-                                    //     key={point}
-                                    //     className="list-disc pb-4 md:pb-2">
-                                    //         {point}
-                                    //     </li>
-                                    // ))
-                                    product.description
+                                    product.description.map((point:string)=>(
+                                        <li
+                                        key={point}
+                                        className="list-disc pb-4 md:pb-2">
+                                            {point}
+                                        </li>
+                                    ))
                                 }
                             </ul>
                         </div>

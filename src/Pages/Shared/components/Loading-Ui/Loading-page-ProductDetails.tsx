@@ -7,7 +7,7 @@ function ProductDetailsPageLoading() {
     return (
             <div className={`flex flex-col md:flex-row items-start pt-4 sm:p-4 lg:p-10 bg-white rounded-md`}
             >
-               <div className={` md:w-2/5 xl:w-1/2 aspect-square w-[95%] xs:w-auto xs:h-[30rem] sm:h-[30rem] md:h-auto md:aspect-square bg md:sticky top-20 flex-none flex justify-center items-center gap-x-2 p-2 xs:p-0 bg-slate-100 mx-auto`}>
+               <div className={` w-full md:w-2/5 xl:w-[45%] aspect-square bg md:sticky top-20 flex-none flex justify-center items-center gap-x-2 p-2 xs:p-0 bg-slate-100 mx-auto`}>
                     <BsFileImageFill className='text-8xl text-slate-300 animate-pulse'/>
                </div>
                
@@ -67,7 +67,10 @@ function ProductDetailsPageLoading() {
                         </p>
                     {
                         Array.from({length:3}).map((_,i)=> (
-                            <div className={`flex flex-col gap-y-2 pb-6`} id={`${i}`}>
+                            <div
+                            className={`flex flex-col gap-y-2 pb-6`}
+                            id={`${i}`}
+                            key={i}>
                             { Array.from({length:4}).map((_,i) => (
                                 <div className="h-4 bg-gray-300 animate-pulse" key={i}/>
                                 )) }
