@@ -145,7 +145,7 @@ function UserPasswordUpdate() {
             </form>
 
             
-            <button className={`text-emerald-500 px-4 py-2 text-sm hover:text-emerald-400 self-start`}
+            <button className={`text-slate-500 ml-12 mb-4 py-2 text-sm hover:text-emerald-400 self-start`}
                 onClick={changeRoute}>
                 Go to Profile
             </button>

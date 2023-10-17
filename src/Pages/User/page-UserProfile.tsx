@@ -6,9 +6,9 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { UserSignUpFormType, zodUserSignupSchema } from "../Public/FormValidators/type-user";
 import { AxiosError } from "axios";
-import { syncFetchUserDetails, syncUpdateUserDetails } from "@/Store/ServerStore/sync-User";
+import { syncFetchUserDetails, syncLogOutUser, syncLogOutUserAllDevices, syncUpdateUserDetails } from "@/Store/ServerStore/sync-User";
 import { modalStore } from "@/Store/ClientStore/store-Modals";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserProfileLoading from "./components/Loading-Ui/Loading-UserProfile";
 
 
@@ -25,6 +25,9 @@ function UserProfile() {
    const { setGenericMessage, toggleGenericModal } = modalStore()
    const { data:user, isLoading } = syncFetchUserDetails()
    const { mutate, isError, error } = syncUpdateUserDetails(setEditable)
+   const { mutate:logOutUser } = syncLogOutUser(setEditable)
+   const { mutate:logOutUserAllDevices } = syncLogOutUserAllDevices(setEditable)
+
       
    const zodUserProfileSchema = zodUserSignupSchema.omit({ password: true });
    const form = useForm<userProfileType>({
@@ -38,48 +41,58 @@ function UserProfile() {
    const { register, formState, handleSubmit } = form
    const { errors } = formState
 
-    useEffect(()=>{
-        if (isError) {
-            // inferior method, instead handle it in
-            // onError inside the custom react query
-            const errorData = (error as AxiosError<{error:string}>).response?.data!
-            setDisableSubmit(false)
-            setGenericMessage(errorData?.error)
-            toggleGenericModal()
-        }
-        if (Editable && focusDivRef.current) {
-            const focusDiv = focusDivRef.current.children
-            const focusInput = Array.from(focusDiv)[1] as HTMLInputElement
-            focusInput.focus()
-        }
+   useEffect(()=>{
+      if (isError) {
+         // inferior method, instead handle it in onError
+         // inside the custom react query
+         const errorData = (error as AxiosError<{error:string}>).response?.data!
+         setDisableSubmit(false)
+         setGenericMessage(errorData?.error)
+         toggleGenericModal()
+      }
+      if (Editable && focusDivRef.current) {
+         const focusDiv = focusDivRef.current.children
+         const focusInput = Array.from(focusDiv)[1] as HTMLInputElement
+         focusInput.focus()
+      }
 
-        if (user) {
-            // see below comment
-            form.setValue("name", user.name);
-            form.setValue("email", user.email);
-        }
-    },[isError, Editable, user])
+      if (user) {
+         // see below comment
+         form.setValue("name", user.name);
+         form.setValue("email", user.email);
+      }
+   },[isError, Editable, user])
 
-    useEffect(()=>{
+
+   useEffect(()=>{
       setFadeOut(false)
-    },[])
+   },[])
 
-    const changeRoute = () => {
+
+   const changeRoute = () => {
       setFadeOut(true)
       setTimeout(() => {
          Navigate('/user/password')
       }, 300);
-    }
-     
+   }
+   
+   const logOut = () => {
+      logOutUser()
+   }
+   
+   const logOutAllDevices = () => {
+      logOutUserAllDevices()
+   }
+    
 
-    const onSubmit = ( data:userProfileType ) => {
-       const sameEmail = data.email === user.email
-       const sameName = data.name === user.name
-       if (!sameEmail || !sameName) {
+   const onSubmit = ( data:userProfileType ) => {
+      const sameEmail = data.email === user.email
+      const sameName = data.name === user.name
+      if (!sameEmail || !sameName) {
          mutate(data)
          setDisableSubmit(true)
       }
-    }
+   }
 
     return (
       <div className={`w-screen min-h-screen flex items-center flex-col bg-slate-900`}>
@@ -87,7 +100,7 @@ function UserProfile() {
          isLoading
          ? <UserProfileLoading/>
          : 
-         <div className={` py-2 flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-950 relative mt-14 xs:mt-32 xxs:scale-[0.8] xs:scale-100 border-b-2 border-b-slate-700 ${Editable ? 'border-t-emerald-400' : 'border-t-slate-900'} duration-100 min-h-[30rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
+         <div className={`py-2 flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-950 relative mt-14 xs:mt-32 xxs:scale-[0.8] xs:scale-100 border-b-2 border-b-slate-700 ${Editable ? 'border-t-emerald-400' : 'border-t-slate-900'} duration-100 min-h-[30rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
 
             <div className={`flex flex-col pt-16 pl-12`}>
                <h1>
@@ -96,13 +109,14 @@ function UserProfile() {
                            disabled={disableSubmit}>
                   Profile
                   </button>
+                  <span className={`w-4 h-4 rounded-full border-b-slate-100 border-l-slate-100 border-[0.2rem] border-slate-900 animate-spin ${disableSubmit ? 'inline' : 'hidden'}`}/>
                </h1>
                <p className="text-emerald-100 opacity-40">
                   click on profile to edit
                </p>
             </div>
                
-            <form className=" px-8 pt-10 pb-4 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
+            <form className=" px-8 pt-10 pb-8 flex flex-col items-center gap-y-1 grow"
                   onSubmit={handleSubmit(onSubmit)}
                   noValidate
                >
@@ -157,13 +171,22 @@ function UserProfile() {
             }
             </form>
 
-            <button  className={`text-emerald-500 px-4 py-2 text-sm hover:text-emerald-400 self-start`}
-                     onClick={changeRoute}>
-               Change Password
-            </button>
+            <div className={`flex flex-col px-12 pb-10`}>
+               <button  className={`text-slate-500 py-1 text-sm hover:text-emerald-400 self-start`}
+                        onClick={changeRoute}>
+                  Change Password
+               </button>
+               <button  className={`text-slate-500 py-1 text-sm hover:text-red-400 hover:opacity-100 self-start`}
+                        onClick={logOut}>
+                  Log Out from this device
+               </button>
+               <button  className={`text-slate-500 py-1 text-sm hover:text-red-400 hover:opacity-100 self-start`}
+                        onClick={logOutAllDevices}>
+                  Log Out from all devices
+               </button>
+            </div>
          </div>
         }
-         
       </div>
     )
 }

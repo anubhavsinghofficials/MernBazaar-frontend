@@ -96,5 +96,59 @@ export const syncUpdateUserPassword = (setDisableSubmit:React.Dispatch<React.Set
         },
     })
 }
+
+
+
+export const syncLogOutUser = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+    const Navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const mutationFunc = () => {
+        return axios.post(`${serverUrl}/user/logout`, null, {
+            withCredentials:true
+        })
+    }
+    return useMutation(mutationFunc, {
+        onSuccess(data){
+            queryClient.invalidateQueries(['userRole'])
+            Navigate('/home')
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}
+ 
+
+
+export const syncLogOutUserAllDevices = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+    const Navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const mutationFunc = () => {
+        return axios.post(`${serverUrl}/user/logoutall`, null, {
+            withCredentials:true
+        })
+    }
+    return useMutation(mutationFunc, {
+        onSuccess(data){
+            queryClient.invalidateQueries(['userRole'])
+            Navigate('/home')
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}
  
  

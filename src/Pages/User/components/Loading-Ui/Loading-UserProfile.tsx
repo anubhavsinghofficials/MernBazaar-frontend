@@ -1,7 +1,6 @@
 
 import { BiSolidUserCircle } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
-import { NavLink } from "react-router-dom";
 
 
 
@@ -9,9 +8,6 @@ import { NavLink } from "react-router-dom";
 function UserProfileLoading() {
 
     return (
-    <div className={`w-screen min-h-screen flex items-center flex-col bg-slate-900`}>
-
-
         <div className={` py-2 flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-950 relative mt-14 xs:mt-32 xxs:scale-[0.8] xs:scale-100 border-b-2 border-b-slate-700 duration-100 min-h-[30rem] `}>
 
             <div className={`flex flex-col pt-16 pl-12`}>
@@ -49,13 +45,18 @@ function UserProfileLoading() {
                 </div>
             </form>
 
-            <NavLink to="#"
-                     className={`text-emerald-900 ml-4 my-2 text-sm self-start bg-emerald-900 leading-3 animate-pulse`}>
-               Change Password
-            </NavLink>
+            <div className={`flex flex-col gap-y-2 px-12 pb-10`}>
+               <button  className={`text-slate-800 bg-slate-800 leading-3 py-1 text-sm self-start animate-pulse`}>
+                  Change Password
+               </button>
+               <button  className={`text-slate-800 bg-slate-800 leading-3 py-1 text-sm self-start animate-pulse`}>
+                  Log Out from this device
+               </button>
+               <button  className={`text-slate-800 bg-slate-800 leading-3 py-1 text-sm self-start animate-pulse`}>
+                  Log Out from all devices
+               </button>
+            </div>
         </div>
-
-    </div>
     )
 }
  
