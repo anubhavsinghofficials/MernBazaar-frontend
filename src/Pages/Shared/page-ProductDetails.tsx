@@ -41,6 +41,9 @@ function ProductDetailsPage() {
     const [Quantity, setQuantity] = useState(0)
 
     useEffect(()=>{
+        window.scrollTo({ top: 0 })
+    },[])
+    useEffect(()=>{
         if (product) {
             setThumbnail(product.images.thumbnail.url)
         }

@@ -5,7 +5,7 @@ import SearchBar, { searchValues } from "@/components/searchBar"
 import { categoryBadges, defaultValues, myGitHub } from "@/Store/ClientStore/store-Constants"
 import { useNavigate } from "react-router-dom"
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ProductSlider from "./components/ProductSlider";
 import FeatureFrame from "./components/FeatureFrame";
 import Ad_main from "./components/Ad_main";
@@ -14,6 +14,9 @@ import { AiFillGithub } from "react-icons/ai";
 
 function HomePage() {
     
+    useEffect(()=>{
+        window.scrollTo({ top: 0 })
+    },[])
     const categoryBarRef = useRef<HTMLUListElement | null>(null)
     const Navigate = useNavigate()
     const { searchObject, setSearchObject } = filterStore()

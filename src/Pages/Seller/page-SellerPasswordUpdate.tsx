@@ -4,38 +4,21 @@ import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import { z } from 'zod'
 import { MdVpnKey } from "react-icons/md";
-import { syncUpdateUserPassword } from "@/Store/ServerStore/sync-User";
 import { useNavigate } from "react-router-dom";
+import { passwordsType, zodPasswordSchema } from "../User/page-UserPasswordUpdate";
+import { syncUpdateSellerPassword } from "@/Store/ServerStore/sync-Seller";
 
 
 
-
-export type passwordsType = z.infer<typeof zodPasswordSchema>
-export const zodPasswordSchema = z.object({
-
-    currentPassword     : z.string()
-                    .trim()
-                    .nonempty("Enter Current Password")
-                    .max(10,"It should not exceed length 10")
-                    .min(6,"It should be atleast length 6"),
-    newPassword     : z.string()
-                    .trim()
-                    .nonempty("Enter New Password required")
-                    .max(10,"It should not exceed length 10")
-                    .min(6,"It should be atleast length 6"),
-})
-
-
-function UserPasswordUpdate() {
+function SellerPasswordUpdate() {
     
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [currentPassword, seeCurrentPassword] = useState(false)
     const Navigate = useNavigate()
     const [newPassword, seeNewPassword] = useState(false)
     const [fadeOut, setFadeOut] = useState(true)
-    const { mutate } = syncUpdateUserPassword(setDisableSubmit)
+    const { mutate } = syncUpdateSellerPassword(setDisableSubmit)
         
     
     useEffect(()=>{
@@ -53,7 +36,7 @@ function UserPasswordUpdate() {
     const changeRoute = () => {
         setFadeOut(true)
         setTimeout(() => {
-           Navigate('/user/profile')
+           Navigate('/seller/profile')
         }, 300);
     }
        
@@ -156,4 +139,4 @@ function UserPasswordUpdate() {
     )
 }
  
-export default UserPasswordUpdate
+export default SellerPasswordUpdate

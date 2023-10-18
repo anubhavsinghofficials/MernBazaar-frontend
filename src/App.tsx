@@ -22,6 +22,7 @@ import MernBazaarLoaderStatic from "./Pages/Shared/components/Loading-Ui/Loader-
 import { syncGetRole } from "./Store/ServerStore/sync-Role"
 import GenericModal from "./Pages/Shared/components/Modals/Modal-Generic"
 import UserPasswordUpdate from "./Pages/User/page-UserPasswordUpdate"
+import SellerPasswordUpdate from "./Pages/Seller/page-SellerPasswordUpdate"
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
       <Route path="/seller" element={<SellerAuth/>}>
         <Route index element={<Navigate to="profile"/>}/>
         <Route path="profile" element={<SellerProfile/>}/>
+        <Route path="password" element={<SellerPasswordUpdate/>}/>
         <Route path="product/add" element={<AddProducts/>}/>
         <Route path="product/edit" element={<EditProduct/>}/>
         <Route path="products" element={<SellerProducts/>}/>

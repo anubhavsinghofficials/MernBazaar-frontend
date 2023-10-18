@@ -1,14 +1,18 @@
+import { useEffect } from "react"
 
 
 
 function EditProduct() {
-    return (
-             <>
-                <div className={`card`}>
-                   Edit the Products
-                </div>
-             </>
-    )
+   useEffect(()=>{
+      window.scrollTo({ top: 0 })
+   },[])
+   return (
+            <>
+               <div className={`card`}>
+                  Edit the Products
+               </div>
+            </>
+   )
 }
  
 export default EditProduct

@@ -52,6 +52,7 @@ function sellerProfile() {
 
    useEffect(()=>{
       setFadeOut(false)
+      window.scrollTo({ top: 0 })
    },[])
 
 

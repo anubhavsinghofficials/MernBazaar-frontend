@@ -1,14 +1,18 @@
+import { useEffect } from "react"
 
 
 
 function AddProducts() {
-    return (
-             <>
-                <div className={`card`}>
-                   Add Products
-                </div>
-             </>
-    )
+   useEffect(()=>{
+      window.scrollTo({ top: 0 })
+   },[])
+   return (
+            <>
+               <div className={`card`}>
+                  Add Products
+               </div>
+            </>
+   )
 }
  
 export default AddProducts

@@ -11,11 +11,15 @@ import DesktopFilters from "./components/DesktopFilters"
 import MobileFilters from "./components/MobileFilters"
 import ProductCard from "./components/ProductCard"
 import ProductCardLoading from "./components/Loading-Ui/Loading-ProductCard"
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import Ad_main from "./components/Ad_main"
 
 function ProductsPage() {
 
+  useEffect(()=>{
+    window.scrollTo({ top: 0 })
+  },[])
+  
   const totalPagesRef = useRef(1)
   const { searchObject, setSearchObject, setResetPages } = filterStore()
   const { data, isLoading, isRefetching, isError, error,
