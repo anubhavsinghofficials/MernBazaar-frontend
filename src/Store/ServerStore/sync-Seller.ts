@@ -13,6 +13,7 @@ import { boolSetStateType } from './sync-User'
 
 export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const Navigate = useNavigate()
     const { setGenericMessage, toggleGenericModal } = modalStore()
 
     const mutationFunc = (sellerData:SellerSignUpFormType) => {
@@ -22,8 +23,11 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
     }
     
     return useMutation(mutationFunc,{
-        onSuccess() {
-            queryClient.invalidateQueries(['Role'])
+        onSuccess(data) {
+            queryClient.invalidateQueries(['Role']),
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+            Navigate('/seller/profile')
         },
         onError(error) {
             // <{error:string}> is ∵ we are sending the error message from the
@@ -41,6 +45,7 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
 export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const Navigate = useNavigate()
 
     const mutationFunc = (sellerData:SellerLogInFormType) => {
         return axios.post(`${serverUrl}/seller/login`, sellerData, {
@@ -49,8 +54,11 @@ export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
     }
 
     return useMutation(mutationFunc,{
-        onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries(['Role'])
+        onSuccess(data, _variables, _context) {
+            queryClient.invalidateQueries(['Role']),
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+            Navigate('/seller/profile')
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!

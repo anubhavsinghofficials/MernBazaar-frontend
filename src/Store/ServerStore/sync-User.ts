@@ -14,6 +14,7 @@ export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
 
 export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const Navigate = useNavigate()
     const { toggleGenericModal, setGenericMessage } = modalStore()
 
     const mutationFunc = (userData:UserSignUpFormType) => {
@@ -23,8 +24,11 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     }
 
     return useMutation(mutationFunc,{
-        onSuccess() {
+        onSuccess(data) {
             queryClient.invalidateQueries(['Role'])
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+            Navigate('/user/profile')
         },
         onError(error) {
             // <{error:string}> is ∵ we are sending the error message from the
@@ -42,6 +46,7 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
 export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const Navigate = useNavigate()
 
     const mutationFunc = (userData:UserLogInFormType) => {
         return axios.post(`${serverUrl}/user/login`, userData, {
@@ -50,8 +55,11 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     }
 
     return useMutation(mutationFunc,{
-        onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries(['Role'])
+        onSuccess(data, _variables, _context) {
+            queryClient.invalidateQueries(['Role']),
+            setGenericMessage(data.data.message)
+            toggleGenericModal()
+            Navigate('/user/profile')
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!

@@ -128,7 +128,7 @@ function ProductDetailsPage() {
                             <img
                                 src={Thumbnail}
                                 alt="product photo"
-                                className="h-full w-full"
+                                className="h-full w-full object-contain"
                             />
                             <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
                                 ★ {product.overallRating} 
