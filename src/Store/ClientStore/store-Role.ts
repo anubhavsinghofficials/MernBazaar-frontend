@@ -8,7 +8,7 @@ type authStoreType = {
     setRole : (newRole :AuthRoleType) => void;
 }
 
-export const userRoleStore = create<authStoreType>((set,_get) => ({
+export const RoleStore = create<authStoreType>((set,_get) => ({
     role:"public",
     setRole: (newRole) => set({ role:newRole }),
 }))

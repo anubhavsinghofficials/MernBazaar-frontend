@@ -9,9 +9,6 @@ import { SellerLogInFormType, zodSellerLogInSchema } from "./FormValidators/type
 import { useNavigate } from "react-router-dom";
 import { testSeller } from "@/Store/ClientStore/store-Constants";
 import { syncLoginSeller } from "@/Store/ServerStore/sync-Seller";
-import { AxiosError } from "axios";
-import { modalStore } from "@/Store/ClientStore/store-Modals";
-
 
 
 
@@ -19,64 +16,55 @@ import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 function SellerLogIn() {
 
-    const [Password, seePassword] = useState(false);
-    const [disableSubmit, setDisableSubmit] = useState(false);
-    const [openForm, setOpenForm] = useState(false);
-    const { setGenericMessage, toggleGenericModal } = modalStore()
-    const { mutate, isError, error } = syncLoginSeller()
-    const Navigate = useNavigate()
-  
-    useEffect(()=>{
-      if (!openForm) {
-          window.scrollTo({ top: 0 })
-          setOpenForm(true)
-      }
-      if (isError) {
-          const errorData = (error as AxiosError<{error:string}>).response?.data!
-          setDisableSubmit(false)
-          setGenericMessage(errorData?.error)
-          toggleGenericModal()
-      }
-  },[isError])
-  
-  
-    const handleRoute = (route:string) => {
-        setOpenForm(false)
-        setTimeout(() => {
-            Navigate(route)
-        }, 500)
-    }
+  const [Password, seePassword] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const { mutate } = syncLoginSeller(setDisableSubmit)
+  const Navigate = useNavigate()
 
-    const backToHome = () => {
+  useEffect(()=>{
+    if (!openForm) {
+        window.scrollTo({ top: 0 })
+        setOpenForm(true)
+    }
+  },[])
+  
+  
+  const handleRoute = (route:string) => {
       setOpenForm(false)
       setTimeout(() => {
-          Navigate('/home')
+          Navigate(route)
       }, 500)
-    }
-     
-  
-    const form = useForm<SellerLogInFormType>({
-      defaultValues: {
-        email: testSeller.email,
-        password: testSeller.password,
-      },
-      mode: "onSubmit",
-      resolver: zodResolver(zodSellerLogInSchema),
-    })
-    const { register, formState, handleSubmit } = form;
-    const { errors } = formState;
-  
-    const onSubmit = (data: SellerLogInFormType) => {
-      setDisableSubmit(true);
-      mutate(data)
-    }
+  }
 
-    return (
+  const backToHome = () => {
+    setOpenForm(false)
+    setTimeout(() => {
+        Navigate('/home')
+    }, 500)
+  }
+    
+
+  const form = useForm<SellerLogInFormType>({
+    defaultValues: {
+      email: testSeller.email,
+      password: testSeller.password,
+    },
+    mode: "onSubmit",
+    resolver: zodResolver(zodSellerLogInSchema),
+  })
+  const { register, formState, handleSubmit } = form;
+  const { errors } = formState;
+
+  const onSubmit = (data:SellerLogInFormType) => {
+    setDisableSubmit(true);
+    mutate(data)
+  }
+
+  return (
     <div className={`flex min-h-screen w-screen flex-col items-center justify-start bg-slate-900`}
     >
-        <div
-          className={`relative mt-20 flex max-h-0 flex-col overflow-hidden rounded-2xl border-t-2 border-t-yellow-400 bg-slate-900 bg-gradient-to-br px-4 py-2 shadow-lg shadow-slate-950 xxs:scale-[0.9] xs:mt-32 xs:scale-100 xs:px-0 ${
-            openForm ? "openForm" : "collapseForm"}`}>
+        <div className={`relative mt-20 flex max-h-0 flex-col overflow-hidden rounded-2xl border-t-2 border-t-yellow-400 bg-slate-900 bg-gradient-to-br px-4 py-2 shadow-lg shadow-slate-950 xxs:scale-[0.9] xs:mt-32 xs:scale-100 xs:px-0 ${openForm ? "openForm" : "collapseForm"}`}>
           <div className={`flex flex-col gap-y-1 pt-16 xxs:pl-4 xs:pl-12 xs:pt-20`}
           >
             <p className="absolute right-0 top-0 rounded-bl-xl bg-yellow-400 px-9 py-1 font-bold text-black">
@@ -86,7 +74,6 @@ function SellerLogIn() {
               Log In
             </h1>
   
-            {/* <div className={`h-1 bg-slate-600 w-1/2`}/> */}
             <div className="absolute top-28 w-[90%] leading-5 text-slate-400 xs:left-12 xs:top-32">
               <p>Use these given test details for testing,</p>
               <p>You can also use your own credentials</p>

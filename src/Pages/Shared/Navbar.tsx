@@ -3,7 +3,7 @@ import SearchBar, { searchValues } from "../../components/searchBar"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
 import { FaShoppingCart } from "react-icons/fa"
 import { defaultValues } from "@/Store/ClientStore/store-Constants"
-import { userRoleStore } from "@/Store/ClientStore/store-UserRole"
+import { RoleStore } from "@/Store/ClientStore/store-Role"
 import PublicNavOptions from "../Public/components/PublicNavOptions"
 import UserNavOptions from "../User/components/UserNavOptions"
 import SellerNavOptions from "../Seller/components/SellerNavOptions"
@@ -14,7 +14,7 @@ function Navbar() {
     
     const { setSearchObject, setResetBadgeToken, setResetPages } = filterStore()
     const Navigate = useNavigate()
-    const { role } = userRoleStore()
+    const { role } = RoleStore()
     
     const handleSearch = (value:searchValues) => {
         window.scrollTo({ top: 0 })

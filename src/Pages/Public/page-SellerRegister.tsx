@@ -3,16 +3,11 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs"
 import { BiSolidUserCircle, BiSolidChevronRight, BiSolidChevronDown, BiSolidLockAlt, BiSolidChevronLeft } from "react-icons/bi";
 import { GrMail } from "react-icons/gr"
 import { useEffect, useState } from "react"
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { SellerSignUpFormType, zodSellerSignupSchema } from "./FormValidators/type-seller"
 import { useNavigate } from "react-router-dom";
 import { syncRegisterSeller } from "@/Store/ServerStore/sync-Seller";
-import { AxiosError } from "axios";
-import { modalStore } from "@/Store/ClientStore/store-Modals";
-
-
-
 
 
 
@@ -22,8 +17,7 @@ function SellerRegister() {
     const [Password, seePassword] = useState(false)
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
-    const { setGenericMessage, toggleGenericModal } = modalStore()
-    const { mutate, isError, error } = syncRegisterSeller()
+    const { mutate } = syncRegisterSeller(setDisableSubmit)
     const Navigate = useNavigate()
 
     useEffect(()=>{
@@ -31,13 +25,7 @@ function SellerRegister() {
             window.scrollTo({ top: 0 })
             setOpenForm(true)
         }
-        if (isError) {
-            const errorData = (error as AxiosError<{error:string}>).response?.data!
-            setDisableSubmit(false)
-            setGenericMessage(errorData?.error)
-            toggleGenericModal()
-        }
-    },[isError])
+    },[])
     
 
     const handleRoute = (route:string) => {
@@ -55,13 +43,6 @@ function SellerRegister() {
       }
 
     const form = useForm<SellerSignUpFormType>({
-          defaultValues:{
-                name: "",
-                email: "",
-                password: "",
-                address:"",
-                description:""
-          },
           mode:"onSubmit",
           resolver:zodResolver(zodSellerSignupSchema)
     })
@@ -71,11 +52,6 @@ function SellerRegister() {
     const onSubmit = ( data:SellerSignUpFormType ) => {
         setDisableSubmit(true)
         mutate(data)
-    }
-    
-    if (isError) {
-        const errorData = (error as AxiosError).response?.data
-        console.log(errorData)
     }
 
 

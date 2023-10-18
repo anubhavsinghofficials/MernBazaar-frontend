@@ -19,13 +19,13 @@ import UserLogIn from "./Pages/Public/page-UserLogin"
 import SellerRegister from "./Pages/Public/page-SellerRegister"
 import SellerLogIn from "./Pages/Public/page-SellerLogin"
 import MernBazaarLoaderStatic from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar-Static"
-import { syncGetUserRole } from "./Store/ServerStore/sync-UserRole"
+import { syncGetRole } from "./Store/ServerStore/sync-Role"
 import GenericModal from "./Pages/Shared/components/Modals/Modal-Generic"
 import UserPasswordUpdate from "./Pages/User/page-UserPasswordUpdate"
 
 function App() {
 
-  const { isLoading, isRefetching } = syncGetUserRole()
+  const { isLoading, isRefetching } = syncGetRole()
 
   if (isLoading || isRefetching) {
       return <MernBazaarLoaderStatic/>

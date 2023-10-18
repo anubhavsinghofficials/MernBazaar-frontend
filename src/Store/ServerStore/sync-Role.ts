@@ -2,17 +2,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { serverUrl } from '../ClientStore/store-Constants'
 import axios from 'axios'
-import { userRoleStore } from '../ClientStore/store-UserRole'
+import { RoleStore } from '../ClientStore/store-Role'
 
 
 
-export const syncGetUserRole = () => {
-    const { setRole } = userRoleStore()
+export const syncGetRole = () => {
+    const { setRole } = RoleStore()
     const fetcherFunc = () => axios.get(`${serverUrl}/authrole`,{
         withCredentials:true,
     })
 
-    return useQuery(['userRole'],fetcherFunc,{
+    return useQuery(['Role'],fetcherFunc,{
         select(data) {
             return data.data
         },

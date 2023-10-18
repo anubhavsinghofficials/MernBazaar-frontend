@@ -5,9 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { UserSignUpFormType, zodUserSignupSchema } from "../Public/FormValidators/type-user";
-import { AxiosError } from "axios";
 import { syncFetchUserDetails, syncLogOutUser, syncLogOutUserAllDevices, syncUpdateUserDetails } from "@/Store/ServerStore/sync-User";
-import { modalStore } from "@/Store/ClientStore/store-Modals";
 import { useNavigate } from "react-router-dom";
 import UserProfileLoading from "./components/Loading-Ui/Loading-UserProfile";
 
@@ -22,19 +20,14 @@ function UserProfile() {
    const [fadeOut, setFadeOut] = useState(true)
    const Navigate = useNavigate()
    const focusDivRef = useRef<HTMLInputElement|null>(null)
-   const { setGenericMessage, toggleGenericModal } = modalStore()
    const { data:user, isLoading } = syncFetchUserDetails()
-   const { mutate, isError, error } = syncUpdateUserDetails(setEditable)
+   const { mutate } = syncUpdateUserDetails(setEditable,setDisableSubmit)
    const { mutate:logOutUser } = syncLogOutUser(setEditable)
    const { mutate:logOutUserAllDevices } = syncLogOutUserAllDevices(setEditable)
 
       
    const zodUserProfileSchema = zodUserSignupSchema.omit({ password: true });
    const form = useForm<userProfileType>({
-         defaultValues:{
-               name: '',
-               email: '',
-         },
          mode:"onSubmit",
          resolver:zodResolver(zodUserProfileSchema)
    })
@@ -42,14 +35,6 @@ function UserProfile() {
    const { errors } = formState
 
    useEffect(()=>{
-      if (isError) {
-         // inferior method, instead handle it in onError
-         // inside the custom react query
-         const errorData = (error as AxiosError<{error:string}>).response?.data!
-         setDisableSubmit(false)
-         setGenericMessage(errorData?.error)
-         toggleGenericModal()
-      }
       if (Editable && focusDivRef.current) {
          const focusDiv = focusDivRef.current.children
          const focusInput = Array.from(focusDiv)[1] as HTMLInputElement
@@ -61,7 +46,7 @@ function UserProfile() {
          form.setValue("name", user.name);
          form.setValue("email", user.email);
       }
-   },[isError, Editable, user])
+   },[Editable, user])
 
 
    useEffect(()=>{
@@ -96,7 +81,7 @@ function UserProfile() {
 
     return (
       <div className={`w-screen min-h-screen flex items-center flex-col bg-slate-900`}>
-        {
+      {
          isLoading
          ? <UserProfileLoading/>
          : 
@@ -109,7 +94,6 @@ function UserProfile() {
                            disabled={disableSubmit}>
                   Profile
                   </button>
-                  <span className={`w-4 h-4 rounded-full border-b-slate-100 border-l-slate-100 border-[0.2rem] border-slate-900 animate-spin ${disableSubmit ? 'inline' : 'hidden'}`}/>
                </h1>
                <p className="text-emerald-100 opacity-40">
                   click on profile to edit
@@ -186,7 +170,7 @@ function UserProfile() {
                </button>
             </div>
          </div>
-        }
+      }
       </div>
     )
 }

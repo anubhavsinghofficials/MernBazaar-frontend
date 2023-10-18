@@ -1,10 +1,10 @@
 
 
 import { Navigate, Outlet } from "react-router-dom"
-import { userRoleStore } from "@/Store/ClientStore/store-UserRole";
+import { RoleStore } from "@/Store/ClientStore/store-Role";
 
 export function SellerAuth() {
-    const { role } = userRoleStore()
+    const { role } = RoleStore()
 
     if (role === 'public') {
         return <Navigate to='/login/seller'/>

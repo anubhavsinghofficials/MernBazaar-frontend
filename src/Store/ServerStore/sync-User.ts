@@ -8,65 +8,99 @@ import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
 import { modalStore } from '../ClientStore/store-Modals';
 
 
+export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
 
 
-export const syncRegisterUser = () => {
+
+export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+
     const mutationFunc = (userData:UserSignUpFormType) => {
         return axios.post(`${serverUrl}/user/register`, userData, {
             withCredentials: true,
         })
     }
+
     return useMutation(mutationFunc,{
         onSuccess() {
-            queryClient.invalidateQueries(['userRole'])
+            queryClient.invalidateQueries(['Role'])
+        },
+        onError(error) {
+            // <{error:string}> is ∵ we are sending the error message from the
+            // backend in such a format, eg: res.json({error:'user not found'})
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
         },
     })
 }
  
 
 
-export const syncLoginUser = () => {
+export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+
     const mutationFunc = (userData:UserLogInFormType) => {
         return axios.post(`${serverUrl}/user/login`, userData, {
             withCredentials: true,
         })
     }
+
     return useMutation(mutationFunc,{
         onSuccess(_data, _variables, _context) {
-            queryClient.invalidateQueries(['userRole'])
+            queryClient.invalidateQueries(['Role'])
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
         },
     })
 }
 
 
-
 export const syncFetchUserDetails = () => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    
     const fetcherFunc = () => axios.get(`${serverUrl}/user`, {
         withCredentials: true,
     })
     return useQuery(['userDetails'], fetcherFunc, {
-        select(data) {
-            return data.data.user
+        select: data => data.data.user,
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
         },
         refetchOnWindowFocus: false,
     })
 }
 
 
-
-export const syncUpdateUserDetails = (setEditable:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSubmit:boolSetStateType) => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
     const queryClient = useQueryClient()
+    
     const mutationFunc = (userData:userProfileType) => {
         return axios.patch(`${serverUrl}/user`, userData, {
             withCredentials: true,
         })
     }
     return useMutation(mutationFunc,{
-        onSuccess(_data, _variables, _context) {
+        onSuccess() {
             setEditable(false)
+            setDisableSubmit(false)
             queryClient.invalidateQueries(['userDetails'])
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setDisableSubmit(false)
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
         },
     })
 }
@@ -110,7 +144,7 @@ export const syncLogOutUser = (setDisableSubmit:React.Dispatch<React.SetStateAct
     }
     return useMutation(mutationFunc, {
         onSuccess(data){
-            queryClient.invalidateQueries(['userRole'])
+            queryClient.invalidateQueries(['Role'])
             Navigate('/home')
             setGenericMessage(data.data.message)
             toggleGenericModal()
@@ -137,7 +171,7 @@ export const syncLogOutUserAllDevices = (setDisableSubmit:React.Dispatch<React.S
     }
     return useMutation(mutationFunc, {
         onSuccess(data){
-            queryClient.invalidateQueries(['userRole'])
+            queryClient.invalidateQueries(['Role'])
             Navigate('/home')
             setGenericMessage(data.data.message)
             toggleGenericModal()

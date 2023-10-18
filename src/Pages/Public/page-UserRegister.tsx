@@ -3,13 +3,11 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { BiSolidUserCircle, BiSolidChevronRight, BiSolidChevronDown, BiSolidLockAlt, BiSolidChevronLeft } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
 import { useEffect, useState } from "react";
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { UserSignUpFormType, zodUserSignupSchema } from "./FormValidators/type-user";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
 import { syncRegisterUser } from "@/Store/ServerStore/sync-User";
-import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -19,8 +17,7 @@ function UserRegister() {
     const [Password, seePassword] = useState(false)  
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
-    const { setGenericMessage, toggleGenericModal } = modalStore()
-    const { mutate, isError, error } = syncRegisterUser()
+    const { mutate } = syncRegisterUser(setDisableSubmit)
     const Navigate = useNavigate()
 
     useEffect(()=>{
@@ -28,13 +25,7 @@ function UserRegister() {
             window.scrollTo({ top: 0 })
             setOpenForm(true)
         }
-        if (isError) {
-            const errorData = (error as AxiosError<{error:string}>).response?.data!
-            setDisableSubmit(false)
-            setGenericMessage(errorData?.error)
-            toggleGenericModal()
-        }
-    },[isError])
+    },[])
     
 
     const handleRoute = (route:string) => {
@@ -52,11 +43,6 @@ function UserRegister() {
       }
 
     const form = useForm<UserSignUpFormType>({
-          defaultValues:{
-                name: "",
-                email: "",
-                password: "",
-          },
           mode:"onSubmit",
           resolver:zodResolver(zodUserSignupSchema)
     })

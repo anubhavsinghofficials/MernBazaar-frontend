@@ -2,10 +2,10 @@
 
 
 import { Navigate, Outlet } from "react-router-dom"
-import { userRoleStore } from "@/Store/ClientStore/store-UserRole";
+import { RoleStore } from "@/Store/ClientStore/store-Role";
 
 export function PublicAuth() {
-    const { role } = userRoleStore()
+    const { role } = RoleStore()
 
     if (role === 'user') {
         return <Navigate to='/user/profile'/>
