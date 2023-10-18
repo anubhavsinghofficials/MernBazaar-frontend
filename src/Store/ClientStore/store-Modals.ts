@@ -3,12 +3,12 @@
 import { create } from 'zustand'
 
 
-
 type reviewerType = {
      name: string
      rating: number
      comment: string
 }
+
 
 type modalStoreType = {
     reviewer    : reviewerType
@@ -27,6 +27,16 @@ type modalStoreType = {
     setGenericMessage  : (genericMessage:string) => void
     showGenericModal   : boolean
     toggleGenericModal : () => void
+
+    genericTitle              : string | null
+    setGenericTitle           : (genericTitle:string) => void
+    genericSubtitle           : string | null
+    setGenericSubtitle        : (genericSubtitle:string) => void
+    genericFunction           : (...arg:any[]) => any
+    setGenericFunction        : (genericFunction:(...arg:any[])=>any) => void
+    showGenericConfirmModal   : boolean
+    toggleGenericConfirmModal : () => void
+    resetGenericConfirmModal  : () => void
 }
 
 
@@ -57,6 +67,22 @@ export const modalStore = create<modalStoreType>((set,_get) => ({
     showGenericModal:false,
     toggleGenericModal: () => set((state) => (
         { showGenericModal:!state.showGenericModal }
-    ))
+    )),
+    
+    genericTitle : '',
+    setGenericTitle : (genericTitle) => set(()=>({genericTitle})),
+    genericSubtitle : '',
+    setGenericSubtitle : (genericSubtitle) => set(()=>({genericSubtitle})),
+    genericFunction : () => {},
+    setGenericFunction : (genericFunction) => set(()=>({genericFunction})),
+    showGenericConfirmModal : false,
+    toggleGenericConfirmModal : () => set((state) => (
+        { showGenericConfirmModal:!state.showGenericConfirmModal }
+    )),
+    resetGenericConfirmModal: () => set(()=>({
+        genericTitle: null,
+        genericSubtitle: null,
+        genericFunction: () => {}
+    }))
 }))
 

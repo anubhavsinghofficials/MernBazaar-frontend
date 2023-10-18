@@ -23,6 +23,7 @@ import { syncGetRole } from "./Store/ServerStore/sync-Role"
 import GenericModal from "./Pages/Shared/components/Modals/Modal-Generic"
 import UserPasswordUpdate from "./Pages/User/page-UserPasswordUpdate"
 import SellerPasswordUpdate from "./Pages/Seller/page-SellerPasswordUpdate"
+import GenericConfirmModal from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
 
 function App() {
 
@@ -37,7 +38,10 @@ function App() {
   <div className={`w-screen bg-slate-100`}>
     
     <Navbar/>
+
     <GenericModal/>
+    <GenericConfirmModal/>
+    
     <Routes>
       <Route path="/home" element={<HomePage/>}/>
       <Route path="/products" element={<ProductsPage/>}/>

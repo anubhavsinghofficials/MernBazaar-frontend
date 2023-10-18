@@ -8,6 +8,7 @@ import { UserSignUpFormType, zodUserSignupSchema } from "../Public/FormValidator
 import { syncFetchUserDetails, syncLogOutUser, syncLogOutUserAllDevices, syncUpdateUserDetails } from "@/Store/ServerStore/sync-User";
 import { useNavigate } from "react-router-dom";
 import UserProfileLoading from "./components/Loading-Ui/Loading-UserProfile";
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -24,6 +25,7 @@ function UserProfile() {
    const { mutate } = syncUpdateUserDetails(setEditable,setDisableSubmit)
    const { mutate:logOutUser } = syncLogOutUser(setEditable)
    const { mutate:logOutUserAllDevices } = syncLogOutUserAllDevices(setEditable)
+   const { setGenericSubtitle,setGenericTitle, setGenericFunction, toggleGenericConfirmModal } = modalStore()
 
       
    const zodUserProfileSchema = zodUserSignupSchema.omit({ password: true });
@@ -63,11 +65,16 @@ function UserProfile() {
    }
    
    const logOut = () => {
-      logOutUser()
+      setGenericTitle("Confirm to Logout from this device")
+      setGenericSubtitle("you will be logged out of this device")
+      setGenericFunction(logOutUser)
+      toggleGenericConfirmModal()
    }
    
    const logOutAllDevices = () => {
-      logOutUserAllDevices()
+      setGenericTitle("Confirm to Logout from all devices")
+      setGenericFunction(logOutUserAllDevices)
+      toggleGenericConfirmModal()
    }
     
 
