@@ -28,15 +28,17 @@ function ProductCard(props:productCardPropsType) {
             className="w-full h-full object-contain"
             />
         </div>
- 
-        <p className={`absolute top-2 left-2 ${ +overallRating >= 4 ? 'bg-green-600' : +overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white font-bold inline-flex items-center justify-around rounded-full xs:w-14 xs:text-base xxs:text-xs xxs:w-10 px-3 gap-x-1`}>
-            <span className="leading-5">
-                ★
-            </span>
-            <span className="leading-4 sm:leading-5">
-                {overallRating}
-            </span>
-        </p> 
+        {
+            +overallRating > 0 &&
+            <p className={`absolute top-2 left-2 ${ +overallRating >= 4 ? 'bg-green-600' : +overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white font-bold inline-flex items-center justify-around rounded-full xs:w-14 xs:text-base xxs:text-xs xxs:w-10 px-3 gap-x-1`}>
+                <span className="leading-5">
+                    ★
+                </span>
+                <span className="leading-4 sm:leading-5">
+                    {overallRating}
+                </span>
+            </p> 
+        }
         
 
         <div className={`bg-white p-2 text-black w-full xs:h-1/4 h-1/3 absolute top-[70%] xs:top-[75%] flex flex-col`}>

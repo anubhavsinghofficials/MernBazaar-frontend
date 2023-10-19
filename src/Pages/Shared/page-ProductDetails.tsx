@@ -41,11 +41,9 @@ function ProductDetailsPage() {
     const [Quantity, setQuantity] = useState(0)
 
     useEffect(()=>{
-        window.scrollTo({ top: 0 })
-    },[])
-    useEffect(()=>{
         if (product) {
             setThumbnail(product.images.thumbnail.url)
+            window.scrollTo({ top: 0 })
         }
     },[product])
 
@@ -130,9 +128,14 @@ function ProductDetailsPage() {
                                 alt="product photo"
                                 className="h-full w-full object-contain"
                             />
+                        {
+                            +product.overallRating>0 &&
                             <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-4 py-1 rounded-md whitespace-nowrap md:hidden absolute top-2 left-2`}>
                                 ★ {product.overallRating} 
                             </p>
+                            
+                        }
+
                         </div>
                     </div>
                 
@@ -170,6 +173,9 @@ function ProductDetailsPage() {
                                     ₹{product.price.actual}
                                 </p>
                                 <div className={`items-end hidden sm:flex`}>
+                                {
+                                    +product.overallRating>0
+                                ? <>
                                     <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold ${ +product.overallRating >= 4 ? 'bg-green-600' : +product.overallRating >= 3 ? 'bg-yellow-600 ' :'bg-red-600'} text-white px-2 py-1 xl:py-0 rounded-md ml-8 whitespace-nowrap`}>
                                         ★ {product.overallRating} 
                                     </p>
@@ -179,6 +185,12 @@ function ProductDetailsPage() {
                                             `(${reviews.totalReviews} reviews)`
                                         }
                                     </p>
+                                 </>
+                                :
+                                    <p className={`inline-flex items-center gap-x-3 text-sm xl:text-lg font-semibold text-slate-800 ring-1 ring-slate-600 px-2 py-1 xl:py-0 rounded-md ml-8 whitespace-nowrap`}>
+                                        no ratings 
+                                    </p>
+                                }
                                 </div>
                             </div>
 
@@ -188,7 +200,7 @@ function ProductDetailsPage() {
                                 {
                                     Array.from({length:Math.min(product.stock,5)})
                                     .map((_,i)=>(
-                                        <option value={i+1}>{i+1} Items</option>
+                                        <option value={i+1}>{i+1} Item{i+1!==1 && `s`}</option>
                                     ))
                                 }
                                </select>
