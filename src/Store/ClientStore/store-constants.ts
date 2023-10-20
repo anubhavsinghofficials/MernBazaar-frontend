@@ -49,7 +49,7 @@ export const months = [
 
 export const nextSaleDate = '2024-01-01T00:00:00'
 export const myGitHub = 'https://github.com/anubhavsingh05'
-
+export const mern20Code = 'mern20'
 
 
 // Badges for BadgePicker_____________________________
@@ -118,9 +118,13 @@ export const discountBadges = {
 
 export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account upon buying the products. You can use test cards provided in the payment gateway to test the payment systems'
 export const deleteReviewModal = {
-    title : 'Are you sure you want to delete your review ?',
+    title : 'Confirm to delete your review',
     message : 'Your review will be permanently deleted for this product. You can review it again after that'
 }
+
+
+
+
 
 
 // General

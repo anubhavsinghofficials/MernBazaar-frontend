@@ -5,7 +5,7 @@ import './index.css'
 import {BrowserRouter} from 'react-router-dom'
 import {QueryClientProvider,QueryClient} from '@tanstack/react-query'
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
-
+import 'react-phone-input-2/lib/style.css'
 
 const queryClient = new QueryClient({
   logger: {

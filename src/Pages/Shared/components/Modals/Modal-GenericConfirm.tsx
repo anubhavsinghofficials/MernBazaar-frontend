@@ -9,8 +9,6 @@ function GenericConfirmModal() {
             resetGenericConfirmModal } = modalStore()
     const [fadeOut, setFadeOut] = useState(true)
 
-console.log({genericTitle, genericSubtitle, genericFunction, showGenericConfirmModal})
-
     useEffect(()=>{
         if (showGenericConfirmModal) {
             setFadeOut(false)

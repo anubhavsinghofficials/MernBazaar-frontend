@@ -41,7 +41,7 @@ function App() {
 
     <GenericModal/>
     <GenericConfirmModal/>
-    
+
     <Routes>
       <Route path="/home" element={<HomePage/>}/>
       <Route path="/products" element={<ProductsPage/>}/>

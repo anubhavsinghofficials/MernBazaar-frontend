@@ -194,3 +194,21 @@ export const syncLogOutUserAllDevices = (setDisableSubmit:React.Dispatch<React.S
 }
  
  
+
+export const syncFetchUserShippingInfo = () => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const fetcherFunc = () => axios.get(`${serverUrl}/user/shippinginfo`,{
+        withCredentials:true
+    })
+    
+    return useQuery(['shippingInfo'],fetcherFunc,{
+        select: data => data.data.shippingInfo,
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+        refetchOnWindowFocus:false
+    })
+}
+ 
