@@ -58,7 +58,6 @@ function AddressForm(props:AddressCardPropsType) {
 
     useEffect(()=>{
         if (!openForm) {
-            window.scrollTo({ top: 0 })
             setOpenForm(true)
         }
     },[])
@@ -85,7 +84,7 @@ function AddressForm(props:AddressCardPropsType) {
     }
 
     return (
-        <form className=" px-4 pt-4 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
+        <form className="px-4 pt-4 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
         onSubmit={handleSubmit(onSubmit)}
         onFocus={handleFocus}
         noValidate>
@@ -212,7 +211,7 @@ function AddressForm(props:AddressCardPropsType) {
             </p>
 
             <button type="submit"
-                    className={`w-32 h-8 mt-2 rounded-md font-bold bg-gray-700 text-slate-200 self-end flex justify-center items-center gap-x-4 ${disableSubmit || isNewAddress ? 'bg-green-700': 'hover:bg-gray-600'}`}
+                    className={`w-32 h-8 mt-2 rounded-md font-bold bg-gray-700 text-slate-200 self-end flex justify-center items-center gap-x-4 ${disableSubmit || isNewAddress ? 'bg-green-600': 'hover:bg-gray-600'}`}
                     disabled={disableSubmit}>
                         {   
                             disableSubmit || isNewAddress

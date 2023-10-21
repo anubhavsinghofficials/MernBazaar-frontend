@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios'
 import { UserLogInFormType, UserSignUpFormType } from '@/Pages/Public/FormValidators/type-user'
 import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
 import { modalStore } from '../ClientStore/store-Modals';
+import { cartItem } from '@/Pages/User/components/CartItemsBox';
 
 
 export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
@@ -203,6 +204,31 @@ export const syncFetchUserShippingInfo = () => {
     
     return useQuery(['shippingInfo'],fetcherFunc,{
         select: data => data.data.shippingInfo,
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+        refetchOnWindowFocus:false
+    })
+}
+ 
+ 
+
+export const syncFetchUserCart = (setSubTotal:React.Dispatch<React.SetStateAction<number | undefined>>) => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const fetcherFunc = () => axios.get(`${serverUrl}/user/cart`,{
+        withCredentials:true
+    })
+    
+    return useQuery(['cart'],fetcherFunc,{
+        select: data => data.data.cart,
+        onSuccess(data) {
+            const newSubTotal = data.reduce((accum:number,curr:cartItem) => (
+                accum + curr.price*curr.quantity
+            ),0)
+            setSubTotal(newSubTotal)
+        },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
             setGenericMessage(errorData?.error)

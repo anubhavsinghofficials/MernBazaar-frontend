@@ -55,7 +55,7 @@ function DesktopFilters() {
                 passiveBgColor="bg-slate-100"
                 activeTextColor="text-white"
                 passiveTextColor="text-black"
-                containerLayout="h-60 overflow-y-scroll flex flex-col px-4"
+                containerLayout="h-60 overflow-y-scroll flex flex-col px-4 accordianScrollbar"
                 badgeLayout="pl-6 py-1"
                 />
 

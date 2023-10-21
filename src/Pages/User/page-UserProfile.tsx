@@ -66,13 +66,14 @@ function UserProfile() {
    
    const logOut = () => {
       setGenericTitle("Confirm to Logout from this device")
-      setGenericSubtitle("you will be logged out of this device")
+      setGenericSubtitle("you will have to login again to access your data")
       setGenericFunction(logOutUser)
       toggleGenericConfirmModal()
    }
    
    const logOutAllDevices = () => {
       setGenericTitle("Confirm to Logout from all devices")
+      setGenericSubtitle("any other user using this account will be logged out too")
       setGenericFunction(logOutUserAllDevices)
       toggleGenericConfirmModal()
    }

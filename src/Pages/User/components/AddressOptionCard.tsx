@@ -1,32 +1,29 @@
-import { useState } from "react"
-import { AiFillDelete } from "react-icons/ai"
-import { MdEdit } from "react-icons/md"
 
-type AddressArrayType = {
+type AddressCardOptionType = {
      shippingInfo: {
         address : string,
         city    : string,
         state   : string,
         country : string,
         pinCode : string,
-        phoneNo : string
+        phone   : string
      }
 }
 
-function AddressOptionCard(props:AddressArrayType) {
+function AddressOptionCard(props:AddressCardOptionType) {
     const { shippingInfo } = props
 
     return (
-        <div className={`relative bg-white overflow-hidden rounded-md`}>
+        <div className={`relative bg-white overflow-hidden rounded-md `}>
             <div className="p-4 rounded-md">
-                <p className="whitespace-nowrap overflow-hidden text-ellipsis font-semibold text-slate-800">
+                <p className="line-clamp-1 font-semibold text-slate-800 ">
                     {`${shippingInfo.address}, ${shippingInfo.city}`}
                 </p>
                 <p className="text-green-700 font-semibold">
                     {`${shippingInfo.state}, ${shippingInfo.country} (${shippingInfo.pinCode})`}
                 </p>
                 <p className="pt-2 text-slate-800">
-                    Ph: {shippingInfo.phoneNo}
+                    Ph: {shippingInfo.phone}
                 </p>
             </div>
         </div>

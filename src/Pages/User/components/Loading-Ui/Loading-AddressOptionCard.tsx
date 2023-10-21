@@ -1,14 +1,4 @@
 
-
-const shippingInfo = {
-    address: '593, Sector 12, RK Puram',
-    city: 'New Delhi',
-    state: 'Delhi',
-    country: 'India',
-    pinCode: '110023',
-    phoneNo: '9984320523'
-}
-
 function AddressOptionCardLoading() {
 
     return (

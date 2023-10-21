@@ -11,6 +11,7 @@ import { useState } from "react";
 import { syncFetchUserShippingInfo } from "@/Store/ServerStore/sync-User";
 import AddressOptionCardLoading from "./Loading-Ui/Loading-AddressOptionCard";
 import { AddressType } from "../page-UserCart";
+import { BsFillHouseAddFill, BsFillHouseFill } from "react-icons/bs";
 
 
 export type AddressCardPropsType = {
@@ -44,21 +45,27 @@ function AddressCard(props:AddressCardPropsType) {
     }
 
     return (
-        <div className={`bg-white w-96 rounded-b-md`}>
-           <Accordion type="single" collapsible defaultValue="item-1">
-                <AccordionItem value="item-1">
-                    <AccordionTrigger className="hover:no-underline bg-slate-700 text-white px-4 font-semibold rounded-t-md">
-                        Choose a Shipping address
+            <Accordion className="bg-white grow xl:grow-0 xl:w-96 rounded-b-md shadow-md"
+                       type="single"
+                       collapsible
+                       defaultValue="chooseAddress"
+                       >
+                <AccordionItem value="chooseAddress">
+                    <AccordionTrigger className="hover:no-underline bg-slate-800 text-white px-4 font-semibold rounded-t-md hover:bg-slate-950 active:bg-slate-800">
+                        <p className="flex items-center gap-x-4">
+                            <BsFillHouseFill/>
+                            Choose a Shipping address
+                        </p>
                     </AccordionTrigger>
-                    <AccordionContent>
-                        <div className={`flex flex-col px-4 py-2 pt-4 gap-y-2 overflow-y-auto max-h-96 accordianScrollbar`}>
+                    <AccordionContent >
+                        <div className={`flex flex-col px-4 py-2 pt-4 gap-y-2 overflow-y-auto max-h-[23rem] xl:max-h-[28rem] accordianScrollbar`}>
                         {
                             (isLoading || isRefetching)
                             ? <AddressOptionCardLoading/>
                             : data.map((address:any,i:number) => {
-                        
-                        const selected = address.address === shippingInfo?.address    
-                        return  <label key={i}>
+                                const selected = address.address === shippingInfo?.address    
+                                return  (
+                                <label key={i}>
                                     <input
                                         type="radio"
                                         name="addressOption"
@@ -70,7 +77,47 @@ function AddressCard(props:AddressCardPropsType) {
                                         <AddressOptionCard shippingInfo={address}/>
                                     </div>
                                 </label>
-                            })
+                            )})
+                        }
+                        {
+                            (isLoading || isRefetching)
+                            ? <AddressOptionCardLoading/>
+                            : data.map((address:any,i:number) => {
+                                const selected = address.address === shippingInfo?.address    
+                                return  (
+                                <label key={i}>
+                                    <input
+                                        type="radio"
+                                        name="addressOption"
+                                        className="peer hidden"
+                                        defaultChecked={selected}
+                                        onChange={()=>selectAddress(address)}
+                                    />
+                                    <div className="peer-checked:ring-2 ring-green-600 rounded-md duration-100 relative peer-checked:[&>*]:bg-green-50 peer-hover:[&>*]:bg-green-50">
+                                        <AddressOptionCard shippingInfo={address}/>
+                                    </div>
+                                </label>
+                            )})
+                        }
+                        {
+                            (isLoading || isRefetching)
+                            ? <AddressOptionCardLoading/>
+                            : data.map((address:any,i:number) => {
+                                const selected = address.address === shippingInfo?.address    
+                                return  (
+                                <label key={i}>
+                                    <input
+                                        type="radio"
+                                        name="addressOption"
+                                        className="peer hidden"
+                                        defaultChecked={selected}
+                                        onChange={()=>selectAddress(address)}
+                                    />
+                                    <div className="peer-checked:ring-2 ring-green-600 rounded-md duration-100 relative peer-checked:[&>*]:bg-green-50 peer-hover:[&>*]:bg-green-50">
+                                        <AddressOptionCard shippingInfo={address}/>
+                                    </div>
+                                </label>
+                            )})
                         }
                         {
                             (!isLoading && !isRefetching && data.length === 0) &&
@@ -81,12 +128,15 @@ function AddressCard(props:AddressCardPropsType) {
                         </div>
                     </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="item-2">
-                    <AccordionTrigger className="hover:no-underline bg-slate-700 text-white px-4 font-semibold"
+                <AccordionItem value="addNewAddress">
+                    <AccordionTrigger className="hover:no-underline bg-slate-800 text-white px-4 font-semibold hover:bg-slate-950 active:bg-slate-800"
                     onClick={handleFormToggle}>
-                        Add a new Address
+                        <p className="flex items-center gap-x-4">
+                            <BsFillHouseAddFill/>
+                            Add a new Address
+                        </p>
                     </AccordionTrigger>
-                    <AccordionContent className={`${formOpen?'overflow-visible':''} data-[state=closed]:overflow-hidden`}>
+                    <AccordionContent className={`${formOpen?'overflow-visible':''} data-[state=closed]:overflow-hidden `}>
                         <AddressForm
                             setShippingInfo={setShippingInfo}
                             shippingInfo={shippingInfo}
@@ -95,8 +145,6 @@ function AddressCard(props:AddressCardPropsType) {
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
-            
-        </div>
     )
 }
  
