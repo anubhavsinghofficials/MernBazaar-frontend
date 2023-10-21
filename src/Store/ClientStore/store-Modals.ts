@@ -37,6 +37,13 @@ type modalStoreType = {
     showGenericConfirmModal   : boolean
     toggleGenericConfirmModal : () => void
     resetGenericConfirmModal  : () => void
+    
+    genericToastMessage     : string
+    setGenericToastMessage  : (genericMessage:string) => void
+    genericToastType        : 'success' | 'error' | 'warning'
+    setGenericToastType     : (genericToastType:'success' | 'error' | 'warning') => void
+    showGenericToast        : boolean
+    toggleGenericToast      : (bool:boolean) => void
 }
 
 
@@ -83,6 +90,13 @@ export const modalStore = create<modalStoreType>((set,_get) => ({
         genericTitle: null,
         genericSubtitle: null,
         genericFunction: () => {}
-    }))
+    })),
+    
+    genericToastMessage:'',
+    setGenericToastMessage: (genericToastMessage) => set(()=>({genericToastMessage})),
+    genericToastType:'success',
+    setGenericToastType: (genericToastType) => set(()=>({genericToastType})),
+    showGenericToast:false,
+    toggleGenericToast: (bool) => set(() => ({ showGenericToast:bool })),
 }))
 

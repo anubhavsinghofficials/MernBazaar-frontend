@@ -33,15 +33,16 @@ function UserCart() {
    },[])
 
    const [subTotal, setSubTotal] = useState<number>()
-   const { setGenericMessage, toggleGenericModal } = modalStore()
+   const { setGenericToastType, setGenericToastMessage, toggleGenericToast } = modalStore()
    const { data, isLoading, isRefetching } = syncFetchUserCart(setSubTotal)
    const [shippingInfo, setShippingInfo] = useState<AddressType>()
    const [isNewAddress, setIsNewAddress] = useState(false)
 
    const proceedCheckout = (totalPrice:number) => {
       if (!shippingInfo){
-         setGenericMessage('Choose an address')
-         toggleGenericModal()
+         setGenericToastMessage('Choose an address')
+         setGenericToastType('warning')
+         toggleGenericToast(true)
          return
       }
       console.log('checkout')

@@ -24,6 +24,7 @@ import GenericModal from "./Pages/Shared/components/Modals/Modal-Generic"
 import UserPasswordUpdate from "./Pages/User/page-UserPasswordUpdate"
 import SellerPasswordUpdate from "./Pages/Seller/page-SellerPasswordUpdate"
 import GenericConfirmModal from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
+import GenericToast from "./Pages/Shared/components/Modals/Toast-Generic"
 
 function App() {
 
@@ -41,7 +42,8 @@ function App() {
 
     <GenericModal/>
     <GenericConfirmModal/>
-
+    <GenericToast/>
+    
     <Routes>
       <Route path="/home" element={<HomePage/>}/>
       <Route path="/products" element={<ProductsPage/>}/>

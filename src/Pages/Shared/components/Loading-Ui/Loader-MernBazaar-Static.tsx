@@ -19,7 +19,7 @@ function MernBazaarLoaderStatic() {
             <p className="relative">
                 <FaShoppingCart className={`text-6xl sm:text-7xl`}/>
                 <span className={`${Loader ? 'opacity-100' : 'opacity-0'} duration-500`}>
-                    <span className={`w-4 h-4 rounded-full border-b-white border-l-white border-[0.24rem] border-slate-800 animate-spin absolute top-[25%] left-[50%] `}/>
+                    <span className={`w-4 h-4 rounded-full border-b-slate-200 border-l-white border-[0.24rem] border-slate-800 animate-spin absolute top-[25%] left-[50%] `}/>
                 </span>
             </p>
             <div>

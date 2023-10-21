@@ -16,8 +16,8 @@ export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
 export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const Navigate = useNavigate()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
-
     const mutationFunc = (userData:UserSignUpFormType) => {
         return axios.post(`${serverUrl}/user/register`, userData, {
             withCredentials: true,
@@ -27,8 +27,11 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     return useMutation(mutationFunc,{
         onSuccess(data) {
             queryClient.invalidateQueries(['Role'])
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
             Navigate('/user/profile')
         },
         onError(error) {
@@ -46,6 +49,7 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
 
 export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const Navigate = useNavigate()
 
@@ -58,8 +62,11 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     return useMutation(mutationFunc,{
         onSuccess(data, _variables, _context) {
             queryClient.invalidateQueries(['Role']),
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
             Navigate('/user/profile')
         },
         onError(error) {
