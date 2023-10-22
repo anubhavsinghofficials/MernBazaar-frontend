@@ -17,6 +17,9 @@ import EditReviewModal from "./components/Modals/Modal-EditReview"
 import ProductDetailsPageLoading from "./components/Loading-Ui/Loading-page-ProductDetails"
 import ReviewCardLoading from "./components/Loading-Ui/Loading-ReviewCard"
 import { syncAddReview, syncDeleteReview, syncFetchAllReviews, syncFetchProductDetails } from "@/Store/ServerStore/sync-Products"
+import { modalStore } from "@/Store/ClientStore/store-Modals"
+import { syncAddToCart } from "@/Store/ServerStore/sync-User"
+import { cartItemType } from "../User/components/CartItemsBox"
 
 
 export type reviewType = {
@@ -29,16 +32,18 @@ function ProductDetailsPage() {
     const { id } = useParams()
     const Navigate = useNavigate()
     const { setSearchObject } = filterStore()
+    const [disableCartButton, setDisableCartButton] = useState(false);
     const categoryBarRef = useRef<HTMLUListElement|null>(null)
     const { handleScrollX, leftScroll, rightScroll } = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
     const { data:product, isLoading:productLoading } = syncFetchProductDetails(id!)
     const { data:reviews, isLoading:reviewLoading, isRefetching:reviewRefetching } = syncFetchAllReviews(id!)
+    const { mutate } = syncAddToCart(setDisableCartButton)
     const { mutate:addRev } = syncAddReview(id!)
     const { mutate:deleteRev } = syncDeleteReview(id!)
     const categoryIndex = categoryBadges.values.indexOf(product ? product.category: 'watch')
     const categoryString = categoryBadges.strings[categoryIndex]
     const [Thumbnail, setThumbnail] = useState('')
-    const [Quantity, setQuantity] = useState(0)
+    const [quantity, setQuantity] = useState(1)
 
     useEffect(()=>{
         if (product) {
@@ -59,6 +64,18 @@ function ProductDetailsPage() {
         Navigate("/products")
     }
 
+    const addToCart = () => {
+        const cartProduct:Omit<cartItemType,"_id"> = {
+            image:product.images.thumbnail.url,
+            name:product.title,
+            price:product.price.net,
+            product:id!,
+            quantity:quantity,
+            stock:product.stock
+        }
+        mutate(cartProduct)
+        setDisableCartButton(true)
+    }
     const deleteReview = () => {
         deleteRev()
     }
@@ -200,7 +217,7 @@ function ProductDetailsPage() {
                                 {
                                     Array.from({length:Math.min(product.stock,5)})
                                     .map((_,i)=>(
-                                        <option value={i+1}>{i+1} Item{i+1!==1 && `s`}</option>
+                                        <option key={i} value={i+1}>{i+1} Item{i+1!==1 && `s`}</option>
                                     ))
                                 }
                                </select>
@@ -211,8 +228,14 @@ function ProductDetailsPage() {
                                     <BsFillLightningChargeFill/>
                                     Buy Now
                                 </button>
-                                <button className="bg-white ring-1 ring-green-600 text-green-700 py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 active:text-green-800 hover:bg-white hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75 grow sm:grow-0 whitespace-nowrap">
-                                    <FaShoppingCart/>
+                                <button className="bg-white ring-1 ring-green-600 text-green-700 py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 active:text-green-800 hover:bg-white hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75 grow sm:grow-0 whitespace-nowrap"
+                                onClick={addToCart}
+                                disabled={disableCartButton}>
+                                {
+                                    disableCartButton
+                                    ? <span className={`w-4 h-4 rounded-full border-b-green-300 border-l-green-400 border-[0.24rem] border-white animate-spin`}/>
+                                    : <FaShoppingCart/>
+                                }
                                     Add to Cart
                                 </button>
                             </div>

@@ -1,4 +1,3 @@
-import { deleteReviewModal } from "@/Store/ClientStore/store-Constants"
 import { modalStore } from "@/Store/ClientStore/store-Modals"
 import React, { useEffect, useRef } from "react"
 
@@ -56,10 +55,10 @@ function DeleteReviewModal(props:DeleteReviewModalPropsType) {
                  onClick={(e)=> e.stopPropagation()}
             >
                 <p className="leading-6 xs:text-2xl xs:leading-7 text-slate-800 font-semibold font-Roboto">
-                    {deleteReviewModal.title}
+                    Confirm to delete your review
                 </p>
                 <p className="text-slate-600 xs:font-semibold leading-[1.15rem] xs:leading-5 pr-4 max-h-80 overflow-y-auto py-1 text-sm xs:text-base">
-                    {deleteReviewModal.message}
+                    Your review will be permanently deleted for this product. You can review it again after that
                 </p>
                 <div className={`self-end flex items-end gap-x-4`}>
                     <button

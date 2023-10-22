@@ -6,10 +6,11 @@ import axios, { AxiosError } from 'axios'
 import { UserLogInFormType, UserSignUpFormType } from '@/Pages/Public/FormValidators/type-user'
 import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
 import { modalStore } from '../ClientStore/store-Modals';
-import { cartItem } from '@/Pages/User/components/CartItemsBox';
+import { cartItemType } from '@/Pages/User/components/CartItemsBox';
 
 
 export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
+export type numSetStateType = React.Dispatch<React.SetStateAction<number>>
 
 
 
@@ -99,6 +100,7 @@ export const syncFetchUserDetails = () => {
 
 export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSubmit:boolSetStateType) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const queryClient = useQueryClient()
     
     const mutationFunc = (userData:userProfileType) => {
@@ -111,6 +113,11 @@ export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSu
             setEditable(false)
             setDisableSubmit(false)
             queryClient.invalidateQueries(['userDetails'])
+            setGenericToastMessage('Updated your details')
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
@@ -123,8 +130,9 @@ export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSu
 
 
 
-export const syncUpdateUserPassword = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncUpdateUserPassword = (setDisableSubmit:boolSetStateType) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const Navigate = useNavigate()
     const mutationFunc = (passwords:passwordsType) => {
        return axios.patch(`${serverUrl}/user/password`, passwords, {
@@ -134,8 +142,11 @@ export const syncUpdateUserPassword = (setDisableSubmit:React.Dispatch<React.Set
     return useMutation(mutationFunc,{
         onSuccess(data){
             setDisableSubmit(false)
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
             Navigate('/user/profile')
         },
         onError(error) {
@@ -149,7 +160,7 @@ export const syncUpdateUserPassword = (setDisableSubmit:React.Dispatch<React.Set
 
 
 
-export const syncLogOutUser = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncLogOutUser = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
@@ -176,7 +187,7 @@ export const syncLogOutUser = (setDisableSubmit:React.Dispatch<React.SetStateAct
  
 
 
-export const syncLogOutUserAllDevices = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncLogOutUserAllDevices = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
@@ -221,8 +232,7 @@ export const syncFetchUserShippingInfo = () => {
 }
  
  
-
-export const syncFetchUserCart = (setSubTotal:React.Dispatch<React.SetStateAction<number | undefined>>) => {
+export const syncFetchUserCart = (setSubTotal:numSetStateType, setTotalProducts:numSetStateType) => {
     const { setGenericMessage, toggleGenericModal } = modalStore()
     const fetcherFunc = () => axios.get(`${serverUrl}/user/cart`,{
         withCredentials:true
@@ -231,10 +241,14 @@ export const syncFetchUserCart = (setSubTotal:React.Dispatch<React.SetStateActio
     return useQuery(['cart'],fetcherFunc,{
         select: data => data.data.cart,
         onSuccess(data) {
-            const newSubTotal = data.reduce((accum:number,curr:cartItem) => (
-                accum + curr.price*curr.quantity
-            ),0)
+            let newSubTotal = 0
+            let newTotalProducts = 0
+            data.forEach((element:cartItemType) => {
+                newSubTotal += element.price*element.quantity
+                newTotalProducts += element.quantity
+            })
             setSubTotal(newSubTotal)
+            setTotalProducts(newTotalProducts)
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
@@ -242,6 +256,65 @@ export const syncFetchUserCart = (setSubTotal:React.Dispatch<React.SetStateActio
             toggleGenericModal()
         },
         refetchOnWindowFocus:false
+    })
+}
+
+
+
+
+export const syncAddToCart = (setDisableCartButton:boolSetStateType,toast=true) => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+    const queryClient = useQueryClient()
+    
+    const mutationFunc = (cartProduct:Omit<cartItemType,"_id">) => {
+        return axios.patch(`${serverUrl}/user/cart`,cartProduct,{
+            withCredentials:true
+        })
+    }
+    return useMutation(mutationFunc,{
+        onSuccess(data){
+            queryClient.invalidateQueries(['cart'])
+            if (toast) {
+                setGenericToastMessage(data.data.message)
+                setGenericToastType('success')
+                setTimeout(() => {
+                    setDisableCartButton(false)
+                    toggleGenericToast(true)
+                }, 1000)
+            }
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+            setDisableCartButton(false)
+        },
+    })
+}
+ 
+
+
+
+export const syncDeleteCartProduct = (setDisableCartButton:boolSetStateType) => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const queryClient = useQueryClient()
+    
+    const mutationFunc = (productId:string) => {
+        return axios.delete(`${serverUrl}/user/cart/${productId}`,{
+            withCredentials:true
+        })
+    }
+    return useMutation(mutationFunc,{
+        onSuccess(_data){
+            queryClient.invalidateQueries(['cart'])
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+            setDisableCartButton(false)
+        },
     })
 }
  

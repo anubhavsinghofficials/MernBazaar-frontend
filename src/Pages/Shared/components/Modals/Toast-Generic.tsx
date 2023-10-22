@@ -30,7 +30,7 @@ function GenericToast() {
     }
 
     return (
-        <div className={`${genericToastType==='success' &&'bg-green-50'} ${genericToastType==='error' &&'bg-red-50'} ${genericToastType==='warning' &&'bg-yellow-50'} max-w-[18rem] xs:max-w-[24rem] md:max-w-[28rem] xs:min-h-[3rem] fixed bottom-0 right-[50%] translate-x-[50%] z-50 rounded-full shadow-lg shadow-[#00000043] ${!fadeOut ?'-translate-y-6 opacity-100 scale-100' : '-translate-y-0 opacity-0 scale-50'} duration-150 flex items-center gap-x-2 xs:gap-x-4 p-3 pr-4 xs:pr-8`}>
+        <div className={`${genericToastType==='success' &&'bg-green-50 shadow-[#6ae67843]'} ${genericToastType==='error' &&'bg-red-50 shadow-[#e66a6a43]'} ${genericToastType==='warning' &&'bg-yellow-50 shadow-[#e6d86a43]'} max-w-[18rem] xs:max-w-[24rem] md:max-w-[28rem] xs:min-h-[3rem] fixed bottom-0 right-[50%] translate-x-[50%] z-50 rounded-full shadow-lg ${!fadeOut ?'-translate-y-6 opacity-100 scale-100' : '-translate-y-0 opacity-0 scale-50'} duration-150 flex items-center gap-x-2 xs:gap-x-4 p-3 pr-4 xs:pr-8`}>
             <div className={`h-full aspect-square`}>
                 <MdOutlineReportGmailerrorred className={`${genericToastType==='warning' ? 'block':'hidden'} bg-yellow-600 text-yellow-50 rounded-full text-3xl xs:text-[2rem]`}/>
                 <TiTick className={`${genericToastType==='success' ? 'block':'hidden'} bg-green-600 text-green-50 rounded-full text-3xl xs:text-[2rem]`}/>
