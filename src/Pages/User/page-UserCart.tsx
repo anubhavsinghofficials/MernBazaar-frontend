@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import CartSummaryCard from "./components/CartSummaryCard"
 import AddressCard from "./components/AddressCard"
 import { syncFetchUserCart } from "@/Store/ServerStore/sync-User"
@@ -18,8 +18,9 @@ export type AddressType = {
 }
 
 function UserCart() {
-
+//
    const [subTotal, setSubTotal] = useState<number>(0)
+   const LoadingLengthRef = useRef(4)
    const [totalProducts, setTotalProducts] = useState<number>(0)
    const { setGenericToastType, setGenericToastMessage, toggleGenericToast } = modalStore()
    const { data, isLoading, isRefetching } = syncFetchUserCart(setSubTotal,setTotalProducts)
@@ -47,13 +48,17 @@ function UserCart() {
       console.log({shippingInfo,isNewAddress,totalPrice,orderItems})
    }
 
+   if (data && LoadingLengthRef.current !== data.length) {
+       LoadingLengthRef.current = data.length
+   }
+
    return (
             <div className={`w-screen min-h-screen pb-4 pt-[3.8rem] xs:pt-[4.4rem] lg:pt-20 xl:pt-0 bg-slate-200 flex justify-center items-center gap-y-2 xs:gap-4 xs:p-2 xl:p-4 flex-col-reverse xl:flex-row`}
             >
                <div className={`w-[96%] lg:w-[80%] xl:w-[46rem]`}>
                {
                   (isLoading || isRefetching)
-                  ? <CartItemsBoxLoading/>
+                  ? <CartItemsBoxLoading length={LoadingLengthRef.current}/>
                   : <CartItemsBox cart={data}/>
                }
                </div>

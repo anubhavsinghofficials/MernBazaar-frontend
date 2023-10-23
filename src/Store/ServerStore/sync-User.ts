@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { userProfileType } from './../../Pages/User/page-UserProfile';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { serverUrl } from '../ClientStore/store-Constants'
+import { SERVER_URL } from '../ClientStore/store-Constants'
 import axios, { AxiosError } from 'axios'
 import { UserLogInFormType, UserSignUpFormType } from '@/Pages/Public/FormValidators/type-user'
 import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
@@ -20,7 +20,7 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const mutationFunc = (userData:UserSignUpFormType) => {
-        return axios.post(`${serverUrl}/user/register`, userData, {
+        return axios.post(`${SERVER_URL}/user/register`, userData, {
             withCredentials: true,
         })
     }
@@ -55,7 +55,7 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
 
     const mutationFunc = (userData:UserLogInFormType) => {
-        return axios.post(`${serverUrl}/user/login`, userData, {
+        return axios.post(`${SERVER_URL}/user/login`, userData, {
             withCredentials: true,
         })
     }
@@ -83,7 +83,7 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
 export const syncFetchUserDetails = () => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
     
-    const fetcherFunc = () => axios.get(`${serverUrl}/user`, {
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/user`, {
         withCredentials: true,
     })
     return useQuery(['userDetails'], fetcherFunc, {
@@ -104,7 +104,7 @@ export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSu
     const queryClient = useQueryClient()
     
     const mutationFunc = (userData:userProfileType) => {
-        return axios.patch(`${serverUrl}/user`, userData, {
+        return axios.patch(`${SERVER_URL}/user`, userData, {
             withCredentials: true,
         })
     }
@@ -135,7 +135,7 @@ export const syncUpdateUserPassword = (setDisableSubmit:boolSetStateType) => {
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const Navigate = useNavigate()
     const mutationFunc = (passwords:passwordsType) => {
-       return axios.patch(`${serverUrl}/user/password`, passwords, {
+       return axios.patch(`${SERVER_URL}/user/password`, passwords, {
            withCredentials:true,
         })
     }
@@ -165,7 +165,7 @@ export const syncLogOutUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const mutationFunc = () => {
-        return axios.post(`${serverUrl}/user/logout`, null, {
+        return axios.post(`${SERVER_URL}/user/logout`, null, {
             withCredentials:true
         })
     }
@@ -192,7 +192,7 @@ export const syncLogOutUserAllDevices = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const mutationFunc = () => {
-        return axios.post(`${serverUrl}/user/logoutall`, null, {
+        return axios.post(`${SERVER_URL}/user/logoutall`, null, {
             withCredentials:true
         })
     }
@@ -216,7 +216,7 @@ export const syncLogOutUserAllDevices = (setDisableSubmit:boolSetStateType) => {
 
 export const syncFetchUserShippingInfo = () => {
     const { setGenericMessage, toggleGenericModal } = modalStore()
-    const fetcherFunc = () => axios.get(`${serverUrl}/user/shippinginfo`,{
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/user/shippinginfo`,{
         withCredentials:true
     })
     
@@ -234,7 +234,7 @@ export const syncFetchUserShippingInfo = () => {
  
 export const syncFetchUserCart = (setSubTotal:numSetStateType, setTotalProducts:numSetStateType) => {
     const { setGenericMessage, toggleGenericModal } = modalStore()
-    const fetcherFunc = () => axios.get(`${serverUrl}/user/cart`,{
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/user/cart`,{
         withCredentials:true
     })
     
@@ -268,7 +268,7 @@ export const syncAddToCart = (setDisableCartButton:boolSetStateType,toast=true) 
     const queryClient = useQueryClient()
     
     const mutationFunc = (cartProduct:Omit<cartItemType,"_id">) => {
-        return axios.patch(`${serverUrl}/user/cart`,cartProduct,{
+        return axios.patch(`${SERVER_URL}/user/cart`,cartProduct,{
             withCredentials:true
         })
     }
@@ -301,7 +301,7 @@ export const syncDeleteCartProduct = (setDisableCartButton:boolSetStateType) => 
     const queryClient = useQueryClient()
     
     const mutationFunc = (productId:string) => {
-        return axios.delete(`${serverUrl}/user/cart/${productId}`,{
+        return axios.delete(`${SERVER_URL}/user/cart/${productId}`,{
             withCredentials:true
         })
     }

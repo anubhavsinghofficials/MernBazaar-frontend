@@ -1,6 +1,6 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { serverUrl } from '../ClientStore/store-Constants'
+import { SERVER_URL } from '../ClientStore/store-Constants'
 import axios, { AxiosError } from 'axios'
 import { SellerLogInFormType, SellerSignUpFormType } from '@/Pages/Public/FormValidators/type-seller'
 import { sellerProfileType } from '@/Pages/Seller/page-SellerProfile'
@@ -17,7 +17,7 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
     const { setGenericMessage, toggleGenericModal } = modalStore()
 
     const mutationFunc = (sellerData:SellerSignUpFormType) => {
-        return axios.post(`${serverUrl}/seller/register`, sellerData, {
+        return axios.post(`${SERVER_URL}/seller/register`, sellerData, {
             withCredentials: true,
         })
     }
@@ -48,7 +48,7 @@ export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
 
     const mutationFunc = (sellerData:SellerLogInFormType) => {
-        return axios.post(`${serverUrl}/seller/login`, sellerData, {
+        return axios.post(`${SERVER_URL}/seller/login`, sellerData, {
             withCredentials: true,
         })
     }
@@ -74,7 +74,7 @@ export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
 export const syncFetchSellerDetails = () => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
 
-    const fetcherFunc = () => axios.get(`${serverUrl}/seller`, {
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/seller`, {
         withCredentials: true,
     })
     return useQuery(['sellerDetails'], fetcherFunc, {
@@ -95,7 +95,7 @@ export const syncUpdateSellerDetails = (setEditable:boolSetStateType, setDisable
     const queryClient = useQueryClient()
 
     const mutationFunc = (sellerData:sellerProfileType) => {
-        return axios.patch(`${serverUrl}/seller`, sellerData, {
+        return axios.patch(`${SERVER_URL}/seller`, sellerData, {
             withCredentials: true,
         })
     }
@@ -120,7 +120,7 @@ export const syncUpdateSellerPassword = (setDisableSubmit:React.Dispatch<React.S
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const Navigate = useNavigate()
     const mutationFunc = (passwords:passwordsType) => {
-       return axios.patch(`${serverUrl}/seller/password`, passwords, {
+       return axios.patch(`${SERVER_URL}/seller/password`, passwords, {
            withCredentials:true,
         })
     }
@@ -147,7 +147,7 @@ export const syncLogOutSeller = (setDisableSubmit:React.Dispatch<React.SetStateA
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const mutationFunc = () => {
-        return axios.post(`${serverUrl}/seller/logout`, null, {
+        return axios.post(`${SERVER_URL}/seller/logout`, null, {
             withCredentials:true
         })
     }
@@ -174,7 +174,7 @@ export const syncLogOutSellerAllDevices = (setDisableSubmit:React.Dispatch<React
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const mutationFunc = () => {
-        return axios.post(`${serverUrl}/seller/logoutall`, null, {
+        return axios.post(`${SERVER_URL}/seller/logoutall`, null, {
             withCredentials:true
         })
     }

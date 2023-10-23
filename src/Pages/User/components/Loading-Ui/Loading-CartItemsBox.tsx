@@ -8,7 +8,7 @@ import {
 import { BsFileImageFill } from "react-icons/bs"
 
 
-function CartItemsBoxLoading() {
+function CartItemsBoxLoading({length}:{length:number}) {
      return (
         <Accordion className=" bg-white shadow-md"
                    type="single"
@@ -22,9 +22,9 @@ function CartItemsBoxLoading() {
                         </p>
                 </AccordionTrigger>
                 <AccordionContent >
-                    <div className={`flex flex-col px-2 gap-y-2 xl:max-h-96 overflow-auto accordianScrollbar mt-4`}>
+                    <div className={`flex flex-col px-2 gap-y-2 xl:max-h-[32rem] overflow-auto accordianScrollbar mt-4`}>
                     {
-                        Array.from({length:4}).map((_,i) => (
+                        Array.from({length:length}).map((_,i) => (
                             <div className={`h-32 bg-white rounded-md flex-none shadow-md flex gap-x-4 p-2`}
                                 key={i}>
                                 <div className="w-1/4 object-contain bg-slate-200 rounded-md flex justify-center items-center text-5xl text-slate-400">
