@@ -6,17 +6,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import AddressOptionCard from "./AddressOptionCard"
-import AddressForm from "./AddressForm";
+import AddressForm, { addressSchemaType } from "./AddressForm";
 import { useState } from "react";
 import { syncFetchUserShippingInfo } from "@/Store/ServerStore/sync-User";
 import AddressOptionCardLoading from "./Loading-Ui/Loading-AddressOptionCard";
-import { AddressType } from "../page-UserCart";
 import { BsFillHouseAddFill, BsFillHouseFill } from "react-icons/bs";
 
 
 export type AddressCardPropsType = {
-    setShippingInfo: React.Dispatch<React.SetStateAction<AddressType | undefined>>
-    shippingInfo:AddressType | undefined
+    setShippingInfo: React.Dispatch<React.SetStateAction<addressSchemaType | undefined>>
+    shippingInfo:addressSchemaType | undefined
     isNewAddress:boolean
     setIsNewAddress: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -39,7 +38,7 @@ function AddressCard(props:AddressCardPropsType) {
         }
     }
      
-    const selectAddress = (address:AddressType) => {
+    const selectAddress = (address:addressSchemaType) => {
         setShippingInfo(address)
         setIsNewAddress(false)
     }
@@ -59,46 +58,6 @@ function AddressCard(props:AddressCardPropsType) {
                     </AccordionTrigger>
                     <AccordionContent >
                         <div className={`flex flex-col px-4 py-2 pt-4 gap-y-2 overflow-y-auto max-h-[23rem] xl:max-h-[28rem] accordianScrollbar`}>
-                        {
-                            (isLoading || isRefetching)
-                            ? <AddressOptionCardLoading/>
-                            : data.map((address:any,i:number) => {
-                                const selected = address.address === shippingInfo?.address    
-                                return  (
-                                <label key={i}>
-                                    <input
-                                        type="radio"
-                                        name="addressOption"
-                                        className="peer hidden"
-                                        defaultChecked={selected}
-                                        onChange={()=>selectAddress(address)}
-                                    />
-                                    <div className="peer-checked:ring-2 ring-green-600 rounded-md duration-100 relative peer-checked:[&>*]:bg-green-50 peer-hover:[&>*]:bg-green-50">
-                                        <AddressOptionCard shippingInfo={address}/>
-                                    </div>
-                                </label>
-                            )})
-                        }
-                        {
-                            (isLoading || isRefetching)
-                            ? <AddressOptionCardLoading/>
-                            : data.map((address:any,i:number) => {
-                                const selected = address.address === shippingInfo?.address    
-                                return  (
-                                <label key={i}>
-                                    <input
-                                        type="radio"
-                                        name="addressOption"
-                                        className="peer hidden"
-                                        defaultChecked={selected}
-                                        onChange={()=>selectAddress(address)}
-                                    />
-                                    <div className="peer-checked:ring-2 ring-green-600 rounded-md duration-100 relative peer-checked:[&>*]:bg-green-50 peer-hover:[&>*]:bg-green-50">
-                                        <AddressOptionCard shippingInfo={address}/>
-                                    </div>
-                                </label>
-                            )})
-                        }
                         {
                             (isLoading || isRefetching)
                             ? <AddressOptionCardLoading/>

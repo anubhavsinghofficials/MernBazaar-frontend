@@ -6,25 +6,20 @@ import CartSummaryCardLoading from "./components/Loading-Ui/Loading-CartSummaryC
 import { modalStore } from "@/Store/ClientStore/store-Modals"
 import CartItemsBox, { cartItemType } from "./components/CartItemsBox"
 import CartItemsBoxLoading from "./components/Loading-Ui/Loading-CartItemsBox"
-
-
-export type AddressType = {
-   address: string;
-   city: string;
-   state: string;
-   country: string;
-   pinCode: string;
-   phone: string;
-}
+import { addressSchemaType } from "./components/AddressForm"
+import { paymentStore } from "@/Store/ClientStore/store-Payment"
+import { useNavigate } from "react-router-dom"
 
 function UserCart() {
-//
+
+   const Navigate = useNavigate()
    const [subTotal, setSubTotal] = useState<number>(0)
    const LoadingLengthRef = useRef(4)
    const [totalProducts, setTotalProducts] = useState<number>(0)
    const { setGenericToastType, setGenericToastMessage, toggleGenericToast } = modalStore()
+   const { setPaymentDetails } = paymentStore()
    const { data, isLoading, isRefetching } = syncFetchUserCart(setSubTotal,setTotalProducts)
-   const [shippingInfo, setShippingInfo] = useState<AddressType>()
+   const [shippingInfo, setShippingInfo] = useState<addressSchemaType>()
    const [isNewAddress, setIsNewAddress] = useState(false)
 
    const proceedCheckout = (totalPrice:number) => {
@@ -39,17 +34,19 @@ function UserCart() {
          toggleGenericToast(true)
          return
       }
-      console.log('checkout')
+
       let orderItems:Omit<cartItemType,"_id"|"stock">[] = []
       data.forEach((item:cartItemType) => {
-         const { _id, stock, ...refinedItem } = item
+         const { _id, stock,...refinedItem } = item
          orderItems.push(refinedItem)
       })
-      console.log({shippingInfo,isNewAddress,totalPrice,orderItems})
+
+      setPaymentDetails({totalPrice,orderItems,shippingInfo,isNewAddress})
+      Navigate("/user/payment")
    }
 
    if (data && LoadingLengthRef.current !== data.length) {
-       LoadingLengthRef.current = data.length
+      LoadingLengthRef.current = data.length
    }
 
    return (

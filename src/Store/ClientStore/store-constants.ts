@@ -10,8 +10,8 @@ import { AiFillMedicineBox } from "react-icons/ai"
 
 
 
-export const serverUrl = 'http://localhost:3000/api/v1'
-
+export const SERVER_URL = 'http://localhost:3000/api/v1'
+export const STRIPE_PUBLISHABLE_KEY = 'pk_test_51O4O6ZSBVRdKpmOwIImXC8qRxz66uN38KNRdD6VOySESOBa0tL9F4Mu1NonUy8jJRMoxFXTBKDgtX2jndvlOeU0K00kLaWSHCy'
 
 export const priceRange = {
     max:25000,
@@ -117,23 +117,6 @@ export const discountBadges = {
 // Modal Messages ___________________________________
 
 export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account upon buying the products. You can use test cards provided in the payment gateway to test the payment systems'
-export const deleteReviewModal = {
-    title : 'Confirm to delete your review',
-    message : 'Your review will be permanently deleted for this product. You can review it again after that'
-}
 
 
 
-
-
-
-// General
-// only categoryBadges (value,strings), why?
-// user role verify
-// top 7 best whatever for initial search suggestions (category + name backend search)
-
-// User
-// Cart Product count
-
-// simplyfy the categoryis plurals first
-// role change upon sign in/out etc

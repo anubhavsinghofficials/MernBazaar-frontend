@@ -98,6 +98,7 @@ export const syncFetchUserDetails = () => {
 }
 
 
+
 export const syncUpdateUserDetails = (setEditable:boolSetStateType, setDisableSubmit:boolSetStateType) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()

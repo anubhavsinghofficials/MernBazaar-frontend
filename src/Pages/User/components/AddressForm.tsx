@@ -11,6 +11,7 @@ import { BiSolidLandscape } from "react-icons/bi"
 import PhoneInput from 'react-phone-input-2'
 import { ImCheckmark } from "react-icons/im"
 import { AddressCardPropsType } from "./AddressCard"
+import { City, State, Country } from 'country-state-city'
 
 
 export type addressSchemaType = z.infer<typeof zodAddressSchema>
@@ -42,7 +43,7 @@ export const zodAddressSchema = z.object({
     phone           : z.string()
                     .trim()
                     .nonempty("Phone number Required")
-                    .min(10,"Enter a valid phone number")
+                    .min(12,"Enter a valid phone number")
                     .max(16,"Enter a valid phone number")
                     .refine((value) => {
                         const pattern = /^(\+|\d|-)*$/;
@@ -55,6 +56,8 @@ function AddressForm(props:AddressCardPropsType) {
     const { setShippingInfo, shippingInfo, isNewAddress, setIsNewAddress } = props
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [openForm, setOpenForm] = useState(false)
+    const [country, setCountry] = useState('IN')
+    const [state, setState] = useState('DL')
 
     useEffect(()=>{
         if (!openForm) {
@@ -63,7 +66,7 @@ function AddressForm(props:AddressCardPropsType) {
     },[])
 
     const form = useForm<addressSchemaType>({
-        defaultValues: isNewAddress ? shippingInfo : {},
+        defaultValues: isNewAddress ? shippingInfo : {city:'Delhi',country:'IN',state:'DL'},
         mode:"onSubmit",
         resolver:zodResolver(zodAddressSchema)
     })
@@ -104,50 +107,73 @@ function AddressForm(props:AddressCardPropsType) {
             <p className="text-red-600 font-normal bottom-[0.2rem] self-start left-10 relative">
                     {errors.address?.message}
             </p>
-            <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.city ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
-                <label htmlFor="city"
+            <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.country ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
+                <label htmlFor="country"
                     className=" mr-2 self-stretch flex items-center px-2 text-xl">
-                        <FaCity className='text-slate-700 text-2xl'/>
+                        <TiWorld className='text-slate-700 text-2xl'/>
                 </label>
-                <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
-                    type="text"
-                    id="city"
-                    {...register("city")}
-                    placeholder="City"
-                    autoComplete="off"/>
+                <select
+                    {...register("country")}
+                    className="px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder h-full"
+                    defaultValue={'IN'}
+                    onChange={(e)=>setCountry(e.target.value)}>
+                    {
+                        Country &&
+                        Country.getAllCountries().map((country)=>(
+                            <option key={country.isoCode} value={country.isoCode}>
+                                {country.flag}&nbsp;&nbsp;&nbsp;{country.name}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
             <p className="text-red-600 font-normal bottom-[0.2rem] self-start left-10 relative">
-                    {errors.city?.message}
+                    {errors.country?.message}
             </p>
             <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.state ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
                 <label htmlFor="state"
                     className=" mr-2 self-stretch flex items-center px-2 text-xl">
                         <BiSolidLandscape className='text-slate-700 text-2xl'/>
                 </label>
-                <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
-                    type="text"
-                    id="state"
+                <select
                     {...register("state")}
-                    placeholder="State"
-                    autoComplete="off"/>
+                    className="px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder h-full"
+                    defaultValue={'DL'}
+                    onChange={(e)=>setState(e.target.value)}>
+                    {
+                        country &&
+                        State.getStatesOfCountry(country).map((state)=>(
+                            <option key={state.isoCode} value={state.isoCode}>
+                                {state.name}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
             <p className="text-red-600 font-normal bottom-[0.2rem] self-start left-10 relative">
                     {errors.state?.message}
             </p>
-            <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.country ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
-                <label htmlFor="country"
+            <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.city ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
+                <label htmlFor="city"
                     className=" mr-2 self-stretch flex items-center px-2 text-xl">
-                        <TiWorld className='text-slate-700 text-2xl'/>
+                        <FaCity className='text-slate-700 text-2xl'/>
                 </label>
-                <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
-                    type="text"
-                    id="country"
-                    {...register("country")}
-                    placeholder="Country"
-                    autoComplete="off"/>
+                <select 
+                    {...register("city")}
+                    className="px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder h-full"
+                    defaultValue={'Delhi'}>
+                    {
+                        state &&
+                        City.getCitiesOfState(country,state).map((city)=>(
+                            <option key={city.name} value={city.name}>
+                                {city.name}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
             <p className="text-red-600 font-normal bottom-[0.2rem] self-start left-10 relative">
-                    {errors.country?.message}
+                    {errors.city?.message}
             </p>
             <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.pinCode ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
                 <label htmlFor="pinCode"
@@ -167,7 +193,8 @@ function AddressForm(props:AddressCardPropsType) {
             
             <div className={`flex w-full px-2 rounded-md text-slate-800 font-semibold bg-slate-200 items-center ring-[0.1rem] ${errors.phone ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
                 <label htmlFor="phone"
-                    className=" mr-2 self-stretch flex items-center px-2 text-xl">
+                    className=" mr-2 self-stretch flex items-center px-2 text-xl"
+                    onFocus={handleFocus}>
                     <AiFillPhone
                     className='text-slate-700 text-2xl rotate-90'/>
                 </label>
@@ -182,6 +209,7 @@ function AddressForm(props:AddressCardPropsType) {
                             value={value}
                             onChange={(phone: string, country: any)=>{
                                 const reducedPhone = phone.replace(country.dialCode,'')
+                                setDisableSubmit(false)
                                 onChange('+' + country.dialCode + '-' + reducedPhone)
                             }}
                             inputProps={{ name }}

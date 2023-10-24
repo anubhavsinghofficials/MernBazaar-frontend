@@ -44,7 +44,7 @@ function GenericConfirmModal() {
     }
      
     return (
-        <div className={`fixed w-screen h-screen flex justify-center items-center top-0 left-0 bg-black z-[1000] bg-opacity-70 backdrop-blur-sm duration-[80ms] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity`}
+        <div className={`fixed w-screen h-screen flex justify-center items-center top-0 left-0 bg-black z-[1000] bg-opacity-70 backdrop-blur-sm duration-100 ${fadeOut?'opacity-0':'opacity-100'} transition-opacity`}
         onClick={handleCancel}
         >
             <div className={`max-w-[80%] sm:max-w-[30rem] rounded-lg p-6 pb-4 flex flex-col ${genericSubtitle&&'gap-y-2'} bg-slate-50 relative`}

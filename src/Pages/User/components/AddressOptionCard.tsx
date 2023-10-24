@@ -1,4 +1,5 @@
 
+import { Country, State } from 'country-state-city'
 type AddressCardOptionType = {
      shippingInfo: {
         address : string,
@@ -12,6 +13,8 @@ type AddressCardOptionType = {
 
 function AddressOptionCard(props:AddressCardOptionType) {
     const { shippingInfo } = props
+    const state = State.getStateByCodeAndCountry(shippingInfo.state,shippingInfo.country)
+    const country = Country.getCountryByCode(shippingInfo.country)
 
     return (
         <div className={`relative bg-white overflow-hidden rounded-md `}>
@@ -20,7 +23,7 @@ function AddressOptionCard(props:AddressCardOptionType) {
                     {`${shippingInfo.address}, ${shippingInfo.city}`}
                 </p>
                 <p className="text-green-700 font-semibold">
-                    {`${shippingInfo.state}, ${shippingInfo.country} (${shippingInfo.pinCode})`}
+                    {country?.flag} &nbsp; {`${state?.name}, ${country?.name} (${shippingInfo.pinCode})`}
                 </p>
                 <p className="pt-2 text-slate-800">
                     Ph: {shippingInfo.phone}

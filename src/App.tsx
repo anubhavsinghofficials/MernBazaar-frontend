@@ -25,6 +25,10 @@ import UserPasswordUpdate from "./Pages/User/page-UserPasswordUpdate"
 import SellerPasswordUpdate from "./Pages/Seller/page-SellerPasswordUpdate"
 import GenericConfirmModal from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
 import GenericToast from "./Pages/Shared/components/Modals/Toast-Generic"
+import {Elements} from '@stripe/react-stripe-js'
+import {loadStripe} from '@stripe/stripe-js'
+import { STRIPE_PUBLISHABLE_KEY } from "./Store/ClientStore/store-Constants"
+import PaymentPage from "./Pages/User/page-Payment"
 
 function App() {
 
@@ -62,8 +66,9 @@ function App() {
         <Route index element={<Navigate to="profile"/>}/>
         <Route path="profile" element={<UserProfile/>}/>
         <Route path="password" element={<UserPasswordUpdate/>}/>
-        <Route path="orders" element={<UserOrders/>}/>
         <Route path="cart" element={<UserCart/>}/>
+        <Route path="payment" element={<Elements stripe={loadStripe(STRIPE_PUBLISHABLE_KEY)}><PaymentPage/></Elements>}/>
+        <Route path="orders" element={<UserOrders/>}/>
         <Route path="*" element={<Navigate to="profile"/>}/>
       </Route>
 
