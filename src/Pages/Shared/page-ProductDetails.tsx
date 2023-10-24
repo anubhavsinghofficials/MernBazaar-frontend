@@ -64,7 +64,7 @@ function ProductDetailsPage() {
         Navigate("/products")
     }
 
-    const addToCart = () => {
+    const addToCart = (goToCart:boolean) => {
         const cartProduct:Omit<cartItemType,"_id"> = {
             image:product.images.thumbnail.url,
             name:product.title,
@@ -75,6 +75,10 @@ function ProductDetailsPage() {
         }
         mutate(cartProduct)
         setDisableCartButton(true)
+
+        if (goToCart) {
+            Navigate('/user/cart')
+        }
     }
     const deleteReview = () => {
         deleteRev()
@@ -224,12 +228,14 @@ function ProductDetailsPage() {
                             </div>
                                 
                             <div className="flex gap-x-4 justify-center sm:justify-start min-w-0">
-                                <button className="bg-green-600 text-white py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 grow sm:grow-0 whitespace-nowrap">
+                                <button className="bg-green-600 text-white py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 grow sm:grow-0 whitespace-nowrap"
+                                onClick={()=>addToCart(true)}
+                                disabled={disableCartButton}>
                                     <BsFillLightningChargeFill/>
                                     Buy Now
                                 </button>
                                 <button className="bg-white ring-1 ring-green-600 text-green-700 py-2 xs:px-8 xs:text-xl sm:text-base xl:text-xl font-semibold rounded-lg flex items-center justify-center gap-x-2 active:text-green-800 hover:bg-white hover:shadow-md hover:ring-green-500 active:shadow-none active:bg-slate-100 duration-75 grow sm:grow-0 whitespace-nowrap"
-                                onClick={addToCart}
+                                onClick={()=>addToCart(false)}
                                 disabled={disableCartButton}>
                                 {
                                     disableCartButton

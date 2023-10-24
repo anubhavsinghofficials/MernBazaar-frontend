@@ -3,11 +3,13 @@ import { useQuery } from '@tanstack/react-query'
 import { SERVER_URL } from '../ClientStore/store-Constants'
 import axios from 'axios'
 import { RoleStore } from '../ClientStore/store-Role'
+import { siteDataStore } from '../ClientStore/store-SiteData'
 
 
 
 export const syncGetRole = () => {
     const { setRole } = RoleStore()
+    const { setCartCount } = siteDataStore()
     const fetcherFunc = () => axios.get(`${SERVER_URL}/authrole`,{
         withCredentials:true,
     })
@@ -18,6 +20,7 @@ export const syncGetRole = () => {
         },
         onSuccess(data) {
             setRole(data.role)
+            setCartCount(data.cartCount)
             console.log(data)
         },
         refetchOnWindowFocus: false,

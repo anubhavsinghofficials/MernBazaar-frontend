@@ -7,14 +7,18 @@ import { RoleStore } from "@/Store/ClientStore/store-Role"
 import PublicNavOptions from "../Public/components/PublicNavOptions"
 import UserNavOptions from "../User/components/UserNavOptions"
 import SellerNavOptions from "../Seller/components/SellerNavOptions"
+import { siteDataStore } from "@/Store/ClientStore/store-SiteData"
+import { syncFetchUserDetails } from "@/Store/ServerStore/sync-User"
 
 
 
 function Navbar() {
     
     const { setSearchObject, setResetBadgeToken, setResetPages } = filterStore()
+    syncFetchUserDetails()
     const Navigate = useNavigate()
     const { role } = RoleStore()
+    const { cartCount } = siteDataStore()
     
     const handleSearch = (value:searchValues) => {
         window.scrollTo({ top: 0 })
@@ -56,9 +60,16 @@ function Navbar() {
             {
                 role == 'user' &&
                 <>
-                    <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl`}
+                    <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl relative`}
                     onClick={() => Navigate('/user/cart')}>
-                    <FaShoppingCart/>
+                        <FaShoppingCart/>
+                        <div className={`bg-red-600 text-white aspect-square rounded-full h-5 flex justify-center items-center font-Roboto font-semibold absolute -right-2 -top-1 text-xs xs:text-sm`}>
+                            {
+                                cartCount >= 10
+                                ? '9+'
+                                : cartCount
+                            }
+                        </div>
                     </button>
                     <UserNavOptions/>
                 </>

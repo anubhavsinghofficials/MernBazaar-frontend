@@ -7,6 +7,7 @@ import { UserLogInFormType, UserSignUpFormType } from '@/Pages/Public/FormValida
 import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
 import { modalStore } from '../ClientStore/store-Modals';
 import { cartItemType } from '@/Pages/User/components/CartItemsBox';
+import { siteDataStore } from '../ClientStore/store-SiteData';
 
 
 export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
@@ -50,6 +51,8 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
 
 export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
+    const { setCartCount } = siteDataStore()
+
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const Navigate = useNavigate()
@@ -68,6 +71,8 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
             setTimeout(() => {
                 toggleGenericToast(true)
             }, 1000);
+            
+            setCartCount(data.data.cartCount)
             Navigate('/user/profile')
         },
         onError(error) {
@@ -82,12 +87,15 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
 
 export const syncFetchUserDetails = () => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
-    
+    const { setCartCount } = siteDataStore()
     const fetcherFunc = () => axios.get(`${SERVER_URL}/user`, {
         withCredentials: true,
     })
     return useQuery(['userDetails'], fetcherFunc, {
         select: data => data.data.user,
+        onSuccess(data) {
+            setCartCount(data.cartCount)
+        },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
             setGenericMessage(errorData?.error)
@@ -276,6 +284,8 @@ export const syncAddToCart = (setDisableCartButton:boolSetStateType,toast=true) 
     return useMutation(mutationFunc,{
         onSuccess(data){
             queryClient.invalidateQueries(['cart'])
+            queryClient.invalidateQueries(['userDetails'])
+
             if (toast) {
                 setGenericToastMessage(data.data.message)
                 setGenericToastType('success')
@@ -283,6 +293,7 @@ export const syncAddToCart = (setDisableCartButton:boolSetStateType,toast=true) 
                     setDisableCartButton(false)
                     toggleGenericToast(true)
                 }, 1000)
+
             }
         },
         onError(error) {
@@ -309,6 +320,7 @@ export const syncDeleteCartProduct = (setDisableCartButton:boolSetStateType) => 
     return useMutation(mutationFunc,{
         onSuccess(_data){
             queryClient.invalidateQueries(['cart'])
+            queryClient.invalidateQueries(['userDetails'])
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!

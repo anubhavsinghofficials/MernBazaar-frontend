@@ -9,6 +9,7 @@ import {CardNumberElement,
     CardExpiryElement,
     useStripe,
     useElements} from '@stripe/react-stripe-js'
+import { useQueryClient } from '@tanstack/react-query'
 
 import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
@@ -27,6 +28,7 @@ function PaymentPage() {
         }
     },[])
 
+    const queryClient = useQueryClient()
     const [fadeOut, setFadeOut] = useState(true)
     const Navigate = useNavigate()
     const [disableSubmit, setDisableSubmit] = useState(false)
@@ -120,6 +122,7 @@ function PaymentPage() {
                                     phone:''
                                 },
                             })
+                            queryClient.invalidateQueries(['userDetails'])
                             setTimeout(() => {
                                 setGenericToastMessage("Purchase successfull!!")
                                 setGenericToastType('success')
