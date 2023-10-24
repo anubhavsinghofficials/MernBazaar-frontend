@@ -21,11 +21,13 @@ function PaymentPage() {
 
     useEffect(()=>{
         window.scrollTo({ top: 0 })
+        setFadeOut(false)
         if (totalPrice <= 0 || !shippingInfo.address) {
             Navigate('/user/cart')
         }
     },[])
 
+    const [fadeOut, setFadeOut] = useState(true)
     const Navigate = useNavigate()
     const [disableSubmit, setDisableSubmit] = useState(false)
     const { paymentDetails, setPaymentDetails } = paymentStore()
@@ -149,13 +151,12 @@ function PaymentPage() {
         }
     }
  
- 
-return (
+    return (
     <div className={`w-screen min-h-screen flex justify-center items-center bg-slate-900 p-2 xs:p-4 relative`}
     >
         <div className={`w-[90vw] h-[80vh] bg-gradient-to-br from-slate-700 to-slate-900 absolute rounded-3xl opacity-20 mt-8`}/>
            
-        <form className={`w-[max(80%,20rem)] xs:w-[28rem] p-6 xs:p-8 flex flex-col items-center text-black rounded-xl relative bg-[url('@/assets/cardBg.jpeg')] bg-cover bg-center shadow-lg shadow-black scale-90 xs:scale-100`}
+        <form className={`w-[max(80%,20rem)] xs:w-[28rem] p-6 xs:p-8 flex flex-col items-center text-black rounded-xl relative bg-[url('@/assets/cardBg.jpeg')] bg-cover bg-center shadow-lg shadow-black scale-90 xs:scale-100 duration-500 ${fadeOut ? 'opacity-0':'opacity-100'}`}
             onSubmit={handleSubmit}>
             
             <div className='absolute -top-12 left-4 font-semibold text-slate-400 flex flex-col text-sm'>
@@ -202,7 +203,7 @@ return (
             <button className={`text-white duration-100 font-bold py-2 text-lg flex justify-center items-center gap-x-2 rounded-md absolute -bottom-16 px-8 ring-1 bg-slate-700 ring-slate-500 hover:bg-violet-800 hover:ring-transparent hover:shadow-md active:bg-violet-600 ${disableSubmit && 'opacity-40'}`}
             disabled={isLoading||isRefetching || disableSubmit}>
                 {
-                    (isLoading || isRefetching)
+                    (isLoading || isRefetching || disableSubmit)
                     ?
                     <span className={`w-4 h-4 rounded-full border-b-slate-200 border-l-white border-[0.24rem] border-slate-800 animate-spin mr-5`}/>
                     :

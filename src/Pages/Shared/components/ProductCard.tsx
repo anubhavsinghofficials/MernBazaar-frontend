@@ -44,7 +44,7 @@ function ProductCard(props:productCardPropsType) {
         <div className={`bg-white p-2 text-black w-full xs:h-1/4 h-1/3 absolute top-[70%] xs:top-[75%] flex flex-col`}>
             
             <div className={` h-1/2 `}>
-                <p className={`line-clamp-2 2xl:text-[95%] 2xl:leading-5 xl:text-[90%] xl:leading-4 md:text-[90%] sm:leading-4 xxs:text-sm xxs:leading-4 font-semibold hover:text-green-700 active:text-green-900`}>
+                <p className={`line-clamp-2 2xl:text-[90%] 2xl:leading-5 xl:text-[90%] xl:leading-4 md:text-[90%] sm:leading-4 xxs:text-sm xxs:leading-4 font-semibold hover:text-green-700 active:text-green-900`}>
                     {title}
                 </p>
             </div>
@@ -59,7 +59,7 @@ function ProductCard(props:productCardPropsType) {
                     ₹{actualPrice}
                 </p>
 
-                <p className="font-bold text-green-600 2xl:text-2xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-sm">
+                <p className="font-bold text-green-600 2xl:text-xl xl:text-xl lg:text-base md:text-xl xs:text-2xl xxs:text-sm">
                     ₹{discountedPrice}
                 </p>
                 
