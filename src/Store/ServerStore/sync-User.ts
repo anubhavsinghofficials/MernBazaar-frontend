@@ -18,8 +18,9 @@ export type numSetStateType = React.Dispatch<React.SetStateAction<number>>
 export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const Navigate = useNavigate()
-    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+
     const mutationFunc = (userData:UserSignUpFormType) => {
         return axios.post(`${SERVER_URL}/user/register`, userData, {
             withCredentials: true,
@@ -52,7 +53,6 @@ export const syncRegisterUser = (setDisableSubmit:boolSetStateType) => {
 export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { setCartCount } = siteDataStore()
-
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const Navigate = useNavigate()
@@ -85,23 +85,22 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
 }
 
 
-export const syncFetchUserDetails = (viewError=true) => {
+export const syncFetchUserDetails = (enable=true) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const { setCartCount } = siteDataStore()
     const fetcherFunc = () => axios.get(`${SERVER_URL}/user`, {
         withCredentials: true,
     })
     return useQuery(['userDetails'], fetcherFunc, {
+        enabled:enable,
         select: data => data.data.user,
         onSuccess(data) {
             setCartCount(data.cartCount)
         },
         onError(error) {
-            if (viewError) {
-                const errorData = (error as AxiosError<{error:string}>).response?.data!
-                setGenericMessage(errorData?.error)
-                toggleGenericModal()
-            }
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
         },
         refetchOnWindowFocus: false,
     })

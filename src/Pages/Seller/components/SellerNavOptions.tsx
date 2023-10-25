@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { BsFillPersonFill } from "react-icons/bs"
 import { FaUserAlt } from "react-icons/fa"
-import { SiCodereview } from "react-icons/si"
 import { useNavigate } from "react-router-dom"
 
 
@@ -28,11 +27,6 @@ function SellerNavOptions() {
             onClick={() => Navigate('/seller/profile')}>
                 <FaUserAlt/>
                 Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
-            onClick={() => Navigate('/seller/reviews')}>
-                <SiCodereview/>
-                Reviews
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>   

@@ -11,14 +11,14 @@ import { siteDataStore } from "@/Store/ClientStore/store-SiteData"
 import { syncFetchUserDetails } from "@/Store/ServerStore/sync-User"
 
 
-
 function Navbar() {
-    
+
     const { setSearchObject, setResetBadgeToken, setResetPages } = filterStore()
-    syncFetchUserDetails(false)
     const Navigate = useNavigate()
     const { role } = RoleStore()
     const { cartCount } = siteDataStore()
+    
+    syncFetchUserDetails(role==='user')
     
     const handleSearch = (value:searchValues) => {
         window.scrollTo({ top: 0 })

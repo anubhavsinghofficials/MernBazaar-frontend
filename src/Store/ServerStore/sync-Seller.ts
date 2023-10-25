@@ -15,6 +15,7 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const Navigate = useNavigate()
     const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
 
     const mutationFunc = (sellerData:SellerSignUpFormType) => {
         return axios.post(`${SERVER_URL}/seller/register`, sellerData, {
@@ -25,8 +26,11 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
     return useMutation(mutationFunc,{
         onSuccess(data) {
             queryClient.invalidateQueries(['Role']),
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
             Navigate('/seller/profile')
         },
         onError(error) {
@@ -45,6 +49,7 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
 export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const Navigate = useNavigate()
 
     const mutationFunc = (sellerData:SellerLogInFormType) => {
@@ -56,8 +61,12 @@ export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
     return useMutation(mutationFunc,{
         onSuccess(data, _variables, _context) {
             queryClient.invalidateQueries(['Role']),
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
+            
             Navigate('/seller/profile')
         },
         onError(error) {
@@ -92,6 +101,7 @@ export const syncFetchSellerDetails = () => {
 
 export const syncUpdateSellerDetails = (setEditable:boolSetStateType, setDisableSubmit:boolSetStateType) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const queryClient = useQueryClient()
 
     const mutationFunc = (sellerData:sellerProfileType) => {
@@ -104,6 +114,11 @@ export const syncUpdateSellerDetails = (setEditable:boolSetStateType, setDisable
             setEditable(false)
             setDisableSubmit(false)
             queryClient.invalidateQueries(['sellerDetails'])
+            setGenericToastMessage('Updated your details')
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
@@ -118,6 +133,7 @@ export const syncUpdateSellerDetails = (setEditable:boolSetStateType, setDisable
 
 export const syncUpdateSellerPassword = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const Navigate = useNavigate()
     const mutationFunc = (passwords:passwordsType) => {
        return axios.patch(`${SERVER_URL}/seller/password`, passwords, {
@@ -127,8 +143,11 @@ export const syncUpdateSellerPassword = (setDisableSubmit:React.Dispatch<React.S
     return useMutation(mutationFunc,{
         onSuccess(data){
             setDisableSubmit(false)
-            setGenericMessage(data.data.message)
-            toggleGenericModal()
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            setTimeout(() => {
+                toggleGenericToast(true)
+            }, 1000);
             Navigate('/seller/profile')
         },
         onError(error) {

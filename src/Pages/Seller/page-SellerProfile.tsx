@@ -8,6 +8,7 @@ import { SellerSignUpFormType, zodSellerSignupSchema } from "../Public/FormValid
 import { syncFetchSellerDetails, syncLogOutSeller, syncLogOutSellerAllDevices, syncUpdateSellerDetails } from "@/Store/ServerStore/sync-Seller";
 import { useNavigate } from "react-router-dom";
 import SellerProfileLoading from "./components/Loading-Ui/Loading-SellerProfile"
+import { modalStore } from "@/Store/ClientStore/store-Modals";
 
 
 
@@ -24,6 +25,7 @@ function sellerProfile() {
    const { mutate } = syncUpdateSellerDetails(setEditable, setDisableSubmit)
    const { mutate:logOutSeller } = syncLogOutSeller(setEditable)
    const { mutate:logOutSellerAllDevices } = syncLogOutSellerAllDevices(setEditable)
+   const { setGenericSubtitle,setGenericTitle, setGenericFunction, toggleGenericConfirmModal } = modalStore()
 
       
    const zodSellerProfileSchema = zodSellerSignupSchema.omit({ password: true });
@@ -64,11 +66,17 @@ function sellerProfile() {
    }
    
    const logOut = () => {
-      logOutSeller()
+      setGenericTitle("Confirm to Logout from this device")
+      setGenericSubtitle("you will have to login again to access your data")
+      setGenericFunction(logOutSeller)
+      toggleGenericConfirmModal()
    }
    
    const logOutAllDevices = () => {
-      logOutSellerAllDevices()
+      setGenericTitle("Confirm to Logout from all devices")
+      setGenericSubtitle("any other user using this account will be logged out too")
+      setGenericFunction(logOutSellerAllDevices)
+      toggleGenericConfirmModal()
    }
     
 
@@ -98,7 +106,6 @@ function sellerProfile() {
                            disabled={disableSubmit}>
                   Profile
                   </button>
-                  <span className={`w-4 h-4 rounded-full border-b-slate-100 border-l-slate-100 border-[0.2rem] border-slate-900 animate-spin ${disableSubmit ? 'inline' : 'hidden'}`}/>
                </h1>
                <p className="text-emerald-100 opacity-40">
                   click on profile to edit
@@ -109,7 +116,9 @@ function sellerProfile() {
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate>
 
-                <div className={`text-slate-100 flex items-center w-full p-2  rounded-full focus-within:bg-slate-800 ${ errors.name ? "ring-2 ring-red-400" :""}`}>
+               <div className={`text-slate-100 flex items-center w-full p-2  rounded-full focus-within:bg-slate-800 ${ errors.name ? "ring-2 ring-red-400" :""}`}
+               ref={focusDivRef}
+               >
                     <label htmlFor="name"
                         className=" mr-2 self-stretch flex items-center px-2 text-3xl text-slate-300">
                         <BiSolidUserCircle/>
@@ -122,10 +131,10 @@ function sellerProfile() {
                         autoComplete="off"
                         autoFocus
                         disabled={!Editable}/>
-                </div>
-                <p className="text-red-500 font-normal bottom-[0.2rem] self-start left-10 relative">
-                        {errors.name?.message}
-                </p>
+               </div>
+               <p className="text-red-500 font-normal bottom-[0.2rem] self-start left-10 relative">
+                     {errors.name?.message}
+               </p>
 
                 <div className={`text-slate-100 flex items-center w-full p-2  rounded-full focus-within:bg-slate-800 ${ errors.email ? "ring-2 ring-red-400" :""}`}>
                     <label htmlFor="email"
