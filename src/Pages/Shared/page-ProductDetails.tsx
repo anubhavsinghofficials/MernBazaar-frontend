@@ -17,7 +17,6 @@ import EditReviewModal from "./components/Modals/Modal-EditReview"
 import ProductDetailsPageLoading from "./components/Loading-Ui/Loading-page-ProductDetails"
 import ReviewCardLoading from "./components/Loading-Ui/Loading-ReviewCard"
 import { syncAddReview, syncDeleteReview, syncFetchAllReviews, syncFetchProductDetails } from "@/Store/ServerStore/sync-Products"
-import { modalStore } from "@/Store/ClientStore/store-Modals"
 import { syncAddToCart } from "@/Store/ServerStore/sync-User"
 import { cartItemType } from "../User/components/CartItemsBox"
 

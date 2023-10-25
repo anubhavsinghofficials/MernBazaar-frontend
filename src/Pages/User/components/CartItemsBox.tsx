@@ -54,8 +54,8 @@ function CartItemsBox(props:cartArrayType) {
                             Cart Items
                 </p>
                 </AccordionTrigger>
-                <AccordionContent>
-                    <div className={`flex flex-col px-2 gap-y-2 xl:max-h-[32rem] xl:overflow-auto accordianScrollbar mt-4`}>
+                <AccordionContent className="py-4">
+                    <div className={`flex flex-col px-2 gap-y-2 xl:max-h-[32rem] xl:overflow-auto accordianScrollbar`}>
                     {
                         cart.map(item => (
                             <div className={`h-32 bg-white rounded-md flex-none shadow-md flex gap-x-4 p-2 relative`}

@@ -110,3 +110,17 @@ export const syncDeleteReview = (id:string) => {
   })
 }
  
+
+
+
+
+export const syncFetchUserOrders = () => {
+  const fetcherFunc = () => axios.get(`${SERVER_URL}/orders`,{
+      withCredentials:true
+  })
+  return useQuery(['orders'], fetcherFunc, {
+    select: (data) => data.data,
+    cacheTime: 10000,
+    refetchOnWindowFocus: false,
+  })
+}

@@ -56,7 +56,7 @@ function AddressCard(props:AddressCardPropsType) {
                             Choose a Shipping address
                         </p>
                     </AccordionTrigger>
-                    <AccordionContent >
+                    <AccordionContent className="py-4">
                         <div className={`flex flex-col px-4 py-2 pt-4 gap-y-2 overflow-y-auto max-h-[23rem] xl:max-h-[28rem] accordianScrollbar`}>
                         {
                             (isLoading || isRefetching)
