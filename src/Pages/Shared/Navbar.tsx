@@ -15,7 +15,7 @@ import { syncFetchUserDetails } from "@/Store/ServerStore/sync-User"
 function Navbar() {
     
     const { setSearchObject, setResetBadgeToken, setResetPages } = filterStore()
-    syncFetchUserDetails()
+    syncFetchUserDetails(false)
     const Navigate = useNavigate()
     const { role } = RoleStore()
     const { cartCount } = siteDataStore()

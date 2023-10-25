@@ -85,7 +85,7 @@ export const syncLoginUser = (setDisableSubmit:boolSetStateType) => {
 }
 
 
-export const syncFetchUserDetails = () => {
+export const syncFetchUserDetails = (viewError=true) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const { setCartCount } = siteDataStore()
     const fetcherFunc = () => axios.get(`${SERVER_URL}/user`, {
@@ -97,9 +97,11 @@ export const syncFetchUserDetails = () => {
             setCartCount(data.cartCount)
         },
         onError(error) {
-            const errorData = (error as AxiosError<{error:string}>).response?.data!
-            setGenericMessage(errorData?.error)
-            toggleGenericModal()
+            if (viewError) {
+                const errorData = (error as AxiosError<{error:string}>).response?.data!
+                setGenericMessage(errorData?.error)
+                toggleGenericModal()
+            }
         },
         refetchOnWindowFocus: false,
     })
