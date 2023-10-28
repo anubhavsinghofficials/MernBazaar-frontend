@@ -3,19 +3,15 @@ import { defaultValues } from '@/Store/ClientStore/store-Constants'
 import { filterStore } from '@/Store/ClientStore/store-Filters'
 import SearchBar, { searchValues } from '@/components/searchBar'
 import { BiSolidDashboard } from 'react-icons/bi'
-import { BsPersonCircle } from 'react-icons/bs'
-import { RiDashboardFill } from 'react-icons/ri'
-import { NavLink, Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { AiFillShop, AiFillStar, AiOutlinePlus } from 'react-icons/ai'
+import { AiFillShop, AiFillStar } from 'react-icons/ai'
 import { FaPlus } from 'react-icons/fa'
-import { FaRankingStar } from 'react-icons/fa6'
 
 
 function DashboardTopMenu() {
