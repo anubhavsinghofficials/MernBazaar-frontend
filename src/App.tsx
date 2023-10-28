@@ -29,6 +29,9 @@ import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import { STRIPE_PUBLISHABLE_KEY } from "./Store/ClientStore/store-Constants"
 import PaymentPage from "./Pages/User/page-Payment"
+import SellerOrdersPage from "./Pages/Seller/page-SellerOrders"
+import SellerUsersPage from "./Pages/Seller/page-SellerUsers"
+import SellerAnalyticsPage from "./Pages/Seller/page-SellerAnalytics"
 
 function App() {
 
@@ -76,9 +79,12 @@ function App() {
         <Route index element={<Navigate to="profile"/>}/>
         <Route path="profile" element={<SellerProfile/>}/>
         <Route path="password" element={<SellerPasswordUpdate/>}/>
-        <Route path="product/add" element={<AddProducts/>}/>
-        <Route path="product/edit" element={<EditProduct/>}/>
         <Route path="products" element={<SellerProducts/>}/>
+        <Route path="product/new" element={<AddProducts/>}/>
+        <Route path="product/edit" element={<EditProduct/>}/>
+        <Route path="orders" element={<SellerOrdersPage/>}/>
+        <Route path="users" element={<SellerUsersPage/>}/>
+        <Route path="analytics" element={<SellerAnalyticsPage/>}/>
         <Route path="dashboard" element={<SellerProfile/>}/>
         <Route path="*" element={<Navigate to="profile"/>}/>
       </Route>

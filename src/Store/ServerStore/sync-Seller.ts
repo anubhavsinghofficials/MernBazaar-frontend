@@ -131,7 +131,7 @@ export const syncUpdateSellerDetails = (setEditable:boolSetStateType, setDisable
 
 
 
-export const syncUpdateSellerPassword = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncUpdateSellerPassword = (setDisableSubmit:boolSetStateType) => {
     const { toggleGenericModal, setGenericMessage } = modalStore()
     const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
     const Navigate = useNavigate()
@@ -161,7 +161,7 @@ export const syncUpdateSellerPassword = (setDisableSubmit:React.Dispatch<React.S
 
 
 
-export const syncLogOutSeller = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncLogOutSeller = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()
@@ -188,7 +188,7 @@ export const syncLogOutSeller = (setDisableSubmit:React.Dispatch<React.SetStateA
  
 
 
-export const syncLogOutSellerAllDevices = (setDisableSubmit:React.Dispatch<React.SetStateAction<boolean>>) => {
+export const syncLogOutSellerAllDevices = (setDisableSubmit:boolSetStateType) => {
     const Navigate = useNavigate()
     const queryClient = useQueryClient()
     const { toggleGenericModal, setGenericMessage } = modalStore()

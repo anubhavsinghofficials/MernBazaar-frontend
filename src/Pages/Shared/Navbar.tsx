@@ -9,7 +9,6 @@ import UserNavOptions from "../User/components/UserNavOptions"
 import SellerNavOptions from "../Seller/components/SellerNavOptions"
 import { siteDataStore } from "@/Store/ClientStore/store-SiteData"
 import { syncFetchUserDetails } from "@/Store/ServerStore/sync-User"
-import { RiDashboardFill } from "react-icons/ri"
 
 
 function Navbar() {
@@ -61,7 +60,7 @@ function Navbar() {
             {
                 role == 'user' &&
                 <>
-                    <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl relative`}
+                    <button className={`text-slate-200 w-8 aspect-square rounded-md justify-center items-center hover:text-white hover:bg-slate-700 active:bg-slate-800 transition-colors duration-100 flex xs:text-xl relative md:mr-2`}
                     onClick={() => Navigate('/user/cart')}>
                         <FaShoppingCart/>
                         <div className={`bg-red-600 text-white aspect-square rounded-full h-5 flex justify-center items-center font-Roboto font-semibold absolute -right-2 -top-1 text-xs xs:text-sm`}>
@@ -87,14 +86,7 @@ function Navbar() {
             }
             {
                 role == 'seller' &&
-                <NavLink to='/seller/dashboard'
-                        className={`text-slate-200 font-semibold hover:bg-slate-700 py-1 px-4 rounded-sm flex items-center gap-x-2`}
-                        >
-                    <RiDashboardFill className={`hidden sm:block text-2xl md:text-lg`}/>
-                    <span className="sm:hidden md:block">
-                        DashBoard
-                    </span>
-                </NavLink>
+                <SellerNavOptions/>
             }
         </div>
       </div>

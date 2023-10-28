@@ -25,12 +25,6 @@ function UserCart() {
    const [cartFadeOut, setCartFadeOut] = useState(true)
    useEffect(()=>{
       setCartFadeOut(false)
-      setTimeout(() => {
-         
-      }, 200);
-      setTimeout(() => {
-         
-      }, 400);
    },[])
 
    const proceedCheckout = (totalPrice:number) => {
