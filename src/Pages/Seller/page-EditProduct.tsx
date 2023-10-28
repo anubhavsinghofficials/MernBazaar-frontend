@@ -7,11 +7,9 @@ function EditProduct() {
       window.scrollTo({ top: 0 })
    },[])
    return (
-            <>
-               <div className={`card`}>
-                  Edit the Products
-               </div>
-            </>
+      <div className={`card`}>
+         Edit the Products
+      </div>
    )
 }
  

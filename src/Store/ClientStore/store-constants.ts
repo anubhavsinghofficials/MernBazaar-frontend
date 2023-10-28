@@ -46,6 +46,10 @@ export const months = [
     'October', 'November', 'December'
 ]
 
+export const days = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday', 'Sunday'
+]
 
 export const nextSaleDate = '2024-01-01T00:00:00'
 export const myGitHub = 'https://github.com/anubhavsingh05'
@@ -116,7 +120,7 @@ export const discountBadges = {
 
 // Modal Messages ___________________________________
 
-export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account upon buying the products. You can use test cards provided in the payment gateway to test the payment systems'
+export const tempPaymentNote = '*Note: Currently all the payments are test payments, no actual amounts will be deducted from your bank account. Test card details will be provided when you buy any product, You can use them to test the payment systems'
 
 
 

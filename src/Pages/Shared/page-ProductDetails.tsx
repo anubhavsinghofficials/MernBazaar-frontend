@@ -115,7 +115,7 @@ function ProductDetailsPage() {
                 <ul className="px-2 flex font-semibold sm:text-base text-sm overflow-x-scroll scroll-smooth hide-scrollbar text-black max-w-[100%]"
                 ref={categoryBarRef}>                    
                 {
-                categoryBadges.strings.map((category,index) => {
+                categoryBadges.strings.map((category,index:number) => {
                     const value = categoryBadges.values[index]
                     return (
                     <li key={category} className="flex justify-center">

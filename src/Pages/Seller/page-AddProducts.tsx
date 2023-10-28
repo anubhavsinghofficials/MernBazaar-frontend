@@ -7,11 +7,9 @@ function AddProducts() {
       window.scrollTo({ top: 0 })
    },[])
    return (
-            <>
-               <div className={`card`}>
-                  Add Products
-               </div>
-            </>
+      <div className={`card`}>
+         Add Products
+      </div>
    )
 }
  

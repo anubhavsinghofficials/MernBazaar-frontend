@@ -47,39 +47,34 @@ function SellerPasswordUpdate() {
 
 
     return (
-        <div className={`w-screen min-h-screen flex items-center flex-col bg-slate-900`}
-        >
-         <div className={` py-2 flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-950 relative mt-14 xs:mt-32 xxs:scale-[0.8] xs:scale-100 border-b-2 border-b-slate-700 border-t-emerald-400 min-h-[26rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
+         <div className={`w-[19rem] xs:w-[26rem] sm:w-[30rem] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br bg-slate-700 shadow-md relative min-h-[26rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
 
-            <div className={`flex flex-col pt-16 pl-12`}>
-               <h1>
-                  <button className="hover:text-emerald-400 active:text-emerald-600 text-emerald-500 font-bold leading-7 text-2xl"
-                          disabled={disableSubmit}>
+            <div className={`flex flex-col pt-6 pb-4 xs:pt-10 xs:pb-8 pl-8 xs:pl-12 bg-slate-700`}>
+               <h1 className="text-slate-200 font-bold leading-7 text-xl xs:text-2xl">
                   Change Password
-                  </button>
                </h1>
             </div>
                
-            <form className=" px-8 pt-10 pb-4 flex flex-col grow items-center gap-y-2 rounded-t-3xl rounded-b-xl"
+            <form className="px-4 xs:px-8 pt-10 pb-4 flex flex-col grow items-center gap-y-2 rounded-t-xl xs:rounded-t-3xl bg-white"
                   onSubmit={handleSubmit(onSubmit)}
                   noValidate
                >
 
-               <div className={`text-slate-100 flex items-center w-full p-2 rounded-full focus-within:bg-slate-700 ${ errors.currentPassword ? "ring-2 ring-red-400" :""}`}>
+               <div className={`text-slate-100 flex items-center w-full p-2 rounded-md bg-slate-200 ${ errors.currentPassword ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"}`}>
                         <label htmlFor="currentPassword"
                             className=" mr-2 self-stretch flex items-center px-2 text-xl">
-                            <p className="bg-slate-300 rounded-full text-slate-800 p-1">
+                            <p className="bg-slate-700 rounded-md text-slate-200 p-2 text-lg">
                                 <MdVpnKey/>
                             </p>
                         </label>
-                        <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
+                        <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder text-slate-700 font-semibold`}  
                             type={currentPassword?"text":"password"}
                             id="currentPassword"
                             {...register("currentPassword")}
                             placeholder="Current Password"
                             autoComplete="off"
                             autoFocus/>
-                        <button type="button" className=" ml-2 self-stretch flex items-center px-2 text-xl"
+                        <button type="button" className=" ml-2 self-stretch flex items-center px-2 text-xl text-slate-700"
                             onClick={() => seeCurrentPassword(prev => !prev)}>
                             {
                                 currentPassword
@@ -93,20 +88,20 @@ function SellerPasswordUpdate() {
                </p>
 
 
-               <div className={`text-slate-100 flex items-center w-full p-2 rounded-full focus-within:bg-slate-700 ${ errors.newPassword ? "ring-2 ring-red-400" :""}`}>
+               <div className={`text-slate-100 flex items-center w-full p-2 rounded-md bg-slate-200 ${ errors.newPassword ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"}`}>
                         <label htmlFor="newPassword"
                             className=" mr-2 self-stretch flex items-center px-2 text-xl">
-                            <p className="bg-slate-300 rounded-full text-slate-800 p-1">
+                            <p className="bg-slate-700 rounded-md text-slate-200 p-2 text-lg">
                                 <BiSolidLockAlt/>
                             </p>
                         </label>
-                        <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
+                        <input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder text-slate-700 font-semibold`}  
                             type={newPassword?"text":"password"}
                             id="newPassword"
                             {...register("newPassword")}
                             placeholder="New Password"
                             autoComplete="off"/>
-                        <button type="button" className=" ml-2 self-stretch flex items-center px-2 text-xl"
+                        <button type="button" className=" ml-2 self-stretch flex items-center px-2 text-xl text-slate-700"
                             onClick={() => seeNewPassword(prev => !prev)}>
                             {
                                 newPassword
@@ -128,14 +123,13 @@ function SellerPasswordUpdate() {
                 </button>
             </form>
 
-            
-            <button className={`text-slate-500 ml-12 mb-4 py-2 text-sm hover:text-emerald-400 self-start`}
-                onClick={changeRoute}>
-                Go to Profile
-            </button>
+            <div className={`bg-slate-100`}>
+                <button className={`ml-12 my-2 py-2 text-sm text-slate-700 hover:text-emerald-700 self-start`}
+                    onClick={changeRoute}>
+                    Go to Profile
+                </button>
+            </div>
          </div>
-         
-      </div>
     )
 }
  

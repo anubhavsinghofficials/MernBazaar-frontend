@@ -9,6 +9,7 @@ import UserNavOptions from "../User/components/UserNavOptions"
 import SellerNavOptions from "../Seller/components/SellerNavOptions"
 import { siteDataStore } from "@/Store/ClientStore/store-SiteData"
 import { syncFetchUserDetails } from "@/Store/ServerStore/sync-User"
+import { RiDashboardFill } from "react-icons/ri"
 
 
 function Navbar() {
@@ -86,9 +87,15 @@ function Navbar() {
             }
             {
                 role == 'seller' &&
-                <SellerNavOptions/>
+                <NavLink to='/seller/dashboard'
+                        className={`text-slate-200 font-semibold hover:bg-slate-700 py-1 px-4 rounded-sm flex items-center gap-x-2`}
+                        >
+                    <RiDashboardFill className={`hidden sm:block text-2xl md:text-lg`}/>
+                    <span className="sm:hidden md:block">
+                        DashBoard
+                    </span>
+                </NavLink>
             }
-
         </div>
       </div>
 
