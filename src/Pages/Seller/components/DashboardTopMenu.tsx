@@ -41,7 +41,7 @@ function DashboardTopMenu() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md border-slate-600 text-white pb-3 px-2 scale-100 xs:scale-125 sm:scale-110 origin-top-left"
                     >
-                        <DropdownMenuLabel className="flex items-center gap-x-3 pl-4 pr-6 mt-2 bg-slate-700">
+                        <DropdownMenuLabel className="flex items-center gap-x-3 pl-4 pr-6 mt-2">
                             Products
                         </DropdownMenuLabel>
                         <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
@@ -55,7 +55,7 @@ function DashboardTopMenu() {
                             Create Product
                         </DropdownMenuItem>
 
-                        <DropdownMenuLabel className="flex items-center gap-x-3 pl-4 pr-6 mt-2 bg-slate-700">
+                        <DropdownMenuLabel className="flex items-center gap-x-3 pl-4 pr-6 mt-2">
                             Store
                         </DropdownMenuLabel>
                         <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"

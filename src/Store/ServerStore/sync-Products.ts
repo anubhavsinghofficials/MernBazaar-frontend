@@ -4,6 +4,8 @@ import { SERVER_URL } from "../ClientStore/store-Constants"
 import { searchObjectType } from "../ClientStore/store-Filters"
 import { reviewType } from "@/Pages/Shared/page-ProductDetails"
 import { modalStore } from "../ClientStore/store-Modals"
+import { boolSetStateType } from "./sync-User"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -109,7 +111,6 @@ export const syncDeleteReview = (id:string) => {
     },
   })
 }
- 
 
 
 
@@ -124,3 +125,41 @@ export const syncFetchUserOrders = () => {
     refetchOnWindowFocus: false,
   })
 }
+
+
+
+
+
+// Seller Sync Functions _________________________________________________
+
+export const syncCreateProduct = (setDisableSubmitButton:boolSetStateType) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+  const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+  const Navigate = useNavigate()
+
+  const mutationFunc = (formData:FormData) => {
+    console.log({formData})
+    return axios.post(`${SERVER_URL}/product/new`,formData,{
+      withCredentials:true
+    })
+  }
+
+  return useMutation(mutationFunc,{
+    onSuccess(data) {
+        setGenericToastMessage(data.data.message)
+        setGenericToastType('success')
+        Navigate(`/product/${data.data.productId}`)
+        setTimeout(() => {
+            setDisableSubmitButton(false)
+            toggleGenericToast(true)
+        }, 1000)
+    },
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response?.data!
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+      setDisableSubmitButton(false)
+    },
+  })
+}
+ 

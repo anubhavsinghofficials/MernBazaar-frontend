@@ -22,7 +22,7 @@ function DashboardSideMenu() {
      }
      
     return (
-        <div className={`bg-white h-[38rem] self-start md:w-64 lg:w-80 sticky top-20 mb-4 rounded-md overflow-hidden hidden md:flex flex-col shadow-md`}>
+        <div className={`bg-white h-[38rem] self-start md:w-60 lg:w-80 sticky top-20 mb-4 rounded-md overflow-hidden hidden md:flex flex-col shadow-md`}>
             <h1 className={`bg-slate-700 text-slate-200 text-xl p-4 font-semibold flex items-center gap-x-3`}>
                 <RiDashboardFill/>
                 DashBoard

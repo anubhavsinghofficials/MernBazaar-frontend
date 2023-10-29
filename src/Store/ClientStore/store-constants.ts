@@ -31,13 +31,13 @@ export const defaultValues:searchObjectType = {
 }
 
 export const testUser = {
-    email: 'user_1_@mernbazaar.com',
+    email: 'user_2_@mernbazaar.com',
     password: '111111'
 }
 
 export const testSeller = {
-    email: 'testseller@mernbazaar.com',
-    password: 'mernBazaar'
+    email: 'aaaa@aaaa.com',
+    password: 'aaaaaaaa'
 }
 
 export const months = [

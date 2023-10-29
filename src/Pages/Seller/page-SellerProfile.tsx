@@ -32,7 +32,7 @@ function sellerProfile() {
          mode:"onSubmit",
          resolver:zodResolver(zodSellerProfileSchema)
    })
-   const { register, formState, handleSubmit } = form
+   const { register, formState, handleSubmit, setValue } = form
    const { errors } = formState
 
    useEffect(()=>{
@@ -43,10 +43,10 @@ function sellerProfile() {
       }
 
       if (seller) {
-         form.setValue("name", seller.name);
-         form.setValue("email", seller.email);
-         form.setValue("address", seller.address)
-         form.setValue("description", seller.description)
+         setValue("name", seller.name);
+         setValue("email", seller.email);
+         setValue("address", seller.address)
+         setValue("description", seller.description)
       }
    },[Editable, seller])
 

@@ -160,6 +160,14 @@ function ProductDetailsPage() {
                     </div>
                 
                     <div className={`py-2 px-2 mt-2 mb-8 self-stretch flex justify-center gap-x-4 md:hidden rounded-md`}>
+                            <img
+                                key={product.images.thumbnail.url}
+                                src={product.images.thumbnail.url}
+                                alt="product photo"
+                                className="w-1/6 xs:w-14 sm:w-16 aspect-square bg-slate-300"
+                                onMouseOver={()=>changeThumbnail(product.images.thumbnail.url)}
+                                onClick={()=>changeThumbnail(product.images.thumbnail.url)}
+                                />
                         {
                             product.images.additional.map((img:any) => (
                                 <img
@@ -265,6 +273,14 @@ function ProductDetailsPage() {
                                 Photos
                             </p>
                             <div className="flex gap-x-4">
+                                <img
+                                    key={product.images.thumbnail.url}
+                                    src={product.images.thumbnail.url}
+                                    alt="product photo"
+                                    className="h-12 xl:h-14 aspect-square bg-slate-300 rounded-sm"
+                                    onMouseOver={()=>changeThumbnail(product.images.thumbnail.url)}
+                                    onClick={()=>changeThumbnail(product.images.thumbnail.url)}
+                                    />
                             {
                                 product.images.additional.map((img:any) => (
                                     <img

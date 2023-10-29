@@ -19,10 +19,9 @@ export function SellerAuth() {
 
         return (
             <div className={`w-screen max-w-[96rem] m-auto min-h-screen flex flex-col md:flex-row items-center gap-x-2 lg:gap-x-4 bg-slate-200 pt-14 xs:pt-16 sm:pt-14 md:px-4`}>
-
                 <DashboardSideMenu/>
                 <DashboardTopMenu/>
-                <div className={`px-2 lg:px-4 mx-auto self-start mt-6 mb-4 m-auto`}>
+                <div className={`mx-auto self-start mt-6 mb-4 m-auto`}>
                     <Outlet/>
                 </div>
             </div>

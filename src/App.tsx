@@ -6,7 +6,6 @@ import UserProfile from "./Pages/User/page-UserProfile"
 import UserOrders from "./Pages/User/page-UserOrders"
 import UserCart from "./Pages/User/page-UserCart"
 import SellerProfile from "./Pages/Seller/page-SellerProfile"
-import AddProducts from "./Pages/Seller/page-AddProducts"
 import EditProduct from "./Pages/Seller/page-EditProduct"
 import SellerProducts from "./Pages/Seller/page-SellerProducts"
 import TailwindScreenDetector from "./components/screenDetector"
@@ -32,6 +31,7 @@ import PaymentPage from "./Pages/User/page-Payment"
 import SellerOrdersPage from "./Pages/Seller/page-SellerOrders"
 import SellerUsersPage from "./Pages/Seller/page-SellerUsers"
 import SellerAnalyticsPage from "./Pages/Seller/page-SellerAnalytics"
+import CreateProductsPage from "./Pages/Seller/page-CreateProducts"
 
 function App() {
 
@@ -80,7 +80,7 @@ function App() {
         <Route path="profile" element={<SellerProfile/>}/>
         <Route path="password" element={<SellerPasswordUpdate/>}/>
         <Route path="products" element={<SellerProducts/>}/>
-        <Route path="product/new" element={<AddProducts/>}/>
+        <Route path="product/new" element={<CreateProductsPage/>}/>
         <Route path="product/edit" element={<EditProduct/>}/>
         <Route path="orders" element={<SellerOrdersPage/>}/>
         <Route path="users" element={<SellerUsersPage/>}/>
