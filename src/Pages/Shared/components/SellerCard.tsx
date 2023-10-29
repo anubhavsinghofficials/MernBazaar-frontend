@@ -58,14 +58,22 @@ function SellerCard(props:sellerCardType) {
                             percent={sellerScorePercentage}
                             />
                         </span>
-                        <div className={`absolute w-full h-full bottom-1 left-0 flex justify-center items-center flex-col text-green-700`}>
-                            <p className='text-xl lg:text-2xl xl:text-3xl leading-5 pt-1 pr-1'>
-                                ★{sellerScore}
+                        {
+                            sellerScore === 0
+                            ?
+                            <p className='absolute w-full h-full bottom-1 left-0 flex justify-center items-center flex-col text-green-700'>
+                                ★ Unrated
                             </p>
-                            <p className='text-xs xl:text-sm font-semibold absolute xs:static -bottom-2'>
-                                Seller Score
-                            </p>
-                        </div>
+                            :
+                            <div className={`absolute w-full h-full bottom-1 left-0 flex justify-center items-center flex-col text-green-700`}>
+                                <p className='text-xl lg:text-2xl xl:text-3xl leading-5 pt-1 pr-1'>
+                                    ★{sellerScore}
+                                </p>
+                                <p className='text-xs xl:text-sm font-semibold absolute xs:static -bottom-2'>
+                                    Seller Score
+                                </p>
+                            </div>
+                        }
                     </div>
                     <div className={`px-1 lg:px-2 p-2 flex flex-col gap-y-1 lg:gap-y-2`}>
                         <p className="text-lg xl:text-xl leading-6 font-semibold text-green-700 group-hover:text-green-600 line-clamp-2 flex gap-x-2">

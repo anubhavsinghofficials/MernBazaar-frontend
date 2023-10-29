@@ -9,6 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
+import { BiSolidDashboard } from "react-icons/bi"
 import { BsShopWindow } from "react-icons/bs"
 import { FaKey, FaPowerOff, FaUserAlt } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
@@ -40,6 +41,11 @@ function SellerNavOptions() {
             onClick={() => Navigate('/seller/profile')}>
                 <FaUserAlt/>
                 My Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
+            onClick={() => Navigate('/seller/dashboard')}>
+                <BiSolidDashboard/>
+                DashBoard
             </DropdownMenuItem>
             <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
             onClick={() => Navigate('/seller/password')}>

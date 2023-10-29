@@ -269,7 +269,7 @@ function ProductDetailsPage() {
                         </div>
 
                         <div className={`hidden md:block`}>
-                            <p className="text-lg xl:text-xl pb-1 font-semibold">
+                            <p className="text-lg xl:text-xl pb-2 font-semibold">
                                 Photos
                             </p>
                             <div className="flex gap-x-4">
@@ -297,7 +297,7 @@ function ProductDetailsPage() {
                         </div>
 
                         <div>
-                            <p className="text-lg xl:text-xl pb-1 font-semibold">
+                            <p className="text-lg xl:text-xl pb-2 font-semibold">
                                 Discription
                             </p>
                             <ul className="xs:text-lg leading-6 sm:text-sm xl:text-base sm:leading-5 font-Roboto pl-4">

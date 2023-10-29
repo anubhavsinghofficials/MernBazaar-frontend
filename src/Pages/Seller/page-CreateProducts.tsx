@@ -242,7 +242,7 @@ function CreateProductsPage() {
                      ref={additionalButtonParentRef}>
                   <label htmlFor="additional"
                         className={`text-lg font-semibold`}>
-                     Additional Images
+                     Additional Images (max 5)
                   </label>
                   <input
                      type="file"
