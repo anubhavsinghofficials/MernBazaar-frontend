@@ -46,7 +46,6 @@ function AddressCard(props:AddressCardPropsType) {
     return (
             <Accordion className="bg-white grow xl:grow-0 xl:w-96 rounded-b-md shadow-md"
                        type="single"
-                       collapsible
                        defaultValue="chooseAddress"
                        >
                 <AccordionItem value="chooseAddress">

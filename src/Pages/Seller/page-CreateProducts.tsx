@@ -98,19 +98,19 @@ function CreateProductsPage() {
    }
 
    return (
-      <div className={`w-[96vw] md:w-[60vw] lg:w-[46rem] xl:w-[54rem] bg-white shadow-md rounded-lg`}>
+      <div className={`mx-auto w-[96vw] md:w-[60vw] lg:w-[46rem] xl:w-[54rem] bg-white shadow-md rounded-lg`}>
          <p className={`text-xl text-slate-100 font-semibold flex items-center gap-x-3 px-6 py-5 bg-slate-700 rounded-t-lg`}>
             <HiViewGridAdd/>
             Create Product
          </p>
 
          <form onSubmit={handleSubmit(onSubmit)}
-               className="px-4 md:px-6 lg:px-4 py-6 flex flex-col gap-y-8"
+               className="px-4 md:px-6 lg:px-4 py-6 flex flex-col gap-y-6"
                noValidate
                >
             <div className={`flex flex-col gap-y-1`}>
                <label htmlFor="title"
-                     className={`text-lg font-semibold`}>
+                     className={`lg:text-lg font-semibold`}>
                   Product Title
                </label>
                <textarea
@@ -129,7 +129,7 @@ function CreateProductsPage() {
             <div className={`flex flex-col xs:flex-row gap-4`}>
                <div className={`flex flex-col grow gap-y-1 min-w-0`}>
                   <label htmlFor="price.actual"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Cost Price
                   </label>
                   <div className={`flex gap-x-4 items-end ${errors.price?.actual ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"} rounded-md overflow-hidde px-4 py-1 bg-slate-200`}>
@@ -150,7 +150,7 @@ function CreateProductsPage() {
                </div>
                <div className={`flex flex-col grow gap-y-1 min-w-0`}>
                   <label htmlFor="price.discount"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Discount
                   </label>
                   <div className={`flex justify-between gap-x-2 items-end ${errors.price?.discount ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"} rounded-md overflow-hidde px-4 py-1 bg-slate-200`}>
@@ -171,7 +171,7 @@ function CreateProductsPage() {
                </div>
                <div className={`flex flex-col grow gap-y-1 min-w-0`}>
                   <label htmlFor="price.net"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Net Price
                   </label>
                   <div className={`flex gap-x-4 items-end ${errors.price?.net ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"} rounded-md overflow-hidde px-4 py-1 bg-slate-200`}>
@@ -197,7 +197,7 @@ function CreateProductsPage() {
                <div className={`flex flex-col gap-y-1 w-fit`}
                      ref={thumbnailButtonParentRef}>
                   <label htmlFor="thumbnail"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Thumbnail
                   </label>
                   <input
@@ -214,7 +214,7 @@ function CreateProductsPage() {
                      ?
                      <>
                         <MdAddPhotoAlternate className={`text-3xl lg:mr-1 text-slate-600`}/>
-                        <span className={`md:text-left md:pl-4 lg:pl-0 text-center`}>
+                        <span className={`md:text-left md:pl-4 lg:pl-0 text-center leading-5`}>
                            Choose a Thumbnail
                         </span>
                      </>
@@ -241,8 +241,8 @@ function CreateProductsPage() {
                <div className={`flex flex-col gap-y-1 w-fit`}
                      ref={additionalButtonParentRef}>
                   <label htmlFor="additional"
-                        className={`text-lg font-semibold`}>
-                     Additional Images (max 5)
+                        className={`lg:text-lg font-semibold`}>
+                     More Images (max 5)
                   </label>
                   <input
                      type="file"
@@ -259,7 +259,7 @@ function CreateProductsPage() {
                      ?
                      <>
                         <MdAddPhotoAlternate className={`text-3xl lg:mr-1 text-slate-600`}/>
-                        <span className={`md:text-left md:pl-2 lg:pl-0 text-center`}>
+                        <span className={`md:text-left md:pl-2 lg:pl-0 text-center leading-5`}>
                            Choose Additional Images
                         </span>
                      </>
@@ -287,7 +287,7 @@ function CreateProductsPage() {
 
             <div className={`flex flex-col gap-y-1`}>
                <label htmlFor="description"
-                     className={`text-lg font-semibold`}>
+                     className={`lg:text-lg font-semibold`}>
                   Description
                </label>
                <div className={`flex flex-col gap-y-2 items-start`}>
@@ -341,7 +341,7 @@ function CreateProductsPage() {
             <div className={`flex flex-col xs:flex-row gap-4 lg:gap-x-8`}>
                <div className={`flex flex-col gap-y-1`}>
                   <label htmlFor="category"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Category
                   </label>
                   <select
@@ -364,7 +364,7 @@ function CreateProductsPage() {
                </div>
                <div className={`flex flex-col gap-y-1`}>
                   <label htmlFor="stock"
-                        className={`text-lg font-semibold`}>
+                        className={`lg:text-lg font-semibold`}>
                      Stock
                   </label>
                   <div className={`flex gap-x-4 items-end ${errors.stock ? "ring-1 ring-red-500" :"focus-within:ring-1 ring-slate-700"} rounded-md overflow-hidde px-4 py-1 bg-slate-200 w-fit`}>

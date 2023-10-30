@@ -42,10 +42,10 @@ function UserOrders() {
       <div className={`w-screen min-h-screen bg-slate-700 max-w-[96rem] m-auto flex justify-center items-start px-2 md:px-4 lg:px-8 xl:px-12 py-20`}>
         
         <Accordion
-          type="single"
-          collapsible
+          type="multiple"
           className="grow bg-white"
-          defaultValue="item-0">
+          defaultValue={['item-0']}
+          >
             {
               (data.orders as orderItemsType).map((order,i)=>(
                 <AccordionItem

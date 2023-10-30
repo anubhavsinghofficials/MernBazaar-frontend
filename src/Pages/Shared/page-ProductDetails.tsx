@@ -47,9 +47,12 @@ function ProductDetailsPage() {
     useEffect(()=>{
         if (product) {
             setThumbnail(product.images.thumbnail.url)
-            window.scrollTo({ top: 0 })
         }
     },[product])
+
+    useEffect(()=>{
+        window.scrollTo({ top: 0 })
+    },[])
 
     const handleSearch = (value: searchValues) => {
         setSearchObject({...defaultValues, keyword:value.search})
@@ -210,7 +213,7 @@ function ProductDetailsPage() {
                                     <p className="pl-2">
                                         {
                                             !reviewRefetching && !reviewLoading &&
-                                            `(${reviews.totalReviews} reviews)`
+                                            `(${reviews.totalReviews} review${reviews.totalReviews>1 ? 's' : ''})`
                                         }
                                     </p>
                                  </>

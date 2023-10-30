@@ -87,7 +87,7 @@ function AddressForm(props:AddressCardPropsType) {
     }
 
     return (
-        <form className="px-4 pt-4 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
+        <form className="px-4 pt-4 pb-4 flex flex-col grow items-center gap-y-1 rounded-t-3xl rounded-b-xl"
         onSubmit={handleSubmit(onSubmit)}
         onFocus={handleFocus}
         noValidate>

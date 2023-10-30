@@ -47,7 +47,7 @@ function SellerPasswordUpdate() {
 
 
     return (
-         <div className={`w-[19rem] xs:w-[26rem] sm:w-[30rem] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br bg-slate-700 shadow-md relative min-h-[26rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
+         <div className={`mx-auto w-[19rem] xs:w-[26rem] sm:w-[30rem] flex flex-col rounded-2xl overflow-hidden bg-gradient-to-br bg-slate-700 shadow-md relative min-h-[26rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300`}>
 
             <div className={`flex flex-col pt-6 pb-4 xs:pt-10 xs:pb-8 pl-8 xs:pl-12 bg-slate-700`}>
                <h1 className="text-slate-200 font-bold leading-7 text-xl xs:text-2xl">

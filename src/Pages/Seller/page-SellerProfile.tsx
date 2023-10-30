@@ -91,7 +91,7 @@ function sellerProfile() {
    }
 
     return (
-      <div className={`w-[19rem] xs:w-[28rem] sm:w-[38rem] md:w-[30rem] lg:w-[38rem] flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-800 relative  border-b-2 min-h-[30rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300 shadow-md`}
+      <div className={`mx-auto w-[19rem] xs:w-[28rem] sm:w-[38rem] md:w-[30rem] lg:w-[38rem] flex flex-col rounded-2xl overflow-hidden  bg-gradient-to-br bg-slate-800 relative  border-b-2 min-h-[30rem] ${fadeOut?'opacity-0':'opacity-100'} transition-opacity duration-300 shadow-md`}
       >
          <div className={`flex py-8 xs:py-10 pl-12 bg-slate-800 justify-between`}>
             <div className={``}>

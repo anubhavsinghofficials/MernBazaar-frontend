@@ -6,12 +6,15 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
+import { AiFillShop, AiFillStar } from "react-icons/ai"
 import { BiSolidDashboard } from "react-icons/bi"
 import { BsShopWindow } from "react-icons/bs"
-import { FaKey, FaPowerOff, FaUserAlt } from "react-icons/fa"
+import { FaKey, FaPlus, FaPowerOff, FaUserAlt, FaUsers } from "react-icons/fa"
+import { RxBorderWidth } from "react-icons/rx"
 import { useNavigate } from "react-router-dom"
 
 
@@ -37,12 +40,50 @@ function SellerNavOptions() {
             </span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-slate-700 bg-opacity-90 backdrop-blur-md border-slate-600 text-white pb-3 scale-100 xs:scale-125 sm:scale-110 origin-top-right">
+            <DropdownMenuLabel className="pl-4 hidden sm:block md:hidden pt-3">
+                DashBoard
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2  gap-x-4 hidden sm:flex md:hidden"
+            onClick={() => Navigate('/seller/analytics')}>
+                <AiFillStar/>
+                Analytics
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2  gap-x-4 hidden sm:flex md:hidden"
+            onClick={() => Navigate('/seller/orders')}>
+                <RxBorderWidth/>
+                Orders
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2  gap-x-4 hidden sm:flex md:hidden"
+            onClick={() => Navigate('/seller/users')}>
+                <FaUsers/>
+                Users
+            </DropdownMenuItem>
+
+
+            <DropdownMenuLabel className="pl-4 hidden sm:block md:hidden pt-3">
+                Products
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2  gap-x-4 hidden sm:flex md:hidden"
+            onClick={() => Navigate('/seller/products')}>
+                <AiFillShop/>
+                My Products
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2  gap-x-4 hidden sm:flex md:hidden"
+            onClick={() => Navigate('/seller/product/new')}>
+                <FaPlus/>
+                Create Products
+            </DropdownMenuItem>
+
+
+            <DropdownMenuLabel className="pl-4 hidden sm:block md:hidden pt-3">
+                Account
+            </DropdownMenuLabel>
             <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
             onClick={() => Navigate('/seller/profile')}>
                 <FaUserAlt/>
                 My Profile
             </DropdownMenuItem>
-            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 flex gap-x-4"
+            <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 gap-x-4 flex sm:hidden md:flex"
             onClick={() => Navigate('/seller/dashboard')}>
                 <BiSolidDashboard/>
                 DashBoard
