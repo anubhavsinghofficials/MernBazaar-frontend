@@ -22,8 +22,7 @@ function ProductsPage() {
   
   const totalPagesRef = useRef(1)
   const { searchObject, setSearchObject, setResetPages } = filterStore()
-  const { data, isLoading, isRefetching, isError, error,
-          refetch } = syncFetchProducts(searchObject)
+  const { data, isLoading, isRefetching, isError, error, refetch } = syncFetchProducts(searchObject)
 
   const handlePage = (page: number) => {
     setSearchObject({ ...searchObject, pageNo: page })

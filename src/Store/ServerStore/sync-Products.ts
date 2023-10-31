@@ -6,6 +6,7 @@ import { reviewType } from "@/Pages/Shared/page-ProductDetails"
 import { modalStore } from "../ClientStore/store-Modals"
 import { boolSetStateType } from "./sync-User"
 import { useNavigate } from "react-router-dom"
+import { searchFilterType } from "@/Pages/Seller/page-SellerProducts"
 
 
 
@@ -163,3 +164,25 @@ export const syncCreateProduct = (setDisableSubmitButton:boolSetStateType) => {
   })
 }
  
+
+
+
+
+export const syncFetchSellerProducts = (filter:searchFilterType) => {
+  const { category, sort, pageNo, pageLength } = filter
+
+  let searchQuery = category ? `category=${category}` : ''
+  searchQuery = sort ? `${searchQuery}&sort=${sort}` : searchQuery
+  searchQuery = `${searchQuery}&pageNo=${pageNo}&pageLength=${pageLength}`
+
+  const fetcherFunc = () => axios.get(`${SERVER_URL}/seller/products?${searchQuery}`,{
+    withCredentials:true
+  })
+
+  return useQuery(["sellerproducts", searchQuery], fetcherFunc, {
+    select: data => data.data,
+    cacheTime: 60000,
+    refetchOnWindowFocus: false,
+  })
+}
+

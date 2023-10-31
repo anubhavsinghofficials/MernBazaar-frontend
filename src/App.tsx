@@ -81,7 +81,7 @@ function App() {
         <Route path="password" element={<SellerPasswordUpdate/>}/>
         <Route path="products" element={<SellerProducts/>}/>
         <Route path="product/new" element={<CreateProductsPage/>}/>
-        <Route path="product/edit" element={<EditProduct/>}/>
+        <Route path="product/:id" element={<EditProduct/>}/>
         <Route path="orders" element={<SellerOrdersPage/>}/>
         <Route path="users" element={<SellerUsersPage/>}/>
         <Route path="analytics" element={<SellerAnalyticsPage/>}/>

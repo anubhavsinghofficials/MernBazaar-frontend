@@ -2,11 +2,11 @@ import { filterStore } from "@/Store/ClientStore/store-Filters";
 import { useEffect, useRef, useState } from "react"
 
 
-
+export type pagenationSizesType = "xs" | "sm" | "md" | "lg"
 type PaginationProps = {
     totalPages: number;
     onPageChange: (pageNum: number) => void;
-    size : "xs" | "sm" | "md" | "lg";
+    size : pagenationSizesType;
     activeBgColor:string;
     activeTextColor:string;
     passiveBgColor:string;

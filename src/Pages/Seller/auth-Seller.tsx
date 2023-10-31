@@ -21,7 +21,7 @@ export function SellerAuth() {
             <div className={`w-screen max-w-[96rem] m-auto min-h-screen flex flex-col md:flex-row items-center gap-x-2 lg:gap-x-4 bg-slate-200 pt-14 xs:pt-16 sm:pt-14 md:px-4`}>
                 <DashboardSideMenu/>
                 <DashboardTopMenu/>
-                <div className={`grow-0 md:grow self-start mt-6 mb-4 mx-auto`}>
+                <div className={`grow-0 md:grow self-start mt-2 md:mt-6 mb-4 mx-auto`}>
                     <Outlet/>
                 </div>
             </div>
