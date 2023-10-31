@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { tempData } from "./tempData"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { categoryBadges } from "@/Store/ClientStore/store-Constants"
@@ -49,22 +49,40 @@ function SellerProducts() {
       category:null,
       sort:'createdAt|-1',
       pageNo:1,
-      pageLength:20
+      pageLength:8
    })
    const [disableDeleteButton, setDisableDeleteButton] = useState(false)
    const { data, isError, error, isLoading, refetch } = syncFetchSellerProducts(filter)
    const { mutate } = syncDeleteProduct(setDisableDeleteButton)
+   const deletionIndexRef = useRef(0)
+   const totalPagesRef = useRef(1)
+
    
    if (isError) {
       const errorData = (error as AxiosError).response?.data
       console.log(errorData)
     }
     
-   const handleDelete = (id:string) => {
+   const handleDelete = (id:string,index:number) => {
+      setDisableDeleteButton(true)
+      deletionIndexRef.current = index
       mutate(id)
    }
    
-  
+   const handlePage = (page: number) => {
+      setFilter(prev => ({ ...prev, pageNo: page }))
+   }  
+
+   if (data) {
+      // this value of totalPages will be sent in the pageSlider
+      // the reason we are not directly sending the data.totalProducts
+      // /searchObject.pageLength is because data would come in and out
+      // of existence while react query fetching & fetched
+      const newTotal = data.totalProducts/filter.pageLength
+      if (newTotal !== totalPagesRef.current) {
+        totalPagesRef.current = newTotal
+      }
+    }
 
    const handleCategory = (category:categoryType | '#') => {
       if (category !== '#') {
@@ -187,11 +205,19 @@ function SellerProducts() {
                         className="[&>*]:px-4 [&>*]:py-4 group cursor-pointer hover:bg-green-100 relative"
                         >
                            <td className={`sticky left-0 bg-white group-hover:hidden`}>
-                                 {index+1}
+                              {
+                                 disableDeleteButton && deletionIndexRef.current === index
+                                 ? <span className={`w-3 h-3 mb-1 rounded-full border-b-slate-200 border-l-white border-[0.2rem] border-slate-800 animate-spin inline-block`}/>
+                                 : index+1+(filter.pageNo-1)*filter.pageLength
+                              }
                            </td>
                            <td className={`sticky left-0 bg-green-100 group-hover:block hidden text-slate-500`}
-                           onClick={()=>handleDelete(row._id)}>
-                                 <AiFillDelete className={`duration-75 hover:text-red-700 rounded-full p-2 text-4xl active:bg-red-200`}/>
+                           onClick={()=>handleDelete(row._id,index)}>
+                              {
+                                 disableDeleteButton && deletionIndexRef.current === index
+                                 ? <span className={`w-3 h-3 mb-1 rounded-full border-b-slate-200 border-l-white border-[0.2rem] border-slate-800 animate-spin inline-block`}/>
+                                 : <AiFillDelete className={`duration-75 hover:text-red-700 rounded-full active:bg-red-200`}/>
+                              }
                            </td>
                            <td>
                               <NavLink to={`/seller/product/${row._id}`} className="line-clamp-2 w-[10rem] xs:w-[14rem] lg:w-[18rem] hover:text-lime-800">
@@ -320,9 +346,8 @@ function SellerProducts() {
          <div className={`absolute w-fit bottom-0 left-0 flex`}>
             <div className={`block xs:hidden`}>
                <PageSlider_Lite
-                  // totalPages={totalPagesRef.current}
-                  totalPages={4}
-                  onPageChange={()=>{}}
+                  totalPages={totalPagesRef.current}
+                  onPageChange={handlePage}
                   size={'xs'}
                   activeBgColor="bg-slate-300"
                   activeTextColor="text-slate-800"
@@ -334,9 +359,8 @@ function SellerProducts() {
             </div>
             <div className={`hidden xs:block sm:hidden`}>
                <PageSlider_Lite
-                  // totalPages={totalPagesRef.current}
-                  totalPages={4}
-                  onPageChange={()=>{}}
+                  totalPages={totalPagesRef.current}
+                  onPageChange={handlePage}
                   size={'md'}
                   activeBgColor="bg-slate-300"
                   activeTextColor="text-slate-800"
@@ -348,9 +372,8 @@ function SellerProducts() {
             </div>
             <div className={`hidden sm:block`}>
                <PageSlider_Lite
-                  // totalPages={totalPagesRef.current}
-                  totalPages={4}
-                  onPageChange={()=>{}}
+                  totalPages={totalPagesRef.current}
+                  onPageChange={handlePage}
                   size={'sm'}
                   activeBgColor="bg-slate-300"
                   activeTextColor="text-slate-800"
