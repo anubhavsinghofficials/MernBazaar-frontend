@@ -79,7 +79,9 @@ function ProductDetailsPage() {
         setDisableCartButton(true)
 
         if (goToCart) {
-            Navigate('/user/cart')
+            setTimeout(() => {
+                Navigate('/user/cart')
+            }, 100)
         }
     }
     const deleteReview = () => {

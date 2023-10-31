@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { tempData } from "./tempData"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { categoryBadges } from "@/Store/ClientStore/store-Constants"
-import { syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
+import { syncDeleteProduct, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
 import NoProductsFound from "@/assets/noProductFound.png"
@@ -51,13 +51,19 @@ function SellerProducts() {
       pageNo:1,
       pageLength:20
    })
-   const { data, isError, error, isLoading, isRefetching, refetch } = syncFetchSellerProducts(filter)
-
+   const [disableDeleteButton, setDisableDeleteButton] = useState(false)
+   const { data, isError, error, isLoading, refetch } = syncFetchSellerProducts(filter)
+   const { mutate } = syncDeleteProduct(setDisableDeleteButton)
    
    if (isError) {
       const errorData = (error as AxiosError).response?.data
       console.log(errorData)
     }
+    
+   const handleDelete = (id:string) => {
+      mutate(id)
+   }
+   
   
 
    const handleCategory = (category:categoryType | '#') => {
@@ -101,11 +107,6 @@ function SellerProducts() {
            }
        }
    }
-
-   const handleDelete = () => {
-       console.log('deletion called')
-   }
-    
     
 
    return (
@@ -189,7 +190,7 @@ function SellerProducts() {
                                  {index+1}
                            </td>
                            <td className={`sticky left-0 bg-green-100 group-hover:block hidden text-slate-500`}
-                           onClick={handleDelete}>
+                           onClick={()=>handleDelete(row._id)}>
                                  <AiFillDelete className={`duration-75 hover:text-red-700 rounded-full p-2 text-4xl active:bg-red-200`}/>
                            </td>
                            <td>

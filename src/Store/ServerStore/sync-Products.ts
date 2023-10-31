@@ -186,3 +186,34 @@ export const syncFetchSellerProducts = (filter:searchFilterType) => {
   })
 }
 
+
+
+
+export const syncDeleteProduct = (setDisableDeleteButton:boolSetStateType) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+  const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+  const queryClient = useQueryClient()
+
+  const mutationFunc = (productId:string) => axios.delete(`${SERVER_URL}/product/${productId}`,{
+    withCredentials:true
+  })
+
+  return useMutation(mutationFunc,{
+    onSuccess(data) {
+      setGenericToastMessage(data.data.message)
+      setGenericToastType('success')
+      setDisableDeleteButton(false)
+      queryClient.invalidateQueries(['sellerproducts'])
+      setTimeout(() => {
+        toggleGenericToast(true)
+      }, 1000);
+    },
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response?.data!
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+      setDisableDeleteButton(false)
+    },
+  })
+}
+ 
