@@ -52,7 +52,7 @@ function CreateProductsPage() {
   }, [additionalFiles])
 
   useEffect(() => {
-   if (costPrice && discount && discount<=100) {
+   if (!isNaN(costPrice) && !isNaN(discount) && discount>=0 && discount<=100) {
       const netPrice = Math.floor(costPrice*(1-discount/100))
       setValue("price.net",netPrice)
    }
@@ -93,7 +93,6 @@ function CreateProductsPage() {
       })
 
       setDisableSubmit(true)
-      console.log(formData)
       mutate(formData)
    }
 

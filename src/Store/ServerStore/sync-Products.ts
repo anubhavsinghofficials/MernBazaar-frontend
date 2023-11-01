@@ -139,7 +139,6 @@ export const syncCreateProduct = (setDisableSubmitButton:boolSetStateType) => {
   const Navigate = useNavigate()
 
   const mutationFunc = (formData:FormData) => {
-    console.log({formData})
     return axios.post(`${SERVER_URL}/product/new`,formData,{
       withCredentials:true
     })
@@ -188,13 +187,74 @@ export const syncFetchSellerProducts = (filter:searchFilterType) => {
 
 
 
+export const syncFetchSellerProductDetails = (id:string) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+
+  const fetcherFunc = () => axios.get(`${SERVER_URL}/seller/product/${id}`,{
+    withCredentials:true
+  })
+
+  return useQuery(['sellerProductDetails',id], fetcherFunc, {
+    select: data => data.data.productDetails,
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response!.data
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+    },
+    cacheTime: 10000,
+    refetchOnWindowFocus: false,
+  })
+}
+
+
+
+
+
+
+export const syncUpdateProduct = (productId:string,setDisableSubmitButton:boolSetStateType,setEditable:boolSetStateType) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+  const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+  const queryClient = useQueryClient()
+  const Navigate = useNavigate()
+
+  const mutationFunc = (formData:FormData) => {
+    return axios.patch(`${SERVER_URL}/seller/product/${productId}`,formData,{
+      withCredentials:true
+    })
+  }
+
+  return useMutation(mutationFunc,{
+    onSuccess(data) {
+        setGenericToastMessage(data.data.message)
+        setGenericToastType('success')
+        setDisableSubmitButton(false)
+        setEditable(false)
+        queryClient.invalidateQueries(['sellerProductDetails'])
+        setTimeout(() => {
+            toggleGenericToast(true)
+        }, 1000)
+    },
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response?.data!
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+      setDisableSubmitButton(false)
+    },
+  })
+}
+
+
+
+
+
 
 export const syncDeleteProduct = (setDisableDeleteButton:boolSetStateType) => {
   const { setGenericMessage, toggleGenericModal } = modalStore()
   const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
   const queryClient = useQueryClient()
+  const Navigate = useNavigate()
 
-  const mutationFunc = (productId:string) => axios.delete(`${SERVER_URL}/product/${productId}`,{
+  const mutationFunc = (productId:string) => axios.delete(`${SERVER_URL}/seller/product/${productId}`,{
     withCredentials:true
   })
 
@@ -204,6 +264,7 @@ export const syncDeleteProduct = (setDisableDeleteButton:boolSetStateType) => {
       setGenericToastType('success')
       setDisableDeleteButton(false)
       queryClient.invalidateQueries(['sellerproducts'])
+      Navigate('/seller/products')
       setTimeout(() => {
         toggleGenericToast(true)
       }, 1000);

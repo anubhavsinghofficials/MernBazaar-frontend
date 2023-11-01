@@ -49,7 +49,7 @@ function SellerProducts() {
       category:null,
       sort:'createdAt|-1',
       pageNo:1,
-      pageLength:8
+      pageLength:20
    })
    const [disableDeleteButton, setDisableDeleteButton] = useState(false)
    const { data, isError, error, isLoading, refetch } = syncFetchSellerProducts(filter)
