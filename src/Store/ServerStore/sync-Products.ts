@@ -215,7 +215,6 @@ export const syncUpdateProduct = (productId:string,setDisableSubmitButton:boolSe
   const { setGenericMessage, toggleGenericModal } = modalStore()
   const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
   const queryClient = useQueryClient()
-  const Navigate = useNavigate()
 
   const mutationFunc = (formData:FormData) => {
     return axios.patch(`${SERVER_URL}/seller/product/${productId}`,formData,{

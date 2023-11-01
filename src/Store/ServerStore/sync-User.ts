@@ -8,6 +8,7 @@ import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate';
 import { modalStore } from '../ClientStore/store-Modals';
 import { cartItemType } from '@/Pages/User/components/CartItemsBox';
 import { siteDataStore } from '../ClientStore/store-SiteData';
+import { searchUserFilterType } from '@/Pages/Seller/page-SellerUsers';
 
 
 export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
@@ -329,6 +330,28 @@ export const syncDeleteCartProduct = (setDisableCartButton:boolSetStateType) => 
             toggleGenericModal()
             setDisableCartButton(false)
         },
+    })
+}
+
+
+
+
+
+export const syncFetchAllUsers = (filter:searchUserFilterType) => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { pageNo, pageLength } = filter
+
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/seller/users?pageNo=${pageNo}&pageLength=${pageLength}`,{
+        withCredentials:true
+    })
+    return useQuery(['allUsers'],fetcherFunc,{
+        select: data => data.data,
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+        refetchOnWindowFocus:false
     })
 }
  
