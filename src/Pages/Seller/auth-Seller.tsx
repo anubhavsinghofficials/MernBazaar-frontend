@@ -14,9 +14,7 @@ export function SellerAuth() {
         return <Navigate to='/user/profile'/>
     }
     
-    
     else if (role === 'seller') {
-
         return (
             <div className={`w-screen max-w-[96rem] m-auto min-h-screen flex flex-col md:flex-row items-center gap-x-2 lg:gap-x-4 bg-slate-200 pt-14 xs:pt-16 sm:pt-14 md:px-4`}>
                 <DashboardSideMenu/>

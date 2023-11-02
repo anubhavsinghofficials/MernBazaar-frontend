@@ -1,18 +1,19 @@
 
 import { useEffect, useRef, useState } from "react"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
-import { syncDeleteProduct, syncFetchSellerOrders, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
+import { syncChangeOrderStatus, syncDeleteProduct, syncFetchSellerOrders, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
 import NoProductsFound from "@/assets/noProductFound.png"
-import { AiFillDelete } from "react-icons/ai"
 import { NavLink } from "react-router-dom"
-import { tempData } from "./tempData"
 
-type orderStatusType = "delivered" | "shipped" | "pending" 
+export type orderStatusType = "delivered" | "shipped" | "pending" 
 type sortValuesType  = "totalItems" | "totalPrice" | "createdAt"
 type sortType  = "totalItems|1" | "totalItems|-1" | "totalPrice|1" | "totalPrice|-1" | "createdAt|1" | "createdAt|-1"
-
+export type orderUpdateType = {
+     orderId:string
+     orderStatus:orderStatusType
+}
 export type searchOrdersFilterType = {
    sort        : sortType | null
    orderStatus : orderStatusType | null
@@ -33,10 +34,10 @@ function SellerOrdersPage() {
       pageNo:1,
       pageLength:20
    })
-   const [disableDeleteButton, setDisableDeleteButton] = useState(false)
+   const [disableStatusButton, setDisableStatusButton] = useState(false)
    const { data, isError, error, isLoading, refetch } = syncFetchSellerOrders(filter)
-   const { mutate } = syncDeleteProduct(setDisableDeleteButton)
-   const deletionIndexRef = useRef(0)
+   const { mutate } = syncChangeOrderStatus(setDisableStatusButton)
+   const updatedIndexRef = useRef(0)
    const totalPagesRef = useRef(1)
 
    if (isError) {
@@ -44,14 +45,14 @@ function SellerOrdersPage() {
       console.log(errorData)
     }
     
-   const handleDelete = (id:string,index:number) => {
-      setDisableDeleteButton(true)
-      deletionIndexRef.current = index
-      mutate(id)
+   const handleOrderStatusChange = (newOrderStatus:orderStatusType, id:string,index:number) => {
+      setDisableStatusButton(true)
+      updatedIndexRef.current = index
+      mutate({orderId:id, orderStatus:newOrderStatus})
    }
    
    const handlePage = (page: number) => {
-      setFilter(prev => ({ ...prev, pageNo: page }))
+      setFilter(prev => ({...prev, pageNo: page}))
    }  
 
    if (data) {
@@ -152,22 +153,54 @@ function SellerOrdersPage() {
                               { index+1+(filter.pageNo-1)*filter.pageLength }
                            </td>
                            <td>
-                              <NavLink to={`/seller/product/${row._id}`} className="line-clamp-1 w-[16rem] hover:text-lime-800">
+                              <NavLink to={`/seller/order/${row._id}`} className="line-clamp-1 w-[16rem] hover:text-lime-800">
                                  {row._id}
                               </NavLink>
                            </td>
                            <td>
-                              <p className={` ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-orange-100 group-hover:bg-orange-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'} py-1 text-center rounded-lg text-sm text-slate-800 font-semibold px-2 w-[8rem]`}>
-                                 <select
-                                    className={`w-full text-center ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-orange-100 group-hover:bg-orange-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'}`}
-                                    defaultValue={row.orderStatus}
-                                    // onChange={(e)=>handleCategory(e.target.value as categoryType | '#' )}
-                                    >
-                                    <option value={'pending'}>pending</option>
-                                    <option value={'shipped'}>shipped</option>
-                                    <option value={'delivered'}>delivered</option>
-                                 </select>
+                           {
+                              disableStatusButton && updatedIndexRef.current === index
+                              ?
+                              <p className={` bg-slate-300 text-slate-300 py-1 text-center rounded-lg text-sm font-semibold px-2 w-[8rem] animate-pulse`}>
+                                 delivered
                               </p>
+                              :
+                              <p className={` ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-100 group-hover:bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'} py-1 text-center rounded-lg text-sm text-slate-800 font-semibold px-2 w-[8rem]`}>
+                                 {
+
+                                 row.orderStatus !== 'delivered'
+                                 ?
+                                 <select
+                                    className={`w-full text-center ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-100 group-hover:bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'}`}
+                                    defaultValue={row.orderStatus}
+                                    onChange={(e)=>handleOrderStatusChange(e.target.value as orderStatusType, row._id, index )}
+                                    disabled={row.orderStatus === 'delivered'}
+                                    >
+                                    {
+                                       row.orderStatus === 'pending' &&
+                                       <>
+                                          <option value={'pending'} disabled>
+                                             pending
+                                          </option>
+                                          <option value={'shipped'}>shipped</option>
+                                          <option value={'delivered'}>delivered</option>
+                                       </>
+                                    }
+                                    {
+                                       row.orderStatus === 'shipped' &&
+                                       <>
+                                          <option value={'shipped'} disabled>
+                                             shipped
+                                          </option>
+                                          <option value={'delivered'}>delivered</option>
+                                       </>
+                                    }
+                                 </select>
+                                 :
+                                    'delivered'
+                                 }
+                              </p>
+                           }
                            </td>
                            <td className={`w-[4rem]`}>
                               {row.totalItems}

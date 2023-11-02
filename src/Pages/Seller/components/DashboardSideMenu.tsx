@@ -64,7 +64,7 @@ function DashboardSideMenu() {
                 <p className='font-semibold py-2'>
                     Products
                 </p>
-                <div className={`flex flex-col`}>
+                <div className={`flex flex-col whitespace-nowrap`}>
                     <NavLink to={'/seller/products'}
                             className={({isActive})=> (
                             isActive
@@ -87,12 +87,12 @@ function DashboardSideMenu() {
                 <p className='font-semibold py-2'>
                     Account
                 </p>
-                <div className={`flex flex-col`}>
+                <div className={`flex flex-col whitespace-nowrap`}>
                     <NavLink to={'/seller/profile'}
                             className={({isActive})=> (
                             isActive
                             ? `p-2 px-4 bg-slate-600 text-white rounded-md flex items-center gap-x-4`
-                            : `p-2 px-4 rounded-md flex items-center gap-x-4 hover:bg-slate-200 duration-75`
+                            : `p-2 px-4 rounded-md flex items-center gap-x-4 hover:bg-slate-200 duration-75 `
                             )}>
                         <FaUserAlt className={`text-sm`}/>
                         My Profile

@@ -7,7 +7,7 @@ import { modalStore } from "../ClientStore/store-Modals"
 import { boolSetStateType } from "./sync-User"
 import { useNavigate } from "react-router-dom"
 import { searchFilterType } from "@/Pages/Seller/page-SellerProducts"
-import { searchOrdersFilterType } from "@/Pages/Seller/page-SellerOrders"
+import { orderStatusType, orderUpdateType, searchOrdersFilterType } from "@/Pages/Seller/page-SellerOrders"
 
 
 
@@ -296,6 +296,69 @@ export const syncFetchSellerOrders = (filter:searchOrdersFilterType) => {
   })
 
   return useQuery(['sellerOrders',searchQuery], fetcherFunc, {
+    select: data => data.data,
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response!.data
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+    },
+    cacheTime: 10000,
+    refetchOnWindowFocus: false,
+  })
+}
+
+
+
+
+
+
+export const syncChangeOrderStatus = (setDisableStatusButton:boolSetStateType) => {
+    const { setGenericMessage, toggleGenericModal } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+    const queryClient = useQueryClient()
+
+    const mutationFunc = (orderUpdate:orderUpdateType) => {
+      const { orderId, orderStatus } = orderUpdate
+      return axios.patch(`${SERVER_URL}/seller/order/${orderId}`, {orderStatus}, {
+        withCredentials:true
+      })
+    }
+    return useMutation(mutationFunc,{
+      onSuccess(data) {
+        setGenericToastMessage(data.data.message)
+        setGenericToastType('success')
+        queryClient.invalidateQueries(['sellerOrders'])
+        queryClient.invalidateQueries(['sellerOrder'])
+        setTimeout(() => {
+            setDisableStatusButton(false)
+            toggleGenericToast(true)
+          }, 1000)
+        },
+      onError(error) {
+        const errorData = (error as AxiosError<{error:string}>).response!.data
+        setGenericMessage(errorData?.error)
+        toggleGenericModal()
+        setDisableStatusButton(false)
+      },
+    })
+}
+ 
+
+
+
+
+
+
+export const syncFetchSellerOrder = (orderId:string) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+  
+  const fetcherFunc = () => {
+    return axios.get(`${SERVER_URL}/seller/order/${orderId}`,{
+      withCredentials:true
+    })
+  }
+
+  return useQuery(['sellerOrder',orderId], fetcherFunc, {
     select: data => data.data,
     onError(error) {
       const errorData = (error as AxiosError<{error:string}>).response!.data

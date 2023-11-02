@@ -32,6 +32,7 @@ import SellerUsersPage from "./Pages/Seller/page-SellerUsers"
 import SellerAnalyticsPage from "./Pages/Seller/page-SellerAnalytics"
 import CreateProductsPage from "./Pages/Seller/page-CreateProducts"
 import EditProductsPage from "./Pages/Seller/page-EditProduct"
+import OrderInfo from "./Pages/Seller/page-OrderInfo"
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
         <Route path="product/new" element={<CreateProductsPage/>}/>
         <Route path="product/:id" element={<EditProductsPage/>}/>
         <Route path="orders" element={<SellerOrdersPage/>}/>
+        <Route path="order/:id" element={<OrderInfo/>}/>
         <Route path="users" element={<SellerUsersPage/>}/>
         <Route path="analytics" element={<SellerAnalyticsPage/>}/>
         <Route path="dashboard" element={<SellerProfile/>}/>

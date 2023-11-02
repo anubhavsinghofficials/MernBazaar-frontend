@@ -65,7 +65,7 @@ function UserOrders() {
                           <p className="hidden sm:block">
                             Status
                           </p>
-                          <p className={`rounded-full mr-4 px-2 xs:px-4 ${order.orderStatus === 'pending' && 'bg-red-900 text-slate-300'} ${order.orderStatus === 'shipped' && 'bg-blue-700 text-blue-50'} ${order.orderStatus === 'delivered' && 'bg-green-600 text-white'} pb-[0.1rem] md:pt-[0.1rem] shadow-md text-xs xs:text-sm`}>
+                          <p className={`rounded-full mr-4 px-2 xs:px-4 ${order.orderStatus === 'pending' && 'bg-[#dc262660] text-slate-300'} ${order.orderStatus === 'shipped' && 'bg-[#2563eb60] text-blue-50'} ${order.orderStatus === 'delivered' && 'bg-[#29e36e50] text-white'} pb-[0.1rem] md:pt-[0.1rem] shadow-md text-xs xs:text-sm`}>
                               {order.orderStatus} 
                           </p>
                       </div>
