@@ -7,6 +7,7 @@ import { modalStore } from "../ClientStore/store-Modals"
 import { boolSetStateType } from "./sync-User"
 import { useNavigate } from "react-router-dom"
 import { searchFilterType } from "@/Pages/Seller/page-SellerProducts"
+import { searchOrdersFilterType } from "@/Pages/Seller/page-SellerOrders"
 
 
 
@@ -276,4 +277,32 @@ export const syncDeleteProduct = (setDisableDeleteButton:boolSetStateType) => {
     },
   })
 }
- 
+
+
+
+
+
+
+export const syncFetchSellerOrders = (filter:searchOrdersFilterType) => {
+  const { setGenericMessage, toggleGenericModal } = modalStore()
+  const { pageLength, pageNo, sort, orderStatus } = filter
+  let searchQuery = orderStatus ? `orderStatus=${orderStatus}` : ``
+  searchQuery = sort     ? `${searchQuery}&sort=${sort}`         : searchQuery
+  searchQuery = `${searchQuery}&pageNo=${pageNo}&pageLength=${pageLength}`
+
+  
+  const fetcherFunc = () => axios.get(`${SERVER_URL}/seller/orders?${searchQuery}`,{
+    withCredentials:true
+  })
+
+  return useQuery(['sellerOrders',searchQuery], fetcherFunc, {
+    select: data => data.data,
+    onError(error) {
+      const errorData = (error as AxiosError<{error:string}>).response!.data
+      setGenericMessage(errorData?.error)
+      toggleGenericModal()
+    },
+    cacheTime: 10000,
+    refetchOnWindowFocus: false,
+  })
+}

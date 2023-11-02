@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import { tempData } from "./tempData"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { categoryBadges } from "@/Store/ClientStore/store-Constants"
 import { syncDeleteProduct, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
@@ -9,9 +8,6 @@ import NoProductsFound from "@/assets/noProductFound.png"
 import { AiFillDelete } from "react-icons/ai"
 import { NavLink } from "react-router-dom"
 
-// delete function on s.no? but then show user how to do that
-// delete temp data
-// page length 20, what about category search and other filters ?
 
 type categoryType = typeof categoryBadges.values
 type sortValuesType  = "price" | "discount" | "stock" | "ratings" | "createdAt"
@@ -146,7 +142,7 @@ function SellerProducts() {
                      className="text-left hover:bg-slate-800 cursor-pointer group"
                         >
                            <select
-                              className=" bg-slate-700 p-4 group-hover:bg-slate-800"
+                              className="w-full bg-slate-700 p-4 group-hover:bg-slate-800"
                               defaultValue={'#'}
                               onChange={(e)=>handleCategory(e.target.value as categoryType | '#' )}
                               >
@@ -220,7 +216,7 @@ function SellerProducts() {
                               }
                            </td>
                            <td>
-                              <NavLink to={`/seller/product/${row._id}`} className="line-clamp-2 w-[10rem] xs:w-[14rem] lg:w-[18rem] hover:text-lime-800">
+                              <NavLink to={`/seller/product/${row._id}`} className="line-clamp-2 w-[10rem] xs:w-[14rem] lg:w-[24rem] hover:text-lime-800">
                                  {row.title}
                               </NavLink>
                            </td>
@@ -262,7 +258,7 @@ function SellerProducts() {
                               {index+1}
                            </td>
                            <td>
-                              <p className="line-clamp-2 bg-slate-300 rounded-md text-slate-300 animate-pulse w-[10rem] xs:w-[14rem] lg:w-[18rem]">
+                              <p className="line-clamp-2 bg-slate-300 rounded-md text-slate-300 animate-pulse w-[10rem] xs:w-[14rem] lg:w-[24rem]">
                                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil unt quia nam deserunt consectetur? Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, maiores. 
                               </p>
                            </td>

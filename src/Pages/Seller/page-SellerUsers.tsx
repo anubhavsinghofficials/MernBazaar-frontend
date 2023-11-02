@@ -4,7 +4,6 @@ import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
 import NoProductsFound from "@/assets/noProductFound.png"
-import { tempData } from "./tempData"
 import { syncFetchAllUsers } from "@/Store/ServerStore/sync-User"
 
 
@@ -44,7 +43,7 @@ function SellerUsersPage() {
       }
     }
 
-    
+
 
    return (
       <div className={`relative`}>
@@ -64,6 +63,10 @@ function SellerUsersPage() {
                      className="text-left p-4">
                            Email
                      </th>
+                     <th
+                     className="text-left p-4">
+                           Joined on
+                     </th>
                   </tr>
                </thead>
                <tbody>
@@ -74,18 +77,29 @@ function SellerUsersPage() {
                            key={row._id}
                            className="[&>*]:px-4 [&>*]:py-4 cursor-pointer relative"
                            >
-                              <td className={`sticky left-0 bg-white`}>
+                              <td className={`sticky left-0 bg-white w-10`}>
                                  {index+1+(filter.pageNo-1)*filter.pageLength}
                               </td>
                               <td>
-                                 <p className={`whitespace-nowrap overflow-hidden text-ellipsis md:w-[8rem] xl:w-40`}>
+                                 <p className={`whitespace-nowrap overflow-hidden text-ellipsis w-32 md:w-[10rem] xl:w-40`}>
                                     {row.name}
                                  </p>
                               </td>
-                              <td className={``}>
-                                 <p className={`line-clamp-2 md:w-80 xl:w-[30rem]`}>
+                              <td>
+                                 <p className={`line-clamp-2 md:w-80 xl:w-[24rem]`}>
                                     {row.email}
                                  </p>
+                              </td>
+                              <td className={`lg:w-40`}>
+                                    {
+                                       (()=>{
+                                          const inputDate = new Date(row.joinedAt)
+                                          const date = inputDate.getDate()
+                                          const month = inputDate.getMonth()
+                                          const year = inputDate.getFullYear()
+                                          return `${date}/${month+1}/${year}` 
+                                       })()
+                                    }
                               </td>
                            </tr>
                         ))
@@ -96,17 +110,22 @@ function SellerUsersPage() {
                         <tr
                         key={index}
                         className="[&>*]:px-4 [&>*]:py-4 group cursor-pointer">
-                           <td className={`sticky left-0 bg-white `}>
+                           <td className={`sticky left-0 bg-white`}>
                               {index+1}
                            </td>
                            <td>
-                              <p className={`whitespace-nowrap overflow-hidden text-ellipsis bg-slate-300 rounded-md text-slate-300 animate-pulse md:w-[8rem] xl:w-40`}>
-                                 Lorem ipsum loo
+                              <p className={`whitespace-nowrap overflow-hidden text-ellipsis bg-slate-300 rounded-md text-slate-300 animate-pulse line-clamp-2 w-32 md:w-[10rem] xl:w-40`}>
+                                 Lorem ipsum asdfasdf
                               </p>
                            </td>
                            <td>
-                              <p className="line-clamp-2 bg-slate-300 rounded-md text-slate-300 animate-pulse md:w-80 xl:w-[30rem]">
-                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil unt quia nam deserunt consectetur? Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, maiores. 
+                              <p className="line-clamp-2 bg-slate-300 rounded-md text-slate-300 md:w-80 xl:w-[24rem] animate-pulse">
+                                 Loremasfsdfipsumasdasdfasdf
+                              </p>
+                           </td>
+                           <td>
+                              <p className="line-clamp-2 bg-slate-300 rounded-md text-slate-300 lg:w-40 animate-pulse">
+                                 23/12/2034 
                               </p>
                            </td>
                         </tr>
