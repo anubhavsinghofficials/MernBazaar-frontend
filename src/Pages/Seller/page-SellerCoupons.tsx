@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { z } from 'zod'
@@ -87,8 +87,8 @@ function SellerCouponsPage() {
             </TabsList>
             <TabsContent
                value="allCoupons"
-               className={`xs:px-4 h-96 overflow-y-scroll accordianScrollbar`}>
-                  <div className={`flex font-semibold xs:text-lg bg-slate-200 sticky top-0 py-2 xs:rounded-md z-10 `}>
+               className={`xs:px-4 h-96 overflow-y-scroll accordianScrollbar relative`}>
+                  <div className={`flex font-semibold xs:text-lg bg-slate-200 sticky top-0 py-2 xs:rounded-md z-10`}>
                      <p className={`w-[46%] xs:w-[44%] pl-4`}>
                         <span className={`hidden xs:inline-block xs:pr-2`}>
                            Coupon

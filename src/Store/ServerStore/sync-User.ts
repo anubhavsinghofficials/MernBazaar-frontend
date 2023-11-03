@@ -9,6 +9,7 @@ import { modalStore } from '../ClientStore/store-Modals';
 import { cartItemType } from '@/Pages/User/components/CartItemsBox';
 import { siteDataStore } from '../ClientStore/store-SiteData';
 import { searchUserFilterType } from '@/Pages/Seller/page-SellerUsers';
+import { couponDataType } from '@/Pages/User/components/CartSummaryCard';
 
 
 export type boolSetStateType = React.Dispatch<React.SetStateAction<boolean>>
@@ -354,4 +355,32 @@ export const syncFetchAllUsers = (filter:searchUserFilterType) => {
         refetchOnWindowFocus:false
     })
 }
- 
+
+
+
+
+
+
+export const syncApplyCoupon = (setDiscount:numSetStateType) => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+
+    const mutationFunc = (couponData:couponDataType) => {
+       return axios.post(`${SERVER_URL}/user/coupon`, couponData, {
+           withCredentials:true,
+        })
+    }
+    return useMutation(mutationFunc,{
+        onSuccess(data){
+            setDiscount(data.data.discount)
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            toggleGenericToast(true)
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}

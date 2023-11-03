@@ -53,7 +53,6 @@ export const days = [
 
 export const nextSaleDate = '2024-01-01T00:00:00'
 export const myGitHub = 'https://github.com/anubhavsingh05'
-export const mern20Code = 'mern20'
 
 
 // Badges for BadgePicker_____________________________
@@ -86,7 +85,7 @@ export const categoryBadges = {
         "phones", "menswear", "womenswear", "laptops",
         "watch", "furniture", "toys", "pets", "books",
         "beauty", "groceries", "medicines", "gym"
-    ],
+    ] as const,
     icons   : [
         BsFillPhoneFill, BiSolidTShirt, GiLargeDress,
         BsFillLaptopFill, BiSolidWatchAlt, BiChair,

@@ -1,10 +1,13 @@
-import { mern20Code } from "@/Store/ClientStore/store-Constants"
+import { syncApplyCoupon } from "@/Store/ServerStore/sync-User"
 import { useState } from "react"
 import { BiSolidChevronRight } from "react-icons/bi"
 import { MdShoppingCart } from "react-icons/md"
 
 
-
+export type couponDataType = {
+   couponCode:string,
+   amount:number
+}
 type CartPropsType = {
      onConfirm: (totalPrice:number) => void
      totalProducts: number
@@ -15,21 +18,25 @@ function CartSummaryCard(props:CartPropsType) {
    const { subTotal, totalProducts, onConfirm } = props
    const shippingCharges = subTotal > 0 ? 100 : 0
    const [discount, setDiscount] = useState(0)
+   const { mutate, isLoading } = syncApplyCoupon(setDiscount)
 
    const applyCouponCode = (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       const formData = new FormData(e.currentTarget)
       const couponCode = formData.get('couponCode')
-      if (couponCode === mern20Code) {
-         setDiscount(20)
-      } else {
-         setDiscount(0)
+
+      if (couponCode) {
+         const couponData = {
+            couponCode:couponCode.toString(),
+            amount:subTotal
+         }
+         mutate(couponData)
       }
    }
 
    const handleClick = () => {
       const totalPrice = (subTotal+shippingCharges)*(1 - discount/100)
-      onConfirm(totalPrice)
+      onConfirm(Math.floor(totalPrice))
    }
 
    return (
@@ -46,8 +53,15 @@ function CartSummaryCard(props:CartPropsType) {
                      placeholder="Coupon Code"
                      name="couponCode"
                      autoFocus/>
-            <button className={`bg-green-600 text-white py-1 px-8 text-lg font-semibold rounded-lg flex items-center gap-x-2 hover:shadow-sm hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 self-stretch`}>
-               Apply
+            <button className={`bg-green-600 text-white py-1 px-8 text-lg font-semibold rounded-lg flex items-center gap-x-2 hover:shadow-sm hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 self-stretch`}
+            disabled={isLoading}>
+               {
+                  isLoading
+                  ?
+                  <span className={`w-4 h-4 my-[0.4rem] mx-[1rem] rounded-full border-b-green-300 border-l-green-100 border-[0.2rem] border-green-600 animate-spin`}/>
+                  :
+                     'Apply'
+               }
             </button>
             <p className="absolute -bottom-5 left-4 text-sm font-semibold text-slate-400">
                free coupon {'>'} mern20
@@ -93,7 +107,7 @@ function CartSummaryCard(props:CartPropsType) {
                   Total
                </span>
                <span className="font-Roboto font-semibold text-white text-lg whitespace-nowrap">
-                  ₹ {(subTotal+shippingCharges)*(1 - discount/100)}
+                  ₹ {Math.floor((subTotal+shippingCharges)*(1 - discount/100))}
                </span>
             </p>
             <button className={`bg-green-600 text-white py-2 text-lg font-semibold rounded-lg flex items-center justify-center gap-x-1 hover:shadow-md hover:bg-green-500 active:shadow-none active:bg-green-700 duration-75 self-stretch mx-2`}
