@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { modalStore } from '../ClientStore/store-Modals'
 import { passwordsType } from '@/Pages/User/page-UserPasswordUpdate'
 import { boolSetStateType } from './sync-User'
+import { couponSchemaType } from '@/Pages/Seller/page-SellerCoupons'
 
 
 
@@ -31,7 +32,7 @@ export const syncRegisterSeller = (setDisableSubmit:boolSetStateType) => {
             setTimeout(() => {
                 toggleGenericToast(true)
             }, 1000);
-            Navigate('/seller/profile')
+            Navigate('/seller/analytics')
         },
         onError(error) {
             // <{error:string}> is ∵ we are sending the error message from the
@@ -67,7 +68,7 @@ export const syncLoginSeller = (setDisableSubmit:boolSetStateType) => {
                 toggleGenericToast(true)
             }, 1000);
             
-            Navigate('/seller/profile')
+            Navigate('/seller/analytics')
         },
         onError(error) {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
@@ -214,3 +215,75 @@ export const syncLogOutSellerAllDevices = (setDisableSubmit:boolSetStateType) =>
 }
  
  
+
+
+
+export const syncCreateCoupon = () => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+    const queryClient = useQueryClient()
+
+    const mutationFunc = (coupon:couponSchemaType) => {
+       return axios.post(`${SERVER_URL}/seller/coupon/new`, coupon, {
+           withCredentials:true,
+        })
+    }
+    return useMutation(mutationFunc,{
+        onSuccess(data){
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            queryClient.invalidateQueries(['coupons'])
+            toggleGenericToast(true)
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}
+
+
+
+export const syncFetchCoupons = () => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const fetcherFunc = () => axios.get(`${SERVER_URL}/seller/coupons`,{
+        withCredentials:true
+    })
+    return useQuery(['coupons'],fetcherFunc,{
+        select: data => data.data,
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}
+
+
+
+
+export const syncDeleteCoupon = () => {
+    const { toggleGenericModal, setGenericMessage } = modalStore()
+    const { toggleGenericToast, setGenericToastMessage, setGenericToastType } = modalStore()
+    const queryClient = useQueryClient()
+
+    const mutationFunc = (couponId:string) => {
+       return axios.delete(`${SERVER_URL}/seller/coupon/${couponId}`,{
+           withCredentials:true,
+        })
+    }
+    return useMutation(mutationFunc,{
+        onSuccess(data){
+            setGenericToastMessage(data.data.message)
+            setGenericToastType('success')
+            queryClient.invalidateQueries(['coupons'])
+            toggleGenericToast(true)
+        },
+        onError(error) {
+            const errorData = (error as AxiosError<{error:string}>).response?.data!
+            setGenericMessage(errorData?.error)
+            toggleGenericModal()
+        },
+    })
+}

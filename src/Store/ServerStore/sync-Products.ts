@@ -7,7 +7,7 @@ import { modalStore } from "../ClientStore/store-Modals"
 import { boolSetStateType } from "./sync-User"
 import { useNavigate } from "react-router-dom"
 import { searchFilterType } from "@/Pages/Seller/page-SellerProducts"
-import { orderStatusType, orderUpdateType, searchOrdersFilterType } from "@/Pages/Seller/page-SellerOrders"
+import { orderUpdateType, searchOrdersFilterType } from "@/Pages/Seller/page-SellerOrders"
 
 
 

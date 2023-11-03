@@ -84,7 +84,7 @@ function SellerNavOptions() {
                 My Profile
             </DropdownMenuItem>
             <DropdownMenuItem className="focus:bg-slate-800 focus:text-white px-4 focus:bg-opacity-60 py-2 gap-x-4 flex sm:hidden md:flex"
-            onClick={() => Navigate('/seller/dashboard')}>
+            onClick={() => Navigate('/seller/analytics')}>
                 <BiSolidDashboard/>
                 DashBoard
             </DropdownMenuItem>

@@ -1,7 +1,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
-import { syncChangeOrderStatus, syncDeleteProduct, syncFetchSellerOrders, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
+import { syncChangeOrderStatus, syncFetchSellerOrders } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
 import NoProductsFound from "@/assets/noProductFound.png"
@@ -56,7 +56,7 @@ function SellerOrdersPage() {
    }  
 
    if (data) {
-      const newTotal = data.totalProducts/filter.pageLength
+      const newTotal = data.totalOrders/filter.pageLength
       if (newTotal !== totalPagesRef.current) {
         totalPagesRef.current = newTotal
       }

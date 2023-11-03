@@ -33,6 +33,7 @@ import SellerAnalyticsPage from "./Pages/Seller/page-SellerAnalytics"
 import CreateProductsPage from "./Pages/Seller/page-CreateProducts"
 import EditProductsPage from "./Pages/Seller/page-EditProduct"
 import OrderInfo from "./Pages/Seller/page-OrderInfo"
+import SellerCouponsPage from "./Pages/Seller/page-SellerCoupons"
 
 function App() {
 
@@ -78,16 +79,16 @@ function App() {
 
       <Route path="/seller" element={<SellerAuth/>}>
         <Route index element={<Navigate to="profile"/>}/>
-        <Route path="profile" element={<SellerProfile/>}/>
-        <Route path="password" element={<SellerPasswordUpdate/>}/>
-        <Route path="products" element={<SellerProducts/>}/>
-        <Route path="product/new" element={<CreateProductsPage/>}/>
-        <Route path="product/:id" element={<EditProductsPage/>}/>
+        <Route path="analytics" element={<SellerAnalyticsPage/>}/>
         <Route path="orders" element={<SellerOrdersPage/>}/>
         <Route path="order/:id" element={<OrderInfo/>}/>
         <Route path="users" element={<SellerUsersPage/>}/>
-        <Route path="analytics" element={<SellerAnalyticsPage/>}/>
-        <Route path="dashboard" element={<SellerProfile/>}/>
+        <Route path="products" element={<SellerProducts/>}/>
+        <Route path="product/new" element={<CreateProductsPage/>}/>
+        <Route path="product/:id" element={<EditProductsPage/>}/>
+        <Route path="coupons" element={<SellerCouponsPage/>}/>
+        <Route path="profile" element={<SellerProfile/>}/>
+        <Route path="password" element={<SellerPasswordUpdate/>}/>
         <Route path="*" element={<Navigate to="profile"/>}/>
       </Route>
 

@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 import { modalStore } from '@/Store/ClientStore/store-Modals'
 import { useState } from 'react'
 import { syncLogOutSeller } from '@/Store/ServerStore/sync-Seller'
+import { BiSolidGift } from 'react-icons/bi'
 
 
 function DashboardSideMenu() {
@@ -34,13 +35,13 @@ function DashboardSideMenu() {
                 </p>
                 <div className={`flex flex-col`}>
                     <NavLink to={'/seller/analytics'}
-                            className={({isActive})=> (
-                            isActive
-                            ? `p-2 px-4 bg-slate-600 text-white rounded-md flex items-center gap-x-4`
-                            : `p-2 px-4 rounded-md flex items-center gap-x-4 hover:bg-slate-200 duration-75`
-                            )}>
-                            <AiFillStar/>
-                            Analytics
+                        className={({isActive})=> (
+                        isActive
+                        ? `p-2 px-4 bg-slate-600 text-white rounded-md flex items-center gap-x-4`
+                        : `p-2 px-4 rounded-md flex items-center gap-x-4 hover:bg-slate-200 duration-75`
+                        )}>
+                        <AiFillStar/>
+                        Analytics
                     </NavLink>
                     <NavLink to={'/seller/orders'}
                             className={({isActive})=> (
@@ -82,6 +83,15 @@ function DashboardSideMenu() {
                             )}>
                         <FaPlus/>
                         Create Product
+                    </NavLink>
+                    <NavLink to={'/seller/coupons'}
+                            className={({isActive})=> (
+                            isActive
+                            ? `p-2 px-4 bg-slate-600 text-white rounded-md flex items-center gap-x-4`
+                            : `p-2 px-4 rounded-md flex items-center gap-x-4 hover:bg-slate-200 duration-75`
+                            )}>
+                        <BiSolidGift/>
+                        Coupons
                     </NavLink>
                 </div>
                 <p className='font-semibold py-2'>
