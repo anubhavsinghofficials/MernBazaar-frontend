@@ -16,6 +16,11 @@
 }
 
 
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 
 .filtersOpen {
     max-height: 200vh;

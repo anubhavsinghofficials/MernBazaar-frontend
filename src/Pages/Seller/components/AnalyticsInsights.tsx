@@ -1,6 +1,6 @@
 import { MdInsights } from "react-icons/md"
 import { ResponsiveContainer, LineChart, Line, CartesianGrid,
-        XAxis, YAxis, Tooltip, Legend } from "recharts"
+        XAxis, YAxis, Tooltip } from "recharts"
 
 
 
