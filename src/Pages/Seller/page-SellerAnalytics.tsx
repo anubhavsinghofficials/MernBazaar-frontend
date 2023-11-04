@@ -1,14 +1,26 @@
 
 import { useEffect } from "react"
-
+import AnalyticsHighlights from "./components/AnalyticsHighlights"
+import AnalyticsInventory from "./components/AnalyticsInventory"
+import AnalyticsSellerScore from "./components/AnalyticsSellerScore"
+import AnalyticsOrders from "./components/AnalyticsOrders"
+import AnalyticsInsights from "./components/AnalyticsInsights"
 
 function SellerAnalyticsPage() {
+   
    useEffect(()=>{
       window.scrollTo({ top: 0 })
    },[])
+
+
+
    return (
-      <div className={`card`}>
-         Seller Analytics Page
+      <div className={`w-[98vw] md:w-[calc(100vw-19rem)] lg:w-[calc(100vw-20rem)] xl:w-[calc(100vw-22rem)] max-w-[72rem] mx-auto bg-white shadow-md rounded-lg p-2 sm:p-4 flex flex-col gap-y-16`}>
+         <AnalyticsHighlights/>
+         <AnalyticsInventory/>
+         <AnalyticsSellerScore/>
+         <AnalyticsOrders/>
+         <AnalyticsInsights/>
       </div>
    )
 }

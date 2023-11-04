@@ -45,6 +45,7 @@ function App() {
 
   return (
   // <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
+  // <div className={`w-screen bg-slate-100`}>
   <div className={`w-screen bg-slate-100`}>
     
     <Navbar/>
@@ -96,7 +97,7 @@ function App() {
     </Routes>
 
     <TailwindScreenDetector/>
-    <div className={`h-[10rem] bg-blue-400`} />
+    <div className={`h-[10rem] bg-blue-400 mt-[20rem]`} />
   </div>
 
   )
