@@ -124,8 +124,8 @@ function SellerProducts() {
     
 
    return (
-      <div className={`relative`}>
-         <div className={`w-[98vw] md:w-[calc(100vw-19rem)] lg:w-[calc(100vw-20rem)] xl:w-[calc(100vw-22rem)] max-w-[74rem] mx-auto overflow-x-auto overflow-y-scroll bg-white shadow-md rounded-lg relative lg:mr-3 h-[calc(100vh-8rem)] accordianScrollbar pb-12`}>
+      <div className={`relative bg-white shadow-md pb-4 rounded-lg`}>
+         <div className={`w-[98vw] md:w-[calc(100vw-19rem)] lg:w-[calc(100vw-20rem)] xl:w-[calc(100vw-22rem)] max-w-[74rem] mx-auto overflow-x-auto overflow-y-scroll bg-white relative lg:mr-3 h-[calc(100vh-8rem)] accordianScrollbar pb-8`}>
             <table className="w-full">
                <thead className="sticky top-0 z-10">
                   <tr className="bg-slate-700 text-slate-200"> 
@@ -142,7 +142,7 @@ function SellerProducts() {
                      className="text-left hover:bg-slate-800 cursor-pointer group"
                         >
                            <select
-                              className="w-full bg-slate-700 p-4 group-hover:bg-slate-800"
+                              className="w-full bg-slate-700 p-4 group-hover:bg-slate-800 text-center"
                               defaultValue={'#'}
                               onChange={(e)=>handleCategory(e.target.value as categoryType | '#' )}
                               >
@@ -167,7 +167,7 @@ function SellerProducts() {
                            Price
                      </th>
                      <th
-                     className="text-left hover:bg-slate-800 cursor-pointer p-4"
+                     className="text-center hover:bg-slate-800 cursor-pointer p-4"
                         onClick={()=>handleSort('discount')}
                         >
                            Discount
@@ -198,7 +198,7 @@ function SellerProducts() {
                      (data.products as productType[]).map((row,index) => (
                         <tr
                         key={row._id}
-                        className="[&>*]:px-4 [&>*]:py-4 group cursor-pointer hover:bg-green-100 relative"
+                        className="[&>*]:px-4 [&>*]:py-4 group cursor-pointer hover:bg-slate-100 relative"
                         >
                            <td className={`sticky left-0 bg-white group-hover:hidden`}>
                               {
@@ -207,7 +207,7 @@ function SellerProducts() {
                                  : index+1+(filter.pageNo-1)*filter.pageLength
                               }
                            </td>
-                           <td className={`sticky left-0 bg-green-100 group-hover:block hidden text-slate-500`}
+                           <td className={`sticky left-0 bg-slate-100 group-hover:block hidden text-slate-500`}
                            onClick={()=>handleDelete(row._id,index)}>
                               {
                                  disableDeleteButton && deletionIndexRef.current === index
@@ -221,12 +221,14 @@ function SellerProducts() {
                               </NavLink>
                            </td>
                            <td>
+                              <p className={`bg-emerald-200 text-center rounded-md py-1 min-w-[6rem]`}>
                                  {row.category}
+                              </p>
                            </td>
                            <td className={`w-[4rem]`}>
                                  {row.price.net}
                            </td>
-                           <td>
+                           <td className={`text-center`}>
                                  {row.price.discount}
                            </td>
                            <td className={`w-[4rem]`}>

@@ -21,7 +21,6 @@ export const syncGetRole = () => {
         onSuccess(data) {
             setRole(data.role)
             setCartCount(data.cartCount)
-            console.log(data)
         },
         refetchOnWindowFocus: false,
     })

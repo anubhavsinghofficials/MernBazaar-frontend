@@ -1,6 +1,8 @@
 import { useScrollEffect } from "@/Hooks/useScrollEffect"
 import { categoryBadges } from "@/Store/ClientStore/store-Constants"
-import { useRef } from "react"
+import { syncFetchInventory } from "@/Store/ServerStore/sync-Seller-Analytics"
+import { AxiosError } from "axios"
+import { useEffect, useRef, useState } from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import { MdFactory } from "react-icons/md"
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
@@ -8,11 +10,41 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 
 function AnalyticsInventory() {
-   const { stocks, inventory } = getInventoryData()
    const categoryBarRef = useRef<HTMLDivElement | null>(null)
+   const { data, isLoading, isError, error } = syncFetchInventory()
    const { handleScrollX, leftScroll, rightScroll } = useScrollEffect({scrollBy:100,scrollPadRef:categoryBarRef})
 
+   const [products, setProducts] = useState(0)
+   const [inStock, setInStock] = useState(0)
+   const [outOfStock, setOutOfStock] = useState(0)
+   const [pieChartData, setPieChartData] = useState<{name:string, value:number}[]>([])
 
+   useEffect(()=>{
+        if (data) {
+            let inStock = 0, outOfStock = 0, products = 0
+            data.inventory.forEach((element:any) => {
+                inStock += element.inStock
+                outOfStock += element.outOfStock
+                products += element.inStock + element.outOfStock
+            })
+
+            const pieChartData = [
+                { "name": "In Stock", "value": inStock },
+                { "name": "Out of Stock", "value": outOfStock },
+            ]
+
+            setInStock(inStock)
+            setOutOfStock(outOfStock)
+            setProducts(products)
+            setPieChartData(pieChartData)
+        }
+   },[data])
+
+   if (isError) {
+        const errorData = (error as AxiosError).response?.data
+        console.log(errorData)
+    }
+    
     return (
         <div className={`flex flex-col gap-y-4 xs:gap-y-8`}>            
             <p className={`text-lg font-semibold py-4 flex items-center gap-x-3 px-4 bg-slate-700 text-white rounded-md`}>
@@ -27,7 +59,7 @@ function AnalyticsInventory() {
                      <ResponsiveContainer height='100%' width="98%">
                         <PieChart>
                            <Pie
-                              data={stocks}
+                              data={pieChartData}
                               dataKey="value"
                               nameKey="name"
                               outerRadius='96%'
@@ -36,7 +68,7 @@ function AnalyticsInventory() {
                               
                               >
                               {
-                                 stocks.map((_entry, index) => (
+                                 pieChartData.map((_entry, index) => (
                                     <Cell
                                     key={`cell-${index}`}
                                     fill={['#4ade80', '#cbd5e1'][index]}
@@ -70,7 +102,7 @@ function AnalyticsInventory() {
                         Products
                      </p>
                      <p className={`text-2xl font-semibold grow`}>
-                        100
+                        {products}
                      </p>
                   </div>
                   <div className={`grow flex flex-col shadow-md cursor-pointer rounded-lg text-slate-700 py-2 px-6`}>
@@ -78,7 +110,7 @@ function AnalyticsInventory() {
                         Categories
                      </p>
                      <p className={`text-2xl font-semibold grow`}>
-                        10
+                        {categoryBadges.values.length}
                      </p>
                   </div>
                   <div className={`grow flex flex-col shadow-md cursor-pointer rounded-lg text-slate-700 py-2 px-6`}>
@@ -86,7 +118,7 @@ function AnalyticsInventory() {
                         In Stock
                      </p>
                      <p className={`text-2xl text-green-600 font-semibold grow`}>
-                        50
+                        {inStock}
                      </p>
                   </div>
                   <div className={`grow flex flex-col shadow-md cursor-pointer rounded-lg text-slate-700 py-2 px-6`}>
@@ -94,7 +126,7 @@ function AnalyticsInventory() {
                         Out of Stock
                      </p>
                      <p className={`text-2xl font-semibold grow`}>
-                        50
+                        {outOfStock}
                      </p>
                   </div>
                </div>
@@ -103,7 +135,7 @@ function AnalyticsInventory() {
             <div className={`relative`}>
                 {
                     leftScroll &&
-                    <button className={`text-slate-100 shadow-md self-center rounded-lg text-3xl active:shadow-none bg-green-700 active:bg-slate-100 absolute top-[54%] left-0`}
+                    <button className={`text-slate-100 shadow-md self-center rounded-lg text-3xl active:shadow-none bg-green-700 active:bg-green-900 absolute top-[54%] left-0`}
                     onClick={() => handleScrollX(-1)}>
                         <BiChevronLeft/>
                     </button>
@@ -111,38 +143,56 @@ function AnalyticsInventory() {
                <div className={`w-full mx-auto rounded-md shadow-md overflow-x-scroll hide-scrollbar scroll-smooth`}
                ref={categoryBarRef}>
                   <table className={`w-full`}>
-                     <tr>
-                        {
-                           inventory.categories.map(category => (
-                              <th className={`p-4 bg-green-700 text-white`}>
-                                 {category}
-                              </th>
-                           ))
-                        }
-                     </tr>
-                     <tr>
-                        {
-                           inventory.inStock.map(number => (
-                              <td className={`text-center py-3 bg-green-100`}>
-                                 {number}
-                              </td>
-                           ))
-                        }
-                     </tr>
-                     <tr>
-                        {
-                           inventory.outOfStock.map(number => (
-                              <td className={`text-center py-3 bg-slate-100`}>
-                                 {number}
-                              </td>
-                           ))
-                        }
-                     </tr>
+                    <thead>
+                        <tr>
+                            {
+                                isLoading
+                                ?
+                                    Array.from({length:1}).map((_,index) => (
+                                        <th className={`p-4 bg-green-700 text-green-700`}
+                                        key={index}>
+                                            Category
+                                        </th>
+                                    ))
+                                :
+                                    data.inventory.map((element:any) => (
+                                        <th className={`p-4 bg-green-700 text-white`}
+                                        key={element.category}>
+                                            {element.category}
+                                        </th>
+                                    ))
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {
+                                !isLoading &&
+                            data.inventory.map((element:any) => (
+                                <td className={`text-center py-3 bg-green-100`}
+                                key={element.category}>
+                                    {element.inStock}
+                                </td>
+                            ))
+                            }
+                        </tr>
+                        <tr>
+                            {
+                                !isLoading &&
+                            data.inventory.map((element:any) => (
+                                <td className={`text-center py-3 bg-slate-100`}
+                                key={element.category}>
+                                    {element.outOfStock}
+                                </td>
+                            ))
+                            }
+                        </tr>
+                    </tbody>
                   </table>
                </div>
                {
                     rightScroll &&
-                    <button className={`text-slate-100 shadow-md self-center rounded-lg text-3xl active:shadow-none bg-green-700 active:bg-slate-100 absolute top-[54%] right-0`}
+                    <button className={`text-slate-100 shadow-md self-center rounded-lg text-3xl active:shadow-none bg-green-700 active:bg-green-900 absolute top-[54%] right-0`}
                     onClick={() => handleScrollX(1)}>
                             <BiChevronRight/>
                     </button>
@@ -153,27 +203,3 @@ function AnalyticsInventory() {
 }
  
 export default AnalyticsInventory
-
-
-
-
-
-
-
-
-
-
-
-
-function getInventoryData () {
-    const stocks = [
-       { "name": "In Stock", "value": 400 },
-       { "name": "Out of Stock", "value": 300 },
-     ]
-    const inventory = {
-       categories:categoryBadges.values,
-       inStock:Array.from(categoryBadges.values).map(() => Math.floor(Math.random()*100)),
-       outOfStock:Array.from(categoryBadges.values).map(() => Math.floor(Math.random()*100))
-    }
-    return ({stocks,inventory}) 
- }

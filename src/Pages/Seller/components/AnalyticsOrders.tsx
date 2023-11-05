@@ -191,7 +191,7 @@ function AnalyticsOrders() {
             </table>
             <NavLink
                 to={'/seller/orders'}
-                className={`whitespace-nowrap text-green-600 hover:text-green-900 absolute bottom-0 bg-gradient-to-b from-transparent to-70% to-white pt-9 w-full text-center text-lg`}>
+                className={`whitespace-nowrap text-green-900 hover:text-green-600 absolute bottom-0 bg-gradient-to-b from-transparent to-70% to-white pt-9 w-full text-center text-lg`}>
                 View all orders
             </NavLink>
             

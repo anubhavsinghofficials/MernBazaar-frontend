@@ -93,8 +93,8 @@ function SellerOrdersPage() {
    }
 
    return (
-      <div className={`relative`}>
-         <div className={`w-[98vw] md:w-[calc(100vw-19rem)] lg:w-[calc(100vw-20rem)] xl:w-[calc(100vw-22rem)] max-w-[74rem] mx-auto overflow-x-auto overflow-y-scroll bg-white shadow-md rounded-lg relative lg:mr-3 h-[calc(100vh-8rem)] accordianScrollbar pb-12`}>
+      <div className={`relative pb-4 shadow-md rounded-lg bg-white`}>
+         <div className={`w-[98vw] md:w-[calc(100vw-19rem)] lg:w-[calc(100vw-20rem)] xl:w-[calc(100vw-22rem)] max-w-[74rem] mx-auto overflow-x-auto overflow-y-scroll bg-white relative lg:mr-3 h-[calc(100vh-8rem)] accordianScrollbar pb-8`}>
             <table className="w-full">
                <thead className="sticky top-0 z-10">
                   <tr className="bg-slate-700 text-slate-200"> 
@@ -165,13 +165,13 @@ function SellerOrdersPage() {
                                  delivered
                               </p>
                               :
-                              <p className={` ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-100 group-hover:bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'} py-1 text-center rounded-lg text-sm text-slate-800 font-semibold px-2 w-[8rem]`}>
+                              <p className={` ${row.orderStatus === 'pending' && 'bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-200'} py-1 text-center rounded-lg text-sm text-slate-800 font-semibold px-2 w-[8rem]`}>
                                  {
 
                                  row.orderStatus !== 'delivered'
                                  ?
                                  <select
-                                    className={`w-full text-center ${row.orderStatus === 'pending' && 'bg-red-100 group-hover:bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-100 group-hover:bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-100 group-hover:bg-green-200'}`}
+                                    className={`w-full text-center ${row.orderStatus === 'pending' && 'bg-red-200'} ${row.orderStatus === 'shipped' && 'bg-sky-200'} ${row.orderStatus === 'delivered' && 'bg-green-200'}`}
                                     defaultValue={row.orderStatus}
                                     onChange={(e)=>handleOrderStatusChange(e.target.value as orderStatusType, row._id, index )}
                                     disabled={row.orderStatus === 'delivered'}

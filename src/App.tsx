@@ -44,8 +44,6 @@ function App() {
   }
 
   return (
-  // <div className={`w-screen h-screen bg-slate-200 sm:overflow-x-hidden`}>
-  // <div className={`w-screen bg-slate-100`}>
   <div className={`w-screen bg-slate-100`}>
     
     <Navbar/>
