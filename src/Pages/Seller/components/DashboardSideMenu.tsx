@@ -128,9 +128,3 @@ function DashboardSideMenu() {
 }
  
 export default DashboardSideMenu
-
-
-
-// all product & filters
-// product create
-// product update

@@ -3,11 +3,7 @@
 import MernBazaarLoaderStatic from '@/Pages/Shared/components/Loading-Ui/Loader-MernBazaar-Static';
 import { Suspense, ReactNode, FC } from 'react';
 
-type lazyRoutePropsType = {
-     children : ReactNode
-}
-
-const LazyRoute:FC<lazyRoutePropsType> = ({children}) => {
+const LazyRoute:FC<{children:ReactNode}> = ({children}) => {
     return (
         <Suspense fallback={<MernBazaarLoaderStatic/>}>
             {children}

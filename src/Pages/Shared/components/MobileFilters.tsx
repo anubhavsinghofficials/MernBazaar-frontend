@@ -221,7 +221,7 @@ function MobileFilters() {
 
 export default MobileFilters
 
-// it would gave empty string if we never modified it thats
+// it would gave empty string if we never modified it that's
 // why we had used !scrollStyle, but still if u want to get
 // the real value no matter what then you can use:
 // const bodyComputedStyle = window.getComputedStyle(document.body);

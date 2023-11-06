@@ -222,8 +222,3 @@ function SellerUsersPage() {
 }
  
 export default SellerUsersPage
-
-
-
-
-

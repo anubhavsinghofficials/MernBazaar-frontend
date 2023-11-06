@@ -44,7 +44,10 @@ function UserProfile() {
       }
 
       if (user) {
-         // see below comment
+         // form.reset({
+         //    name:user.name,
+         //    email:user.email
+         // })
          form.setValue("name", user.name);
          form.setValue("email", user.email);
       }
@@ -187,11 +190,4 @@ function UserProfile() {
 export default UserProfile
 
 
-
-
-// can also do it like:
-// form.reset({
-//    name:user.name,
-//    email:user.email
-// })
 

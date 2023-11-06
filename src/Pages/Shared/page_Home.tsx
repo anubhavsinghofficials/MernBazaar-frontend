@@ -35,7 +35,7 @@ function HomePage() {
     }
 
     return (
-        <div className={`w-screen min-h-screen bg-slate-200 xxs:pt-12 sm:pt-14 xl:px-2 xl:pr-6 lg:pr-4 max-w-[96rem] m-auto`}>
+        <div className={`w-screen min-h-screen bg-slate-200 xxs:pt-12 sm:pt-14  xl:pr-4 lg:pr-4 max-w-[96rem] m-auto`}>
 
             <div className={`grow px-2 pl-4 bg-slate-800 self-stretch flex justify-center py-2 sm:hidden sticky top-14 xs:top-16 h-12 xs:h-14 sm:h-12 z-20`}>
                 <SearchBar
@@ -110,7 +110,7 @@ function HomePage() {
                 </div>
             </div>
             
-            <div className={`flex flex-col gap-y-2`}>
+            <div className={`flex flex-col gap-y-2 px-2`}>
                {
                 categoryBadges.strings.map((category,index) => (
                     <React.Fragment key={category}>

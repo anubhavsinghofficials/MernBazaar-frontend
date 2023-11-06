@@ -253,22 +253,3 @@ function AddressForm(props:AddressCardPropsType) {
 }
  
 export default AddressForm
-
-
-// required: true,
-{/* <div className={`text-slate-800 font-semibold bg-slate-200 flex items-center w-full p-2  rounded-md ring-[0.1rem] ${errors.phone ? "ring-red-400" :"focus-within:ring-slate-700 ring-transparent"}`}>
-<label htmlFor="phone"
-    className=" mr-2 self-stretch flex items-center px-2 text-xl">
-        <AiFillPhone
-        className='text-slate-700 text-2xl rotate-90'/>
-</label>
-<input className={`px-1 grow py-1 outline-none bg-transparent rounded-full min-w-0 styledPlaceholder`}  
-    type="text"
-    id="phone"
-    {...register("phone")}
-    placeholder="Phone Number"
-    autoComplete="off"/>
-</div> */}
-
-
-{/* <span className={`w-4 h-4 rounded-full border-b-slate-100 border-l-slate-100 border-[0.2rem] border-slate-900 animate-spin ${disableSubmit ? 'inline' : 'hidden'}`}/> */}

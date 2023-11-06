@@ -76,7 +76,7 @@ export default RangeSlider_Dark
 
 
 // both Slider and RangeSlider_Dark when used, would have
-// same amt of code of this component but still i made
+// same amt of code of this component but still we made
 // RangeSlider_Dark a separate rather than using Slider to
 // avoid rerendering of component where it would be used
 // so only RangeSlider_Dark would rerender and not its parent

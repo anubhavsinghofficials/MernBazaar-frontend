@@ -142,12 +142,6 @@ function EditProductsPage() {
 
       setDisableSubmit(true)
       updateProduct(formData)
-      // setTimeout(() => {
-      //    setDisableSubmit(false)
-      // }, 3000)
-      
-      console.log(formData)
-      // console.log({thumbnail:isThumbnailRef.current, additional:isAdditionalRef.current})
    }
 
    return (

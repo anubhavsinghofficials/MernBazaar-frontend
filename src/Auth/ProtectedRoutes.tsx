@@ -1,13 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { AuthRoleType, userRoleStore } from "../Store/ClientStore/store-Role";
-
+import { AuthRoleType, RoleStore } from "../Store/ClientStore/store-Role";
 
 type AuthProps = {
     AuthRole: AuthRoleType;
 }
 
 export function ProtectedRoutes({AuthRole}:AuthProps) {
-    const {role} = userRoleStore()
+    const {role} = RoleStore()
 
     switch (role) {
         case AuthRole  :  return <Outlet/>
@@ -17,11 +16,3 @@ export function ProtectedRoutes({AuthRole}:AuthProps) {
         default        :  return <Navigate to="/home"/>
     }
 }
-
-
-// navigate along with a state and show message there,
-// sent message directly from here through state or just
-// send some type of code (?) or just a switch (?) and
-// give custom message there ??
-// also take care of senerios when no state sent, like
-// url manip or any other navigations

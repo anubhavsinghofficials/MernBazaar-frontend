@@ -14,19 +14,19 @@ function useCountDown() {
 
     useEffect(()=>{
         const timer = setInterval(()=>{
-        const currentTime = new Date().getTime()
-        const timeLeft = nextSaleTime - currentTime
+            const currentTime = new Date().getTime()
+            const timeLeft = nextSaleTime - currentTime
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            setCountDown({ Days: 0, Hrs: 0, Mins: 0, Secs: 0 });
-        }
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                setCountDown({ Days: 0, Hrs: 0, Mins: 0, Secs: 0 });
+            }
 
-        const Days = Math.floor(timeLeft/(1000*60*60*24))
-        const Hrs = Math.floor(timeLeft%(1000*60*60*24)/(1000*60*60))
-        const Mins = Math.floor(timeLeft%(1000*60*60)/(1000*60))
-        const Secs = Math.floor(timeLeft%(1000*60)/1000)    
-        setCountDown({Days,Hrs,Mins,Secs})
+            const Days = Math.floor(timeLeft/(1000*60*60*24))
+            const Hrs = Math.floor(timeLeft%(1000*60*60*24)/(1000*60*60))
+            const Mins = Math.floor(timeLeft%(1000*60*60)/(1000*60))
+            const Secs = Math.floor(timeLeft%(1000*60)/1000)    
+            setCountDown({Days,Hrs,Mins,Secs})
         },1000)
         return () => clearInterval(timer)
     },[])

@@ -30,18 +30,15 @@ function Navbar() {
    
 
     return (
-    <div className={`z-20 bg-slate-800 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center`}> {/* sm:depthShadow */}
+    <div className={`z-20 bg-slate-800 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center`}>
     
       <div className={`h-full w-screen max-w-[96rem] px-4 flex justify-between items-center`}>
 
-        <div className={`h-[70%] flex items-center gap-x-4`}>
-            <NavLink to={'/home'}
-            className={`h-10 sm:h-8 xs:w-40 w-32 text-slate-200 font-bold rounded-md xs:text-lg xxs:text-base flex justify-center items-center hover:bg-slate-700 hover:text-white duration-100 active:bg-slate-800 ring-1 ring-slate-500 hover:ring-0`}>
-                MernBazaar
-            </NavLink>
-            <div className={`bg-slate-600 w-8 h-8 rounded-full`}>
-            </div>
-        </div>
+        <NavLink to={'/home'}
+        className={`h-10 sm:h-9 xs:w-40 w-36 text-slate-200 font-bold rounded-md xs:text-lg xxs:text-base flex justify-center items-center gap-x-2 hover:bg-slate-700 hover:text-white duration-100 active:bg-slate-800 ring-1 ring-slate-500 hover:ring-0`}>
+            <FaShoppingCart className={`text-sm`}/>
+            MernBazaar
+        </NavLink>
 
         <div className="h-[70%] flex items-center">
         <div className={`bg-slate-800 rounded-lg hidden lg:block lg:w-[35rem]`}>
