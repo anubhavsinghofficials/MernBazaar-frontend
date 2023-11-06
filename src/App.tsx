@@ -13,8 +13,11 @@ import { Elements }                 from "@stripe/react-stripe-js"
 import { loadStripe }               from "@stripe/stripe-js"
 import { STRIPE_PUBLISHABLE_KEY }   from "./Store/ClientStore/store-Constants"
 import PaymentPage                  from "./Pages/User/page-Payment"
-import { lazy }                     from "react"
+import { lazy, useEffect }          from "react"
 import LazyRoute                    from "./components/LazyRoute"
+import IntroductionModal            from "./Pages/Shared/components/Modals/Modal-Introduction"
+import TailwindScreenDetector       from "./components/screenDetector"
+import { modalStore } from "./Store/ClientStore/store-Modals"
 const ProductsPage         = lazy(() => import("./Pages/Shared/page-Products"))
 const ProductDetailsPage   = lazy(() => import("./Pages/Shared/page-ProductDetails"))
 const UserProfile          = lazy(() => import("./Pages/User/page-UserProfile"))
@@ -39,8 +42,25 @@ const SellerCouponsPage    = lazy(() => import("./Pages/Seller/page-SellerCoupon
 
 
 function App() {
-  const { isLoading, isRefetching } = syncGetRole()
 
+
+  const { toggleShowIntroModal } = modalStore()
+
+  useEffect(()=>{
+    // Remember to JSON.parse() the data if needed
+    const returningUser = localStorage.getItem('returningUser')
+    const isFirstTimeUser = returningUser ? false : true
+
+    if (isFirstTimeUser) {
+      localStorage.setItem('returningUser',JSON.stringify(true))
+      setTimeout(() => {
+        toggleShowIntroModal()
+      }, 3000);
+    }
+  },[])
+  
+  
+  const { isLoading, isRefetching } = syncGetRole()
   if (isLoading || isRefetching) {
     return <MernBazaarLoaderStatic />
   }
@@ -52,6 +72,8 @@ function App() {
       <GenericModal/>
       <GenericConfirmModal/>
       <GenericToast/>
+      <IntroductionModal/>
+      <TailwindScreenDetector/>
 
       <Routes>
         <Route path="/home" element={<HomePage />}

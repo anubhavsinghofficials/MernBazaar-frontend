@@ -5,6 +5,7 @@ function MernBazaarLoaderStatic() {
     const [Loader, setLoader] = useState(false)
 
     useEffect(()=>{
+        window.scrollTo({ top: 0 })
         const loaderTimer = setTimeout(() => {
             setLoader(true)
         }, 1500);

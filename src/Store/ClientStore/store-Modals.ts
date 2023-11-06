@@ -11,9 +11,12 @@ type reviewerType = {
 
 
 type modalStoreType = {
-    reviewer    : reviewerType
-    setReviewer : (reviewer:reviewerType) => void
 
+    showIntroModal       : boolean
+    toggleShowIntroModal : () => void
+
+    reviewer              : reviewerType
+    setReviewer           : (reviewer:reviewerType) => void
     showReviewModal       : boolean
     toggleShowReviewModal : () => void
 
@@ -51,9 +54,14 @@ type modalStoreType = {
 
 
 export const modalStore = create<modalStoreType>((set,_get) => ({
+
+    showIntroModal : false,
+    toggleShowIntroModal : () => set(state => (
+        { showIntroModal : !state.showIntroModal } 
+    )),
+
     reviewer : {name:'', rating:0, comment:''},
     setReviewer: (reviewer) => set(()=> ({reviewer})),
-
     showReviewModal:false,
     toggleShowReviewModal: () => set((state)=> (
         { showReviewModal:!state.showReviewModal }
