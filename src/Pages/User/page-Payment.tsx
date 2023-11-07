@@ -106,7 +106,7 @@ function PaymentPage() {
                             }
                         })
 
-                        if (resp.status===200) {
+                        if (resp.status===201) {
                             setDisableSubmit(false)
                             Navigate("/user/orders")
                             setPaymentDetails({

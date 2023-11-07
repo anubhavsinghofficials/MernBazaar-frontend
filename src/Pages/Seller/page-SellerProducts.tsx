@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
-import { categoryBadges } from "@/Store/ClientStore/store-Constants"
+import { categoryBadges, defaultValues } from "@/Store/ClientStore/store-Constants"
 import { syncDeleteProduct, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
@@ -221,9 +221,10 @@ function SellerProducts() {
                               </NavLink>
                            </td>
                            <td>
-                              <p className={`bg-emerald-200 text-center rounded-md py-1 min-w-[6rem]`}>
+                              <NavLink to={`/seller/product/${row._id}`}
+                                 className={`bg-emerald-200 text-center rounded-md py-1 min-w-[6rem] block`}>
                                  {row.category}
-                              </p>
+                              </NavLink>
                            </td>
                            <td className={`w-[4rem]`}>
                                  {row.price.net}
@@ -252,7 +253,7 @@ function SellerProducts() {
                      ))
                   }
                   { (isLoading) &&
-                     Array.from({length:20}).map((_,index)=>(
+                     Array.from({length:defaultValues.pageLength}).map((_,index)=>(
                         <tr
                         key={index}
                         className="[&>*]:px-4 [&>*]:py-4 group cursor-pointer">

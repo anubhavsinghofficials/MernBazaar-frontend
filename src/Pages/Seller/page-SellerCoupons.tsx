@@ -122,11 +122,10 @@ function SellerCouponsPage() {
                   ))
                   :
                   data.coupons.map((coupon:any) => (
-                     <div>
+                     <div key={coupon._id}>
                         <input
                            type="checkbox"
                            className={`hidden`}
-                           key={coupon._id}
                            id={coupon._id}
                            onChange={()=> handleChange(coupon._id)}/>
                         <label

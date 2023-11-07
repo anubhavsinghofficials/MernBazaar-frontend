@@ -6,9 +6,6 @@ import { SellerAuth }               from "./Pages/Seller/auth-Seller"
 import Navbar                       from "./Pages/Shared/Navbar"
 import MernBazaarLoaderStatic       from "./Pages/Shared/components/Loading-Ui/Loader-MernBazaar-Static"
 import { syncGetRole }              from "./Store/ServerStore/sync-Role"
-import GenericModal                 from "./Pages/Shared/components/Modals/Modal-Generic"
-import GenericConfirmModal          from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
-import GenericToast                 from "./Pages/Shared/components/Modals/Toast-Generic"
 import { Elements }                 from "@stripe/react-stripe-js"
 import { loadStripe }               from "@stripe/stripe-js"
 import { STRIPE_PUBLISHABLE_KEY }   from "./Store/ClientStore/store-Constants"
@@ -16,8 +13,12 @@ import PaymentPage                  from "./Pages/User/page-Payment"
 import { lazy, useEffect }          from "react"
 import LazyRoute                    from "./components/LazyRoute"
 import IntroductionModal            from "./Pages/Shared/components/Modals/Modal-Introduction"
-import TailwindScreenDetector       from "./components/screenDetector"
-import { modalStore } from "./Store/ClientStore/store-Modals"
+import GenericModal                 from "./Pages/Shared/components/Modals/Modal-Generic"
+import GenericConfirmModal          from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
+import GenericToast                 from "./Pages/Shared/components/Modals/Toast-Generic"
+import { modalStore }               from "./Store/ClientStore/store-Modals"
+import Footer from "./Pages/Shared/Footer"
+import TailwindScreenDetector from "./components/screenDetector"
 const ProductsPage         = lazy(() => import("./Pages/Shared/page-Products"))
 const ProductDetailsPage   = lazy(() => import("./Pages/Shared/page-ProductDetails"))
 const UserProfile          = lazy(() => import("./Pages/User/page-UserProfile"))
@@ -73,7 +74,6 @@ function App() {
       <GenericConfirmModal/>
       <GenericToast/>
       <IntroductionModal/>
-      <TailwindScreenDetector/>
 
       <Routes>
         <Route path="/home" element={<HomePage />}
@@ -118,7 +118,8 @@ function App() {
         <Route path="*" element={<Navigate to="/home" />}/>
       </Routes>
 
-      <div className={`h-[10rem] bg-blue-400 mt-[20rem]`} />
+      <TailwindScreenDetector/>
+      <Footer/>
     </div>
   )
 }

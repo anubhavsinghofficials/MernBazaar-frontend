@@ -93,7 +93,7 @@ function AnalyticsHighlights(props:sectionRefProps) {
                             : data.ordersCount
                         }
                      </p>
-                     <p className={`text-sm opacity-70 hover:opacity-100 hover:text-orange-900 self-end`}>
+                     <p className={`text-sm opacity-70 hover:opacity-100 hover:text-sky-900 self-end`}>
                         view
                      </p>
                   </div>
