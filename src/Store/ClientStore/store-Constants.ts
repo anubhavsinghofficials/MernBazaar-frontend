@@ -85,7 +85,7 @@ export const categoryBadges = {
         "phones", "menswear", "womenswear", "laptops",
         "watch", "furniture", "toys", "pets", "books",
         "beauty", "groceries", "medicines", "gym"
-    ] as const,
+    ],
     icons   : [
         BsFillPhoneFill, BiSolidTShirt, GiLargeDress,
         BsFillLaptopFill, BiSolidWatchAlt, BiChair,

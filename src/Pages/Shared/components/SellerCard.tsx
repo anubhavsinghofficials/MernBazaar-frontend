@@ -14,9 +14,6 @@ type sellerCardType = {
     }
 }
 
-const address2 = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, officia sapiente. Quisquam laboriosam debitis qui libero quaerat quo consequatur recusandae officia excepturi aut vero velit natus consectetur, deleniti provident nulla iure! Optio nesciunt repudiandae eaque beatae ut commodi? Animi deleniti voluptates natus ratione officiis, molestiae fugiat voluptate nisi? Esse vero optio culpa! Fugit ea repellat ipsum temporibus totam quo veritatis ratione cumque assumenda excepturi commodi, itaque consequuntur, iure eligendi doloremque minima quaerat rerum ipsam officia quis. Dicta dolorum'
-const description2 = address2
-const name2 = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque in'
 
 function SellerCard(props:sellerCardType) {
     
