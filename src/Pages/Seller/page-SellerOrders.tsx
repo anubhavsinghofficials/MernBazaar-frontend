@@ -4,7 +4,7 @@ import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { syncChangeOrderStatus, syncFetchSellerOrders } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
-import NoProductsFound from "@/assets/noProductFound.png"
+import NoProductsFound from "@/assets/NoProductFound.png"
 import { NavLink } from "react-router-dom"
 
 export type orderStatusType = "delivered" | "shipped" | "pending" 

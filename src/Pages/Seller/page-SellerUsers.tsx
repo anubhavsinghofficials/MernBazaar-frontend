@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
-import NoProductsFound from "@/assets/noProductFound.png"
+import NoProductsFound from "@/assets/NoProductFound.png"
 import { syncFetchAllUsers } from "@/Store/ServerStore/sync-User"
 
 

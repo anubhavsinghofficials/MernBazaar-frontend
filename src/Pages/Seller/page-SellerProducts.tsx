@@ -4,7 +4,7 @@ import { categoryBadges, defaultValues } from "@/Store/ClientStore/store-Constan
 import { syncDeleteProduct, syncFetchSellerProducts } from "@/Store/ServerStore/sync-Products"
 import { AxiosError } from "axios"
 import { TbFaceIdError } from "react-icons/tb"
-import NoProductsFound from "@/assets/noProductFound.png"
+import NoProductsFound from "@/assets/NoProductFound.png"
 import { AiFillDelete } from "react-icons/ai"
 import { NavLink } from "react-router-dom"
 

@@ -1,7 +1,7 @@
 import { syncFetchProducts } from "@/Store/ServerStore/sync-Products"
 import { sortingBadges } from "@/Store/ClientStore/store-Constants"
 import PageSlider_Lite from "@/components/PageSlider-Lite"
-import NoProductsFound from "@/assets/noProductFound.png"
+import NoProductsFound from "@/assets/NoProductFound.png"
 import { filterStore } from "@/Store/ClientStore/store-Filters"
 import BadgePicker from "@/components/BadgePicker"
 import { AxiosError } from "axios"
