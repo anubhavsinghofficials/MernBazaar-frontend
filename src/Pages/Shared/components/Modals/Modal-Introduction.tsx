@@ -103,7 +103,7 @@ function IntroductionModal() {
                         <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-700`}>
                             Pick a Role!!
                         </p>
-                        <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-500 text-center`}>
+                        <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-600 text-center`}>
                             Be a user and explore the website or be a seller and access  advanced functionalities
                         </p>
                     </div>
@@ -114,7 +114,7 @@ function IntroductionModal() {
                         <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-700 whitespace-nowrap`}>
                             Wanna skip login ?
                         </p>
-                        <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-500 text-center xs:px-2`}>
+                        <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-600 text-center xs:px-2`}>
                             Use Dummy login details given on login page so you don't have to use your own credentials
                         </p>
                     </div>

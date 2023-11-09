@@ -30,7 +30,7 @@ function Navbar() {
    
 
     return (
-    <div className={`z-20 bg-slate-800 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center z-50`}>
+    <div className={`bg-slate-800 w-full h-14 xs:h-16 sm:h-14 fixed flex justify-center items-center z-50`}>
     
       <div className={`h-full w-screen max-w-[96rem] px-4 flex justify-between items-center`}>
 

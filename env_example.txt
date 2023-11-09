@@ -1,0 +1,11 @@
+
+/*  copy & paste all the text below
+    this paragraph into to your .env
+    or config.env file and fill in
+    the actual values of the fields
+    Don't leave any space in the lines,
+    the spaces below are just to make
+    the example easier to read    */
+
+VITE_SERVER_URL             = your_actual_server_url
+VITE_STRIPE_PUBLISHABLE_KEY = your_actual_Stripe_Publishable_Key 

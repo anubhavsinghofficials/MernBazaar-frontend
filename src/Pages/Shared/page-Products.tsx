@@ -51,7 +51,7 @@ function ProductsPage() {
 
   return (
     <>
-      <div className={`w-screen min-h-screen bg-slate-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
+      <div className={`w-screen min-h-screen mb-96 bg-slate-200 flex justify-center xxs:pt-12 sm:pt-14 sm:gap-x-2 lg:gap-x-4 xl:px-2 xl:pr-6 lg:pr-4`}>
         <div className="sticky top-16 self-start rounded-lg overflow-hidden hover:shadow-lg duration-100 mb-4">
           <div className={`h-[40rem] overflow-scroll overscroll-contain hide-scrollbar bg-white`}>
             <DesktopFilters />

@@ -10,8 +10,8 @@ import { AiFillMedicineBox } from "react-icons/ai"
 
 
 
-export const SERVER_URL = 'http://localhost:3000/api/v1'
-export const STRIPE_PUBLISHABLE_KEY = 'pk_test_51O4O6ZSBVRdKpmOwIImXC8qRxz66uN38KNRdD6VOySESOBa0tL9F4Mu1NonUy8jJRMoxFXTBKDgtX2jndvlOeU0K00kLaWSHCy'
+export const SERVER_URL = import.meta.env.VITE_SERVER_URL
+export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 
 export const priceRange = {
     max:25000,
@@ -27,17 +27,17 @@ export const defaultValues:searchObjectType = {
     price       : [priceRange.min,priceRange.max],
     keyword     : null,
     pageNo      : 1,
-    pageLength  : 10,
+    pageLength  : 30,
 }
 
 export const testUser = {
-    email: 'user_2_@mernbazaar.com',
-    password: '111111'
+    email: 'user@mernbazaar.com',
+    password: 'mernbazaar'
 }
 
 export const testSeller = {
-    email: 'aaaa@aaaa.com',
-    password: 'aaaaaaaa'
+    email: 'seller@mernbazaar.com',
+    password: 'mernbazaar'
 }
 
 export const months = [

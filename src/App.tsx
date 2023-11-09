@@ -17,8 +17,7 @@ import GenericModal                 from "./Pages/Shared/components/Modals/Modal
 import GenericConfirmModal          from "./Pages/Shared/components/Modals/Modal-GenericConfirm"
 import GenericToast                 from "./Pages/Shared/components/Modals/Toast-Generic"
 import { modalStore }               from "./Store/ClientStore/store-Modals"
-import Footer from "./Pages/Shared/Footer"
-import TailwindScreenDetector from "./components/screenDetector"
+import Footer                       from "./Pages/Shared/Footer"
 const ProductsPage         = lazy(() => import("./Pages/Shared/page-Products"))
 const ProductDetailsPage   = lazy(() => import("./Pages/Shared/page-ProductDetails"))
 const UserProfile          = lazy(() => import("./Pages/User/page-UserProfile"))
@@ -118,7 +117,6 @@ function App() {
         <Route path="*" element={<Navigate to="/home" />}/>
       </Routes>
 
-      <TailwindScreenDetector/>
       <Footer/>
     </div>
   )
