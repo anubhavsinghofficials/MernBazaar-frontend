@@ -9,7 +9,7 @@ function IntroductionModal() {
     const [fadeOut, setFadeOut] = useState(true)
     const [currentSlide, setCurrentSlide] = useState(1)
 
-    const [fadeSlide1, setFadeSlide1] = useState(true)
+    const [fadeSlide1, setFadeSlide1] = useState(false)
     const [fadeSlide2, setFadeSlide2] = useState(true)
     const [fadeSlide3, setFadeSlide3] = useState(true)
 
