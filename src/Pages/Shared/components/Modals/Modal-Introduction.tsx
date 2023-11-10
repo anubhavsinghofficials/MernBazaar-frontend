@@ -92,7 +92,7 @@ function IntroductionModal() {
                         <p className={`text-lg xs:text-xl font-semibold text-slate-700`}>
                             Welcome to
                         </p>
-                        <p className={`leading-6 text-3xl xs:leading-6 xs:text-4xl font-bold text-green-700`}>
+                        <p className={`leading-6 text-3xl xs:leading-6 xs:text-4xl font-bold text-green-800`}>
                             MernBazaar
                         </p>
                     </div>
@@ -100,7 +100,7 @@ function IntroductionModal() {
                 {
                     mountSlide2 &&
                     <div className={`grow flex flex-col gap-y-2 xs:gap-y-4 items-center justify-center ${fadeSlide2? 'opacity-0' : 'opacity-100'} duration-200`}>
-                        <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-700`}>
+                        <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-800`}>
                             Pick a Role!!
                         </p>
                         <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-600 text-center`}>
@@ -111,7 +111,7 @@ function IntroductionModal() {
                 {
                     mountSlide3 &&
                     <div className={`grow flex flex-col gap-y-2 xs:gap-y-4 items-center justify-center ${fadeSlide3? 'opacity-0' : 'opacity-100'} duration-200`}>
-                        <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-700 whitespace-nowrap`}>
+                        <p className={`leading-6 text-2xl xs:leading-6 xs:text-3xl font-bold text-green-800 whitespace-nowrap`}>
                             Wanna skip login ?
                         </p>
                         <p className={`leading-4 text-sm xs:text-lg xs:leading-6 font-semibold text-slate-600 text-center xs:px-2`}>
@@ -134,7 +134,7 @@ function IntroductionModal() {
                         Skip
                     </button>
                     <button
-                        className="px-4 py-2 font-semibold hover:bg-green-100 active:bg-green-200 duration-100 text-green-700"
+                        className="px-4 py-2 font-semibold hover:bg-green-100 active:bg-green-200 duration-100 text-green-800"
                         onClick={handleConfirm}>
                             {
                                 currentSlide < 3

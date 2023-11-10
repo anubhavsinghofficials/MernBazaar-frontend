@@ -52,7 +52,7 @@ export const days = [
 ]
 
 export const nextSaleDate = '2024-01-01T00:00:00'
-export const myGitHub = 'https://github.com/anubhavsingh05'
+export const myGitHub = 'https://github.com/anubhavsinghofficials'
 
 
 // Badges for BadgePicker_____________________________
