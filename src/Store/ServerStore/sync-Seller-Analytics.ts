@@ -21,6 +21,8 @@ export const syncFetchHighlights = () => {
             toggleGenericModal()
         },
         refetchOnWindowFocus: false,
+        refetchInterval:14*60*1000,
+        refetchIntervalInBackground:true, 
     })
 }
 
