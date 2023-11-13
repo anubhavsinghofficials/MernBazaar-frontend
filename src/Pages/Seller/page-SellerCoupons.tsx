@@ -234,7 +234,7 @@ function SellerCouponsPage() {
                   </button>
 
                   <p className={`text-sm text-center pt-4 font-semibold text-slate-500`}>
-                     *Coupon code will be applicable only abouve the minimum order amount you enter
+                     *Coupon code will be applicable only above the minimum order amount you enter
                   </p>
                </form>
             </TabsContent>
