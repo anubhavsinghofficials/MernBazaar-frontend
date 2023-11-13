@@ -14,7 +14,7 @@ export const SERVER_URL = import.meta.env.VITE_SERVER_URL
 export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 
 export const priceRange = {
-    max:25000,
+    max:200000,
     min:0,
     step:100
 }
