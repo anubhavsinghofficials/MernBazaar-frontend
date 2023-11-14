@@ -55,7 +55,7 @@ function App() {
       localStorage.setItem('returningUser',JSON.stringify(true))
       setTimeout(() => {
         toggleShowIntroModal()
-      }, 1000);
+      }, 2000);
     }
   },[])
   
