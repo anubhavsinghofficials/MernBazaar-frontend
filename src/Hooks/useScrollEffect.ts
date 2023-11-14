@@ -25,7 +25,7 @@ export const useScrollEffect = (props:useScrollEffectPropsType) => {
                 categoryBarElement.removeEventListener('scroll', toggleScrollButtons)
             }
         }
-    },[])
+    },[scrollPadRef.current?.children])
 
     function toggleScrollButtons() {
         const categoryBarElement = scrollPadRef.current

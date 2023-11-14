@@ -16,14 +16,14 @@ import Ad_main from "./components/Ad_main"
 
 function ProductsPage() {
 
-  useEffect(()=>{
-    window.scrollTo({ top: 0 })
-  },[])
-  
   const totalPagesRef = useRef(1)
   const { searchObject, setSearchObject, setResetPages } = filterStore()
-  const { data, isLoading, isRefetching, isError, error, refetch } = syncFetchProducts(searchObject)
+  const { data, isLoading, isError, error, refetch } = syncFetchProducts(searchObject)
 
+  useEffect(()=>{
+    window.scrollTo({ top: 0 })
+  },[searchObject])
+  
   const handlePage = (page: number) => {
     setSearchObject({ ...searchObject, pageNo: page })
   }
@@ -161,7 +161,7 @@ function ProductsPage() {
 
           <div className={`my-3 grid sm: gap-2 xl:gap-3 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xxs:grid-cols-2 bg-slate-200`}>
             {
-              (isLoading || isRefetching) &&
+              isLoading &&
               Array.from({ length: 10 }).map((_, index) => (
                 <React.Fragment key={index}>
                     <ProductCardLoading />
