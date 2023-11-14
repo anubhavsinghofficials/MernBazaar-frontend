@@ -381,6 +381,7 @@ export const syncApplyCoupon = (setDiscount:numSetStateType) => {
             const errorData = (error as AxiosError<{error:string}>).response?.data!
             setGenericMessage(errorData?.error)
             toggleGenericModal()
+            setDiscount(0)
         },
     })
 }

@@ -31,7 +31,7 @@ function AnalyticsInsights(props:sectionRefProps) {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="month" height={60}/>
-                            <YAxis />
+                            <YAxis allowDecimals={false}/>
                             <Tooltip />
                             <Line type="monotone" dataKey="users" stroke="#16a34a" strokeWidth={2}/>
                         </LineChart>
