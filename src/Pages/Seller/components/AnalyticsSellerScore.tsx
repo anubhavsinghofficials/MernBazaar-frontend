@@ -1,6 +1,6 @@
 import { syncFetchSellerscore } from "@/Store/ServerStore/sync-Seller-Analytics"
 import { AiFillStar } from "react-icons/ai"
-import { BarChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer, Legend } from "recharts"
+import { BarChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer} from "recharts"
 
 
 
