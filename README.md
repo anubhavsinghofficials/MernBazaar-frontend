@@ -44,23 +44,23 @@ Payments                 - Stripe
 &nbsp;
 
 5. Advanced MongoDb Aggregation Pipelines
-![Advanced-MongoDb-Aggregation-Pip-min](https://github.com/anubhavsinghofficials/MernBazaar-backend/assets/132212797/61a7fd0d-9533-4998-b1ae-d92b8650b453)
+![aggregation](https://github.com/anubhavsinghofficials/MernBazaar-frontend/assets/132212797/534eb25e-81aa-4120-af51-d2d8ab43ee04)
 
 &nbsp;
 
 6. Charts, Tables & Graphs
-![Charts Tables   Graphsa-min](https://github.com/anubhavsinghofficials/MernBazaar-backend/assets/132212797/0493f5e3-2838-4dd6-bdc2-1006f8ada944)
+![graphs](https://github.com/anubhavsinghofficials/MernBazaar-frontend/assets/132212797/4bbcb9a2-3313-4a3a-b707-aa53682621b5)
 
 &nbsp;
 
 7. Role Based Access Control
-![Rbaca-min](https://github.com/anubhavsinghofficials/MernBazaar-backend/assets/132212797/a9a25993-c2b9-408b-8e82-48889a4051bf)
+![RBAC](https://github.com/anubhavsinghofficials/MernBazaar-frontend/assets/132212797/101223b0-4bc5-462a-b535-5c2d4350252d)
 
 &nbsp;
 
 8. Fully Responsive Design
+![responsiveness](https://github.com/anubhavsinghofficials/MernBazaar-frontend/assets/132212797/3ea872b5-2697-45d9-a96b-c2e1716f97d5)
 
-![Responsive-Designa-min](https://github.com/anubhavsinghofficials/MernBazaar-backend/assets/132212797/0ab9edca-a490-4d04-8f21-bb078ada6142)
 
 
 
