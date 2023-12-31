@@ -51,7 +51,7 @@ export const days = [
     'Friday', 'Saturday', 'Sunday'
 ]
 
-export const nextSaleDate = '2024-01-01T00:00:00'
+export const nextSaleDate = '2025-01-01T00:00:00'
 export const myGitHub = 'https://github.com/anubhavsinghofficials'
 
 
