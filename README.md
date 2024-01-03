@@ -64,4 +64,22 @@ Payments                 - Stripe
 
 
 
+### Getting Started
+
+Install Packages
+
+```bash
+npm install
+```
+Run the development server:
+
+```bash
+npm run dev
+```
+
+The server will run on [http://localhost:5173](http://localhost:5173)
+
+### Environment Variables
+
+See the `.env_example.txt` file in the root directory and set up you own `.env` file in the same directory for the environment variables
 
