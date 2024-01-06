@@ -1,7 +1,7 @@
 ![asdf](https://github.com/anubhavsinghofficials/MernBazaar-backend/assets/132212797/2f6de3cf-2c9e-420b-9cef-4d09467710da)
 
 
-This is the frontEnd of my Ecommerce project `MernBazaar`
+FrontEnd of Ecommerce web application `MernBazaar`
 
 - Visit Website [https://mernbazaar.vercel.app](https://mernbazaar.vercel.app)
 - View the Backend source code [https://github.com/anubhavsinghofficials/MernBazaar-backend](https://github.com/anubhavsinghofficials/MernBazaar-backend)
