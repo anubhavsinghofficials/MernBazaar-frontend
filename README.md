@@ -66,7 +66,7 @@ Payments                 - Stripe
 
 ### Getting Started
 
-Clone The Repo
+Clone the Repo
 
 ```bash
 git clone https://github.com/anubhavsinghofficials/MernBazaar-frontend.git
