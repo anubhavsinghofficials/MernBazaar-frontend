@@ -11,7 +11,6 @@ function DesktopFilters() {
             setResetBadgeToken, setResetPages } = filterStore()
 
     const handleCategory = (categories:string[]) => {
-        setResetBadgeToken()
         setSearchObject({...defaultValues, category:categories[0]})
         setResetPages()
     }
