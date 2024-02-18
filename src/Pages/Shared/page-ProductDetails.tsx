@@ -169,7 +169,7 @@ function ProductDetailsPage() {
                                 key={product.images.thumbnail.url}
                                 src={product.images.thumbnail.url}
                                 alt="product photo"
-                                className="w-1/6 xs:w-14 sm:w-16 aspect-square bg-slate-300"
+                                className="w-[12%] xs:w-14 sm:w-16 aspect-square bg-slate-300"
                                 onMouseOver={()=>changeThumbnail(product.images.thumbnail.url)}
                                 onClick={()=>changeThumbnail(product.images.thumbnail.url)}
                                 />
@@ -179,7 +179,7 @@ function ProductDetailsPage() {
                                 key={img.url}
                                 src={img.url}
                                 alt="product photo"
-                                className="w-1/6 xs:w-14 sm:w-16 aspect-square bg-slate-300"
+                                className="w-[12%] xs:w-14 sm:w-16 aspect-square bg-slate-300"
                                 onMouseOver={()=>changeThumbnail(img.url)}
                                 onClick={()=>changeThumbnail(img.url)}
                                 />
